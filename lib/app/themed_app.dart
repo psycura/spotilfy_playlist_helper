@@ -28,7 +28,7 @@ class ThemedApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routeInformationParser: router.defaultRouteParser(),
-      theme: ThemeData.light(useMaterial3: true),
+      theme: ThemeData.dark(useMaterial3: true),
       routerDelegate: AutoRouterDelegate(
         router,
         navigatorObservers: () => [
