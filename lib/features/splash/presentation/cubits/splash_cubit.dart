@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/auth_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/authorization_state.dart';
@@ -18,7 +17,6 @@ class SplashState with _$SplashState {
   const factory SplashState.unauthorized() = _UnauthorizedCubitState;
 }
 
-@injectable
 class SplashCubit extends Cubit<SplashState> {
   static const String tag = 'SplashCubit';
 
