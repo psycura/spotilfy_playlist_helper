@@ -1,0 +1,62 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+    avoid_classes_with_only_static_members: false
+    prefer_relative_imports: false
+    use_key_in_widget_constructors: false
+    avoid_catches_without_on_clauses: false
+    use_setters_to_change_properties: false
+    avoid_positional_boolean_parameters: false
+    always_put_required_named_parameters_first: true
+    avoid_empty_else: true
+    avoid_unused_constructor_parameters: true
+    cancel_subscriptions: true
+    require_trailing_commas: true
+    sort_child_properties_last: true
+    use_rethrow_when_possible: true
+    constant_identifier_names: false
+    use_build_context_synchronously: false
+    unnecessary_string_escapes: false
+    unnecessary_overrides: false
+
+
+
+analyzer:
+  plugins:
+    - dart_code_metrics
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.yaml"
+    - lib/app/runner.config.dart
+    - lib/app/router/app_router.gr.dart
+    - lib/generated/assets.gen.dart
+
+dart_code_metrics:
+  metrics:
+    cyclomatic-complexity: 20
+    number-of-arguments: 4
+    maximum-nesting-level: 5
+    source-lines-of-code: 80
+  metrics-exclude:
+    - test/**
+  rules:
+    - newline-before-return
+    - no-boolean-literal-compare
+    - prefer-conditional-expressions
+    - no-equal-then-else
+    - always-remove-listener
+    - prefer-extracting-callbacks
+    - avoid-nested-conditional-expressions:
+        acceptable-level: 2
+    - member-ordering:
+        - fields
+        - getters-setters
+        - constructors
+        - methods
+  anti-patterns:
+    - long-method
+    - long-parameter-list
