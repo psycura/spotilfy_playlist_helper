@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../user_profile/presentation/widgets/user_profile.dart';
+
 @RoutePage()
 class MainScreen extends StatelessWidget {
   static const String path = '/MainScreen';
@@ -25,10 +27,8 @@ class MainScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Main Screen"),
       ),
-      body: const Center(
-        child: Text(
-          'You have pushed the button this many times:',
-        ),
+      body: Center(
+        child: UserProfile(),
       ),
     );
   }

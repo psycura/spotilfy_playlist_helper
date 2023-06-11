@@ -33,7 +33,7 @@ class AuthRepository implements IAuthRepository {
       return AuthorizationState.authorized;
     }
 
-    final res = await refreshToken(token.refreshToken);
+    final res = await refreshToken();
 
     return res.fold(
       (failure) => AuthorizationState.unauthorized,
@@ -46,8 +46,6 @@ class AuthRepository implements IAuthRepository {
     try {
       final res = await api.getAuthorizationToken(code);
 
-      logger.d('[AuthRepository]:TokenInfo received:$res');
-
       await storage.saveTokenInfo(res);
 
       return const Right(SuccessEmpty());
@@ -59,15 +57,9 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<Either<GeneralFailure, SuccessEmpty>> refreshToken(
-    String token,
-  ) async {
+  Future<Either<GeneralFailure, SuccessEmpty>> refreshToken() async {
     try {
-      final res = await api.refreshToken(token);
-
-      logger.d('[AuthRepository]:TokenInfo received:$res');
-
-      await storage.saveTokenInfo(res);
+      await api.refreshToken();
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
@@ -80,6 +72,6 @@ class AuthRepository implements IAuthRepository {
   bool _checkIfTokenNeedToRefresh(TokenInfo token) {
     final now = DateTime.now().millisecondsSinceEpoch;
 
-    return token.validUntil > now;
+    return token.validUntil < now;
   }
 }

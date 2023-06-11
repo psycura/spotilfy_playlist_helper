@@ -13,7 +13,7 @@ import 'package:spotify_playlist_helper/env/env.dart';
 abstract interface class IAuthApi {
   Future<TokenInfo> getAuthorizationToken(String code);
 
-  Future<TokenInfo> refreshToken(String token);
+  Future<void> refreshToken();
 }
 
 @LazySingleton(as: IAuthApi)
@@ -67,26 +67,9 @@ class AuthApi implements IAuthApi {
   }
 
   @override
-  Future<TokenInfo> refreshToken(String refreshToken) async {
+  Future<void> refreshToken() async {
     try {
-      final Map<String, dynamic> requestData = {
-        'refresh_token': refreshToken,
-        'grant_type': 'refresh_token'
-      };
-
-      final request = ApiRequest(
-        url: Apis.token,
-        data: requestData,
-        options: _options,
-      );
-
-      final res = await client.postRequest(request);
-
-      final resp = RefreshTokenResponse.fromJson(res.data);
-
-      final adapter = FromRefreshResponseAdapter();
-
-      return adapter(resp, refreshToken: refreshToken);
+      await client.refreshToken();
     } catch (e) {
       rethrow;
     }

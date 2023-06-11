@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 
-
 import '../di.dart';
 import 'router/app_router.dart';
 import 'router/router_logging_observer.dart';
 
 class ThemedApp extends StatelessWidget {
-
   final AppRouter router;
 
   const ThemedApp(this.router);
@@ -30,6 +28,7 @@ class ThemedApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routeInformationParser: router.defaultRouteParser(),
+      theme: ThemeData.light(useMaterial3: true),
       routerDelegate: AutoRouterDelegate(
         router,
         navigatorObservers: () => [

@@ -12,4 +12,6 @@ abstract interface class IHttpService {
     Options? options,
     Map<String, dynamic>? queryParameters,
   });
+
+  Future<void> refreshToken();
 }
