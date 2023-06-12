@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/di.dart';
 import 'package:spotify_playlist_helper/features/login/presentation/screens/login_screen.dart';
 import 'package:spotify_playlist_helper/features/main_screen/presentation/screens/main_screen.dart';
+import 'package:spotify_playlist_helper/features/playlist_content/presentation/screens/playlist_content_screen.dart';
+import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/selected_playlist_cubit.dart';
 import 'package:spotify_playlist_helper/features/splash/presentation/cubits/splash_cubit.dart';
 
 @RoutePage()
@@ -30,13 +32,22 @@ class SplashScreen extends StatelessWidget {
     state.maybeWhen(
       orElse: () {},
       unauthorized: () => LoginScreen.open(context, replace: true),
-      authorized: () => MainScreen.open(context, replace: true),
+      authorized: () => _handleAuthorizedState(context),
     );
+  }
+
+  void _handleAuthorizedState(BuildContext context) {
+    final current = context.read<SelectedPlaylistCubit>().state;
+
+    if (current.mode == SelectedMode.favorites) {
+      MainScreen.open(context, replace: true);
+    } else {
+      PlaylistContentScreen.open(context, playlistId: current.playlist!.id);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider<SplashCubit>(
       create: (_) => di.get()..init(),
       child: Scaffold(

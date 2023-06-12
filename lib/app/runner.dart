@@ -7,7 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import '../core/infrastructure/logs/logger_bloc_observer.dart';
 import '../core/presentation/cubits/global_blocs_provider.dart';
 import '../di.dart';
@@ -30,7 +31,9 @@ class Runner {
         await initializeFlutterPluginsAndDependencies();
 
         di.allReady().then((value) async {
-
+          HydratedBloc.storage = await HydratedStorage.build(
+            storageDirectory: await getApplicationDocumentsDirectory(),
+          );
           Bloc.observer = di.get<LoggerBlocObserver>();
           final appRouter = AppRouter();
 

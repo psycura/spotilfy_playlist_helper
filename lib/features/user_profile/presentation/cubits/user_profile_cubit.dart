@@ -1,25 +1,28 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
+import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/features/user_profile/domain/entities/user_profile.dart';
 import 'package:spotify_playlist_helper/features/user_profile/domain/repositories/user_profile_repository.dart';
 
 part 'user_profile_cubit.freezed.dart';
 
+part 'user_profile_cubit.g.dart';
+
 @freezed
 class UserProfileState with _$UserProfileState {
   const UserProfileState._();
 
-  const factory UserProfileState.initial() = _InitialState;
+  const factory UserProfileState({
+    @Default(FetchingState.idle) FetchingState fetchingState,
+    UserProfile? profile,
+  }) = _UserProfileState;
 
-  const factory UserProfileState.loading() = _LoadingState;
-
-  const factory UserProfileState.success(UserProfile profile) = _SuccessState;
-
-  const factory UserProfileState.failure() = _FailureState;
+  factory UserProfileState.fromJson(Map<String, dynamic> json) =>
+      _$UserProfileStateFromJson(json);
 }
 
-class UserProfileCubit extends Cubit<UserProfileState> {
+class UserProfileCubit extends Cubit<UserProfileState> with HydratedMixin {
   static const String tag = 'UserProfileCubit';
 
   final Logger _logger;
@@ -30,28 +33,40 @@ class UserProfileCubit extends Cubit<UserProfileState> {
     required IUserProfileRepository repo,
   })  : _logger = logger,
         _repo = repo,
-        super(const UserProfileState.initial());
+        super(const UserProfileState());
 
-  @override
-  void onChange(change) {
-    _logger.d(
-      '$tag onChange'
-      '\n [CURRENT STATE]: ${change.currentState}'
-      '\n [NEXT STATE]: ${change.nextState}',
-    );
-    super.onChange(change);
-  }
+  // @override
+  // void onChange(change) {
+  //   _logger.d(
+  //     '$tag onChange'
+  //     '\n [CURRENT STATE]: ${change.currentState}'
+  //     '\n [NEXT STATE]: ${change.nextState}',
+  //   );
+  //   super.onChange(change);
+  // }
 
   Future<void> getCurrentUserProfile() async {
-    emit(const UserProfileState.loading());
+    print('[alitz] getCurrentUserProfile_1:$state');
+    emit(state.copyWith(fetchingState: FetchingState.fetching));
 
     final res = await _repo.getCurrentUserProfile();
 
     res.fold(
-      (failure) => emit(const UserProfileState.failure()),
-      (profile) => emit(UserProfileState.success(profile)),
+      (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
+      (profile) => emit(
+        state.copyWith(fetchingState: FetchingState.done, profile: profile),
+      ),
     );
+
+    emit(state.copyWith(fetchingState: FetchingState.idle));
   }
 
-  void reset() => emit(const UserProfileState.initial());
+  void reset() => emit(const UserProfileState());
+
+  @override
+  UserProfileState? fromJson(Map<String, dynamic> json) =>
+      UserProfileState.fromJson(json);
+
+  @override
+  Map<String, dynamic>? toJson(UserProfileState state) => state.toJson();
 }

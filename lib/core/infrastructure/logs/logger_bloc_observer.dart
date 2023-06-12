@@ -27,6 +27,13 @@ class LoggerBlocObserver extends BlocObserver {
   }
 
   @override
+  void onClose(BlocBase bloc) {
+    logger.d('onClose $bloc');
+
+    super.onClose(bloc);
+  }
+
+  @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
     logger.d('onTransition to state ${transition.nextState}');

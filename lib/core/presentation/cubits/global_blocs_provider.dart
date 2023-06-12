@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/selected_playlist_cubit.dart';
 
+import '../../../di.dart';
 
 class GlobalBlocsProvider extends StatelessWidget {
   static const String tag = 'GlobalBlocsProvider';
@@ -12,11 +15,13 @@ class GlobalBlocsProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return MultiBlocProvider(
-    //   providers: const [],
-    //   child: child,
-    // );
-
-    return child;
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SelectedPlaylistCubit>(
+          create: (_) => SelectedPlaylistCubit(logger: di.get()),
+        ),
+      ],
+      child: child,
+    );
   }
 }

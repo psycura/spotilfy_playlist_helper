@@ -14,12 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+PlaylistsState _$PlaylistsStateFromJson(Map<String, dynamic> json) {
+  return _PlaylistsState.fromJson(json);
+}
+
 /// @nodoc
 mixin _$PlaylistsState {
   FetchingState get fetchingState => throw _privateConstructorUsedError;
   PlaylistsResponse? get playlistsResponse =>
       throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PlaylistsStateCopyWith<PlaylistsState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -121,11 +126,14 @@ class __$$_PlaylistsStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_PlaylistsState extends _PlaylistsState {
   const _$_PlaylistsState(
       {this.fetchingState = FetchingState.idle, this.playlistsResponse})
       : super._();
+
+  factory _$_PlaylistsState.fromJson(Map<String, dynamic> json) =>
+      _$$_PlaylistsStateFromJson(json);
 
   @override
   @JsonKey()
@@ -149,6 +157,7 @@ class _$_PlaylistsState extends _PlaylistsState {
                 other.playlistsResponse == playlistsResponse));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode =>
       Object.hash(runtimeType, fetchingState, playlistsResponse);
@@ -158,6 +167,13 @@ class _$_PlaylistsState extends _PlaylistsState {
   @pragma('vm:prefer-inline')
   _$$_PlaylistsStateCopyWith<_$_PlaylistsState> get copyWith =>
       __$$_PlaylistsStateCopyWithImpl<_$_PlaylistsState>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_PlaylistsStateToJson(
+      this,
+    );
+  }
 }
 
 abstract class _PlaylistsState extends PlaylistsState {
@@ -165,6 +181,9 @@ abstract class _PlaylistsState extends PlaylistsState {
       {final FetchingState fetchingState,
       final PlaylistsResponse? playlistsResponse}) = _$_PlaylistsState;
   const _PlaylistsState._() : super._();
+
+  factory _PlaylistsState.fromJson(Map<String, dynamic> json) =
+      _$_PlaylistsState.fromJson;
 
   @override
   FetchingState get fetchingState;

@@ -29,32 +29,19 @@ class MainScreenTemplate extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       children: [
-                        Card(
-                          color: Colors.amber,
-                          child: mainNavigation,
-                        ),
-                        Expanded(
-                          child: Card(
-                            child: playlistNavigation,
-                          ),
-                        ),
+                        Card(child: mainNavigation),
+                        Expanded(child: Card(child: playlistNavigation)),
                       ],
                     ),
                   ),
                   Flexible(
                     flex: 3,
-                    child: Card(
-                      color: Colors.green,
-                      child: mainContent,
-                    ),
+                    child: Card(child: mainContent),
                   ),
                 ],
               ),
             ),
-            Card(
-              color: Colors.yellow,
-              child: playerWidget,
-            ),
+            Card(child: playerWidget),
           ],
         ),
       ),

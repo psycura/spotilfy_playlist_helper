@@ -229,6 +229,11 @@ class _$_Playlist implements _Playlist {
   final String? description;
 
   @override
+  String toString() {
+    return 'SimplifiedPlaylist(href: $href, id: $id, images: $images, name: $name, uri: $uri, tracks: $tracks, description: $description)';
+  }
+
+  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&

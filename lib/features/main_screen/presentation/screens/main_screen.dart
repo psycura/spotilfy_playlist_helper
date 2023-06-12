@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify_playlist_helper/core/presentation/widgets/main_screen_template.dart';
+import 'package:spotify_playlist_helper/features/main_navigation/presentation/widgets/main_navigation.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/widgets/playlists_navigation.dart';
 
-import '../../../user_profile/presentation/widgets/user_profile.dart';
+import '../widgets/main_content.dart';
 
 @RoutePage()
 class MainScreen extends StatelessWidget {
@@ -25,16 +26,12 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainScreenTemplate(
-      mainNavigation: Container(
-        height: 100,
-      ),
+      mainNavigation: MainNavigation(),
       playlistNavigation: PlaylistsNavigation(),
       playerWidget: Container(
         height: 100,
       ),
-      mainContent: Center(
-        child: UserProfile(),
-      ),
+      mainContent: MainContent(),
     );
   }
 }

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/di.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/playlists_cubit.dart';
-import 'package:spotify_playlist_helper/features/playlists/presentation/widgets/playlist_item.dart';
+import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/selected_playlist_cubit.dart';
+import 'package:spotify_playlist_helper/features/playlists/presentation/widgets/favorite_tracks.dart';
+
+import 'playlists.dart';
 
 class PlaylistsNavigation extends StatelessWidget {
   static const String tag = 'PlaylistsNavigation';
@@ -18,16 +20,18 @@ class PlaylistsNavigation extends StatelessWidget {
       )..fetchCurrentUserPlaylists(),
       child: Builder(
         builder: (context) {
-          final playlists =
-              context.select<PlaylistsCubit, List<SimplifiedPlaylist>>(
-            (bloc) => bloc.state.playlists,
+          final mode = context.select<SelectedPlaylistCubit, SelectedMode>(
+            (cubit) => cubit.state.mode,
           );
 
-          return ListView.separated(
-            itemCount: playlists.length,
-            separatorBuilder: (_, index) => const Divider(),
-            // prototypeItem: PlaylistItem(playlists.first),
-            itemBuilder: (_, index) => PlaylistItem(playlists[index]),
+          return Column(
+            children: [
+              FavoriteTracks(isSelected: mode == SelectedMode.favorites),
+              const Divider(),
+              Expanded(
+                child: Playlists(),
+              ),
+            ],
           );
         },
       ),

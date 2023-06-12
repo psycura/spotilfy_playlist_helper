@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/features/user_profile/presentation/cubits/user_profile_cubit.dart';
 
 import '../../../../di.dart';
+import 'user_avatar.dart';
 
 class UserProfile extends StatelessWidget {
   static const String tag = 'UserProfile';
@@ -16,11 +17,10 @@ class UserProfile extends StatelessWidget {
       )..getCurrentUserProfile(),
       child: BlocBuilder<UserProfileCubit, UserProfileState>(
         builder: (context, state) {
-          return state.maybeWhen(
-            orElse: () => const CircularProgressIndicator(),
-            success: (profile) => CircleAvatar(
-              backgroundImage: NetworkImage(profile.images.first.url),
-            ),
+          return Row(
+            children: [
+              UserAvatar(state.profile),
+            ],
           );
         },
       ),

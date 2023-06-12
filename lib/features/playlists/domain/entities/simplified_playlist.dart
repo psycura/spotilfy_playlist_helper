@@ -19,19 +19,6 @@ class SimplifiedPlaylist with _$SimplifiedPlaylist {
     String? description,
   }) = _Playlist;
 
-  @override
-  String toString() {
-    return 'SimplifiedPlaylist(\n'
-        'name: $name,\n'
-        'id: $id,\n'
-        'href: $href,\n'
-        'images: $images,\n'
-        'uri: $uri,\n'
-        'tracks: ${tracks != null ? tracks!.total : null},\n'
-        'description: $description\n'
-        ')';
-  }
-
   factory SimplifiedPlaylist.fromJson(Map<String, dynamic> json) =>
       _$SimplifiedPlaylistFromJson(json);
 }
