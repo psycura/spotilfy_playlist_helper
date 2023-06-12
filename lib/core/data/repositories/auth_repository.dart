@@ -27,18 +27,20 @@ class AuthRepository implements IAuthRepository {
   Future<AuthorizationState> checkAuthorization() async {
     final token = storage.getTokenInfo();
 
-    if (token == null) return AuthorizationState.unauthorized;
-
-    if (!_checkIfTokenNeedToRefresh(token)) {
-      return AuthorizationState.authorized;
-    }
-
-    final res = await refreshToken();
-
-    return res.fold(
-      (failure) => AuthorizationState.unauthorized,
-      (success) => AuthorizationState.authorized,
-    );
+    return token == null
+        ? AuthorizationState.unauthorized
+        : AuthorizationState.authorized;
+    //
+    // if (!_checkIfTokenNeedToRefresh(token)) {
+    //   return AuthorizationState.authorized;
+    // }
+    //
+    // final res = await refreshToken();
+    //
+    // return res.fold(
+    //   (failure) => AuthorizationState.unauthorized,
+    //   (success) => AuthorizationState.authorized,
+    // );
   }
 
   @override

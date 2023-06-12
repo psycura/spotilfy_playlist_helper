@@ -12,6 +12,14 @@ class SpotifyImage with _$SpotifyImage {
     int? width,
   }) = _SpotifyImage;
 
+  @override
+  String toString() {
+    return 'SpotifyImage(\n'
+        'url: $url,\n'
+        ' height: $height, width: $width\n'
+        ')';
+  }
+
   factory SpotifyImage.fromJson(Map<String, dynamic> json) =>
       _$SpotifyImageFromJson(json);
 }

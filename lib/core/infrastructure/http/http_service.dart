@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -30,6 +31,9 @@ class HttpService implements IHttpService {
   final Dio dioClient;
 
   @protected
+  final CacheOptions? cacheOptions;
+
+  @protected
   final IAuthStorage authStorage;
 
   @protected
@@ -37,6 +41,7 @@ class HttpService implements IHttpService {
     required this.logger,
     required this.dioClient,
     required this.authStorage,
+    this.cacheOptions,
   }) {
     _initClient();
   }
@@ -71,8 +76,9 @@ class HttpService implements IHttpService {
           return handler.next(response);
         },
         onError: (DioException e, ErrorInterceptorHandler handler) async {
-          if (!e.response!.requestOptions.path
-                  .contains('accounts.spotify.com') &&
+          if (e.response != null &&
+              (!e.response!.requestOptions.path
+                  .contains('accounts.spotify.com')) &&
               e.response?.statusCode == 401) {
             await refreshToken();
             e.requestOptions.headers["Authorization"] =
@@ -97,6 +103,10 @@ class HttpService implements IHttpService {
         },
       ),
     ]);
+
+    if (cacheOptions != null) {
+      dioClient.interceptors.add(DioCacheInterceptor(options: cacheOptions!));
+    }
   }
 
   @override

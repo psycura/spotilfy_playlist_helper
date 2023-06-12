@@ -20,15 +20,13 @@ class UserProfileApi implements IUserProfileApi {
   @protected
   final Logger logger;
 
-  @protected
-  final IAuthStorage authStorage;
-
-  UserProfileApi(this.client, this.logger, this.authStorage);
+  UserProfileApi(this.client, this.logger);
 
   @override
   Future<UserProfile> getCurrentUser() async {
     try {
-      final res = await client.getRequest(Apis.currentUser);
+      final res =
+          await client.getRequest('${Apis.baseSpotify}/${Apis.currentUser}');
 
       final images = (res.data['images'] as List<dynamic>)
           .map((i) => SpotifyImage.fromJson(i));

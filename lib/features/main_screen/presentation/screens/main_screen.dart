@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify_playlist_helper/core/presentation/widgets/main_screen_template.dart';
+import 'package:spotify_playlist_helper/features/playlists/presentation/widgets/playlists_navigation.dart';
 
 import '../../../user_profile/presentation/widgets/user_profile.dart';
 
@@ -27,7 +28,7 @@ class MainScreen extends StatelessWidget {
       mainNavigation: Container(
         height: 100,
       ),
-      playlistNavigation: Container(),
+      playlistNavigation: PlaylistsNavigation(),
       playerWidget: Container(
         height: 100,
       ),

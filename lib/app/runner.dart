@@ -26,9 +26,11 @@ class Runner {
   static Future<void> run() async {
     runZonedGuarded(
       () async {
+
         await initializeFlutterPluginsAndDependencies();
 
         di.allReady().then((value) async {
+
           Bloc.observer = di.get<LoggerBlocObserver>();
           final appRouter = AppRouter();
 
@@ -47,25 +49,16 @@ class Runner {
   }
 
   static Future<void> initializeFlutterPluginsAndDependencies() async {
-    //================================= Flutter initialization =================================
-    // It is necessary to call so that the orientation setting does not fall
+
     WidgetsFlutterBinding.ensureInitialized();
 
-    //================================= DI =================================
     await configureDependencies();
 
-    //================================= Plugin initialization =================================
 
-    //================================= DB =================================
-
-    //================================= ASYNC DEPS INITIALIZATION =================================
-
-    //================================= Logging =================================
-
-    //================================= Localization =================================
   }
 
   static Future<void> configureDependencies() async {
-    $initGetIt(GetIt.instance);
+    await $initGetIt(GetIt.instance);
+
   }
 }

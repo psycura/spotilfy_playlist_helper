@@ -13,23 +13,29 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:logger/logger.dart' as _i3;
 
-import '../core/data/api/authorization_client.dart' as _i13;
-import '../core/data/repositories/auth_repository.dart' as _i15;
+import '../core/data/api/authorization_client.dart' as _i16;
+import '../core/data/repositories/auth_repository.dart' as _i18;
 import '../core/data/storage/auth_storage.dart' as _i7;
-import '../core/domain/repositories/auth_repository.dart' as _i14;
-import '../core/infrastructure/http/http_module.dart' as _i17;
+import '../core/domain/repositories/auth_repository.dart' as _i17;
+import '../core/infrastructure/http/http_module.dart' as _i21;
 import '../core/infrastructure/http/http_service_interface.dart' as _i9;
 import '../core/infrastructure/logs/easy_logger_wrapper.dart' as _i6;
 import '../core/infrastructure/logs/logger.dart' as _i8;
 import '../core/infrastructure/logs/logger_bloc_observer.dart' as _i4;
-import '../core/infrastructure/storage/storage_module.dart' as _i16;
+import '../core/infrastructure/storage/storage_module.dart' as _i20;
 import '../core/infrastructure/storage/storage_service.dart' as _i5;
-import '../core/modules/logs_module.dart' as _i18;
-import '../features/user_profile/data/api/user_profile_api.dart' as _i10;
-import '../features/user_profile/data/repositories/user_profile_repository.dart'
+import '../core/modules/logs_module.dart' as _i22;
+import '../features/playlists/data/api/playlists_api.dart' as _i10;
+import '../features/playlists/data/repositories/playlists_repository.dart'
     as _i12;
-import '../features/user_profile/domain/repositories/user_profile_repository.dart'
+import '../features/playlists/domain/repositories/playlists_repository.dart'
     as _i11;
+import '../features/splash/presentation/cubits/splash_cubit.dart' as _i19;
+import '../features/user_profile/data/api/user_profile_api.dart' as _i13;
+import '../features/user_profile/data/repositories/user_profile_repository.dart'
+    as _i15;
+import '../features/user_profile/domain/repositories/user_profile_repository.dart'
+    as _i14;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -62,34 +68,48 @@ Future<_i1.GetIt> $initGetIt(
         gh<_i5.IStorageService>(),
         gh<_i8.Logger>(),
       ));
-  gh.lazySingleton<_i9.IHttpService>(() => httpModule.httpService(
-        gh<_i8.Logger>(),
-        gh<_i7.IAuthStorage>(),
-      ));
-  gh.lazySingleton<_i10.IUserProfileApi>(() => _i10.UserProfileApi(
+  await gh.singletonAsync<_i9.IHttpService>(
+    () => httpModule.httpService(
+      gh<_i8.Logger>(),
+      gh<_i7.IAuthStorage>(),
+    ),
+    preResolve: true,
+  );
+  gh.lazySingleton<_i10.IPlaylistsApi>(() => _i10.PlaylistsApi(
         gh<_i9.IHttpService>(),
         gh<_i3.Logger>(),
-        gh<_i7.IAuthStorage>(),
       ));
-  gh.lazySingleton<_i11.IUserProfileRepository>(
-      () => _i12.UserProfileRepository(
+  gh.lazySingleton<_i11.IPlaylistsRepository>(() => _i12.PlaylistsRepository(
+        gh<_i3.Logger>(),
+        gh<_i10.IPlaylistsApi>(),
+      ));
+  gh.lazySingleton<_i13.IUserProfileApi>(() => _i13.UserProfileApi(
+        gh<_i9.IHttpService>(),
+        gh<_i3.Logger>(),
+      ));
+  gh.lazySingleton<_i14.IUserProfileRepository>(
+      () => _i15.UserProfileRepository(
             gh<_i3.Logger>(),
-            gh<_i10.IUserProfileApi>(),
+            gh<_i13.IUserProfileApi>(),
           ));
-  gh.lazySingleton<_i13.IAuthApi>(() => _i13.AuthApi(
+  gh.lazySingleton<_i16.IAuthApi>(() => _i16.AuthApi(
         gh<_i9.IHttpService>(),
         gh<_i3.Logger>(),
       ));
-  gh.singleton<_i14.IAuthRepository>(_i15.AuthRepository(
+  gh.singleton<_i17.IAuthRepository>(_i18.AuthRepository(
     gh<_i3.Logger>(),
-    gh<_i13.IAuthApi>(),
+    gh<_i16.IAuthApi>(),
     gh<_i7.IAuthStorage>(),
   ));
+  gh.factory<_i19.SplashCubit>(() => _i19.SplashCubit(
+        logger: gh<_i3.Logger>(),
+        repo: gh<_i17.IAuthRepository>(),
+      ));
   return getIt;
 }
 
-class _$StorageModule extends _i16.StorageModule {}
+class _$StorageModule extends _i20.StorageModule {}
 
-class _$HttpModule extends _i17.HttpModule {}
+class _$HttpModule extends _i21.HttpModule {}
 
-class _$LogsModule extends _i18.LogsModule {}
+class _$LogsModule extends _i22.LogsModule {}

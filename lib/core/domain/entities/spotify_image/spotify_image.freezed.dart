@@ -132,11 +132,6 @@ class _$_SpotifyImage implements _SpotifyImage {
   final int? width;
 
   @override
-  String toString() {
-    return 'SpotifyImage(url: $url, height: $height, width: $width)';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
