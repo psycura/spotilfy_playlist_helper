@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/di.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/playlists_cubit.dart';
+import 'package:spotify_playlist_helper/features/playlists/presentation/widgets/playlist_item.dart';
 
 class PlaylistsNavigation extends StatelessWidget {
   static const String tag = 'PlaylistsNavigation';
@@ -14,19 +16,20 @@ class PlaylistsNavigation extends StatelessWidget {
         logger: di.get(),
         repo: di.get(),
       )..fetchCurrentUserPlaylists(),
-      child: Center(
-        child: Builder(
-          builder: (context) {
-            final playlists =
-                context.select<PlaylistsCubit, List<SimplifiedPlaylist>>(
-              (bloc) => bloc.state.playlists,
-            );
+      child: Builder(
+        builder: (context) {
+          final playlists =
+              context.select<PlaylistsCubit, List<SimplifiedPlaylist>>(
+            (bloc) => bloc.state.playlists,
+          );
 
-            return Column(
-              children: playlists.map((p) => Text(p.name)).toList(),
-            );
-          },
-        ),
+          return ListView.separated(
+            itemCount: playlists.length,
+            separatorBuilder: (_, index) => const Divider(),
+            // prototypeItem: PlaylistItem(playlists.first),
+            itemBuilder: (_, index) => PlaylistItem(playlists[index]),
+          );
+        },
       ),
     );
   }

@@ -35,7 +35,6 @@ class MainScreenTemplate extends StatelessWidget {
                         ),
                         Expanded(
                           child: Card(
-                            color: Colors.blue,
                             child: playlistNavigation,
                           ),
                         ),

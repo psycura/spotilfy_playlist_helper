@@ -6,7 +6,6 @@ import 'package:spotify_playlist_helper/core/data/api/authorization_client.dart'
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
 import 'package:spotify_playlist_helper/core/data/storage/auth_storage.dart';
 import 'package:spotify_playlist_helper/core/data/success/success.dart';
-import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/auth_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/authorization_state.dart';
 
@@ -30,17 +29,7 @@ class AuthRepository implements IAuthRepository {
     return token == null
         ? AuthorizationState.unauthorized
         : AuthorizationState.authorized;
-    //
-    // if (!_checkIfTokenNeedToRefresh(token)) {
-    //   return AuthorizationState.authorized;
-    // }
-    //
-    // final res = await refreshToken();
-    //
-    // return res.fold(
-    //   (failure) => AuthorizationState.unauthorized,
-    //   (success) => AuthorizationState.authorized,
-    // );
+
   }
 
   @override
@@ -71,9 +60,4 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
-  bool _checkIfTokenNeedToRefresh(TokenInfo token) {
-    final now = DateTime.now().millisecondsSinceEpoch;
-
-    return token.validUntil < now;
-  }
 }

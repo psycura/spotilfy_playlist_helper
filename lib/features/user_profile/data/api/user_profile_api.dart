@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/const/apis.dart';
-import 'package:spotify_playlist_helper/core/data/storage/auth_storage.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 import 'package:spotify_playlist_helper/core/infrastructure/http/http_service_interface.dart';
 
