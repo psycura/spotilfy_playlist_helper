@@ -4,4 +4,5 @@ abstract class Apis {
   static const baseSpotify = 'https://api.spotify.com/v1';
   static const currentUser = 'me';
   static const playlists = 'playlists';
+  static const tracks = 'tracks';
 }

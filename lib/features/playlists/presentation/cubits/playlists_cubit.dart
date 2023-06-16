@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlists_response.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/repositories/playlists_repository.dart';
+import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
 
 part 'playlists_cubit.freezed.dart';
 

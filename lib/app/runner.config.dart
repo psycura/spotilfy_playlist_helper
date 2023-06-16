@@ -14,9 +14,12 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:logger/logger.dart' as _i3;
 
 import '../core/data/api/authorization_client.dart' as _i16;
+import '../core/data/api/playlists_api.dart' as _i10;
 import '../core/data/repositories/auth_repository.dart' as _i18;
+import '../core/data/repositories/playlists_repository.dart' as _i12;
 import '../core/data/storage/auth_storage.dart' as _i7;
 import '../core/domain/repositories/auth_repository.dart' as _i17;
+import '../core/domain/repositories/playlists_repository.dart' as _i11;
 import '../core/infrastructure/http/http_module.dart' as _i21;
 import '../core/infrastructure/http/http_service_interface.dart' as _i9;
 import '../core/infrastructure/logs/easy_logger_wrapper.dart' as _i6;
@@ -25,11 +28,6 @@ import '../core/infrastructure/logs/logger_bloc_observer.dart' as _i4;
 import '../core/infrastructure/storage/storage_module.dart' as _i20;
 import '../core/infrastructure/storage/storage_service.dart' as _i5;
 import '../core/modules/logs_module.dart' as _i22;
-import '../features/playlists/data/api/playlists_api.dart' as _i10;
-import '../features/playlists/data/repositories/playlists_repository.dart'
-    as _i12;
-import '../features/playlists/domain/repositories/playlists_repository.dart'
-    as _i11;
 import '../features/splash/presentation/cubits/splash_cubit.dart' as _i19;
 import '../features/user_profile/data/api/user_profile_api.dart' as _i13;
 import '../features/user_profile/data/repositories/user_profile_repository.dart'

@@ -2,7 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/app/router/app_router.dart';
-import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/selected_playlist_cubit.dart';
+import 'package:spotify_playlist_helper/di.dart';
+import 'package:spotify_playlist_helper/features/playlist_content/presentation/cubits/playlist_cubit.dart';
+
+import '../widgets/playlist_tracks.dart';
 
 @RoutePage()
 class PlaylistContentScreen extends StatelessWidget {
@@ -35,10 +38,12 @@ class PlaylistContentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playlist = context.watch<SelectedPlaylistCubit>().state.playlist;
-
-    return Center(
-      child: Text('Playlist ${playlist?.name}'),
+    return BlocProvider<PlaylistCubit>(
+      create: (_) => PlaylistCubit(logger: di.get(), repo: di.get())
+        ..getPlaylistTracks(playlistId),
+      child: Center(
+        child: PlaylistTracks(),
+      ),
     );
   }
 }

@@ -14,17 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SelectedPlaylistState _$SelectedPlaylistStateFromJson(
-    Map<String, dynamic> json) {
-  return _SelectedPlaylistState.fromJson(json);
-}
-
 /// @nodoc
 mixin _$SelectedPlaylistState {
   SelectedMode get mode => throw _privateConstructorUsedError;
   SimplifiedPlaylist? get playlist => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SelectedPlaylistStateCopyWith<SelectedPlaylistState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -125,14 +119,11 @@ class __$$_SelectedPlaylistStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_SelectedPlaylistState extends _SelectedPlaylistState {
   const _$_SelectedPlaylistState(
       {this.mode = SelectedMode.favorites, this.playlist})
       : super._();
-
-  factory _$_SelectedPlaylistState.fromJson(Map<String, dynamic> json) =>
-      _$$_SelectedPlaylistStateFromJson(json);
 
   @override
   @JsonKey()
@@ -155,7 +146,6 @@ class _$_SelectedPlaylistState extends _SelectedPlaylistState {
                 other.playlist == playlist));
   }
 
-  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, mode, playlist);
 
@@ -165,13 +155,6 @@ class _$_SelectedPlaylistState extends _SelectedPlaylistState {
   _$$_SelectedPlaylistStateCopyWith<_$_SelectedPlaylistState> get copyWith =>
       __$$_SelectedPlaylistStateCopyWithImpl<_$_SelectedPlaylistState>(
           this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_SelectedPlaylistStateToJson(
-      this,
-    );
-  }
 }
 
 abstract class _SelectedPlaylistState extends SelectedPlaylistState {
@@ -179,9 +162,6 @@ abstract class _SelectedPlaylistState extends SelectedPlaylistState {
       {final SelectedMode mode,
       final SimplifiedPlaylist? playlist}) = _$_SelectedPlaylistState;
   const _SelectedPlaylistState._() : super._();
-
-  factory _SelectedPlaylistState.fromJson(Map<String, dynamic> json) =
-      _$_SelectedPlaylistState.fromJson;
 
   @override
   SelectedMode get mode;

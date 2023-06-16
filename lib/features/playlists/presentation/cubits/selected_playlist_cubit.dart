@@ -5,8 +5,6 @@ import 'package:spotify_playlist_helper/features/playlists/domain/entities/simpl
 
 part 'selected_playlist_cubit.freezed.dart';
 
-part 'selected_playlist_cubit.g.dart';
-
 enum SelectedMode { favorites, playlist }
 
 @freezed
@@ -17,12 +15,9 @@ class SelectedPlaylistState with _$SelectedPlaylistState {
     @Default(SelectedMode.favorites) SelectedMode mode,
     SimplifiedPlaylist? playlist,
   }) = _SelectedPlaylistState;
-
-  factory SelectedPlaylistState.fromJson(Map<String, dynamic> json) =>
-      _$SelectedPlaylistStateFromJson(json);
 }
 
-class SelectedPlaylistCubit extends HydratedCubit<SelectedPlaylistState> {
+class SelectedPlaylistCubit extends Cubit<SelectedPlaylistState> {
   static const String tag = 'SelectedPlaylistCubit';
 
   final Logger _logger;
@@ -53,11 +48,4 @@ class SelectedPlaylistCubit extends HydratedCubit<SelectedPlaylistState> {
   }
 
   void reset() => emit(const SelectedPlaylistState());
-
-  @override
-  SelectedPlaylistState? fromJson(Map<String, dynamic> json) =>
-      SelectedPlaylistState.fromJson(json);
-
-  @override
-  Map<String, dynamic>? toJson(SelectedPlaylistState state) => state.toJson();
 }

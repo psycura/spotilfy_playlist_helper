@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/features/playlist_content/presentation/screens/playlist_content_screen.dart';
@@ -24,20 +25,13 @@ class PlaylistItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.network(
-        playlist.images.first.url,
-        gaplessPlayback: true,
+      leading: CachedNetworkImage(
+        imageUrl: playlist.images.first.url,
         height: 50,
-        loadingBuilder: (ctx, img, loadingProgress) {
-          if (loadingProgress == null) {
-            return img;
-          }
-
-          return const SizedBox(
-            height: 50,
-            width: 50,
-          );
-        },
+        placeholder: (_, __) => const SizedBox(
+          height: 50,
+          width: 50,
+        ),
       ),
       title: Text(
         playlist.name,
