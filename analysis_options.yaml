@@ -21,7 +21,7 @@ linter:
     use_build_context_synchronously: false
     unnecessary_string_escapes: false
     unnecessary_overrides: false
-
+    non_constant_identifier_names: false
 
 
 analyzer:

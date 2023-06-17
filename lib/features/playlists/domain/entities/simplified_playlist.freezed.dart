@@ -22,7 +22,7 @@ SimplifiedPlaylist _$SimplifiedPlaylistFromJson(Map<String, dynamic> json) {
 mixin _$SimplifiedPlaylist {
   String get href => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
-  List<SpotifyImage> get images => throw _privateConstructorUsedError;
+  List<ImageEntity> get images => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get uri => throw _privateConstructorUsedError;
   Tracks? get tracks => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $SimplifiedPlaylistCopyWith<$Res> {
   $Res call(
       {String href,
       String id,
-      List<SpotifyImage> images,
+      List<ImageEntity> images,
       String name,
       String uri,
       Tracks? tracks,
@@ -85,7 +85,7 @@ class _$SimplifiedPlaylistCopyWithImpl<$Res, $Val extends SimplifiedPlaylist>
       images: null == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<SpotifyImage>,
+              as List<ImageEntity>,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -129,7 +129,7 @@ abstract class _$$_PlaylistCopyWith<$Res>
   $Res call(
       {String href,
       String id,
-      List<SpotifyImage> images,
+      List<ImageEntity> images,
       String name,
       String uri,
       Tracks? tracks,
@@ -170,7 +170,7 @@ class __$$_PlaylistCopyWithImpl<$Res>
       images: null == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<SpotifyImage>,
+              as List<ImageEntity>,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -197,7 +197,7 @@ class _$_Playlist implements _Playlist {
   _$_Playlist(
       {required this.href,
       required this.id,
-      required final List<SpotifyImage> images,
+      required final List<ImageEntity> images,
       required this.name,
       required this.uri,
       this.tracks,
@@ -211,9 +211,9 @@ class _$_Playlist implements _Playlist {
   final String href;
   @override
   final String id;
-  final List<SpotifyImage> _images;
+  final List<ImageEntity> _images;
   @override
-  List<SpotifyImage> get images {
+  List<ImageEntity> get images {
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_images);
@@ -278,7 +278,7 @@ abstract class _Playlist implements SimplifiedPlaylist {
   factory _Playlist(
       {required final String href,
       required final String id,
-      required final List<SpotifyImage> images,
+      required final List<ImageEntity> images,
       required final String name,
       required final String uri,
       final Tracks? tracks,
@@ -291,7 +291,7 @@ abstract class _Playlist implements SimplifiedPlaylist {
   @override
   String get id;
   @override
-  List<SpotifyImage> get images;
+  List<ImageEntity> get images;
   @override
   String get name;
   @override

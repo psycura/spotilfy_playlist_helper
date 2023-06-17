@@ -38,11 +38,11 @@ class PlaylistsRepository implements IPlaylistsRepository {
   }
 
   @override
-  Future<Either<GeneralFailure, List<PlaylistTrack>>> getPlaylistTracks(
+  Future<Either<GeneralFailure, List<PlaylistTrackEntity>>> getPlaylistTracks(
     String playlistId,
   ) async {
     try {
-      final items = <PlaylistTrack>[];
+      final items = <PlaylistTrackEntity>[];
       var allFetched = false;
       String? playlistUrl;
 

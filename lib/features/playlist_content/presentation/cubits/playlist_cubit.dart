@@ -13,7 +13,7 @@ class PlaylistState with _$PlaylistState {
 
   const factory PlaylistState({
     @Default(FetchingState.idle) FetchingState fetchingState,
-    @Default(<PlaylistTrack>[]) List<PlaylistTrack> tracks,
+    @Default(<PlaylistTrackEntity>[]) List<PlaylistTrackEntity> tracks,
   }) = _PlaylistState;
 }
 

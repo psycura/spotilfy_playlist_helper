@@ -22,7 +22,7 @@ PlaylistWithTracks _$PlaylistWithTracksFromJson(Map<String, dynamic> json) {
 mixin _$PlaylistWithTracks {
   String get href => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
-  List<PlaylistTrack> get items => throw _privateConstructorUsedError;
+  List<PlaylistTrackEntity> get items => throw _privateConstructorUsedError;
   int get limit => throw _privateConstructorUsedError;
   int get offset => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $PlaylistWithTracksCopyWith<$Res> {
   $Res call(
       {String href,
       int total,
-      List<PlaylistTrack> items,
+      List<PlaylistTrackEntity> items,
       int limit,
       int offset,
       String? next,
@@ -83,7 +83,7 @@ class _$PlaylistWithTracksCopyWithImpl<$Res, $Val extends PlaylistWithTracks>
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<PlaylistTrack>,
+              as List<PlaylistTrackEntity>,
       limit: null == limit
           ? _value.limit
           : limit // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$_PlaylistTracksResponseCopyWith<$Res>
   $Res call(
       {String href,
       int total,
-      List<PlaylistTrack> items,
+      List<PlaylistTrackEntity> items,
       int limit,
       int offset,
       String? next,
@@ -153,7 +153,7 @@ class __$$_PlaylistTracksResponseCopyWithImpl<$Res>
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as List<PlaylistTrack>,
+              as List<PlaylistTrackEntity>,
       limit: null == limit
           ? _value.limit
           : limit // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class _$_PlaylistTracksResponse implements _PlaylistTracksResponse {
   _$_PlaylistTracksResponse(
       {required this.href,
       required this.total,
-      required final List<PlaylistTrack> items,
+      required final List<PlaylistTrackEntity> items,
       this.limit = 50,
       this.offset = 0,
       this.next,
@@ -194,9 +194,9 @@ class _$_PlaylistTracksResponse implements _PlaylistTracksResponse {
   final String href;
   @override
   final int total;
-  final List<PlaylistTrack> _items;
+  final List<PlaylistTrackEntity> _items;
   @override
-  List<PlaylistTrack> get items {
+  List<PlaylistTrackEntity> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
@@ -264,7 +264,7 @@ abstract class _PlaylistTracksResponse implements PlaylistWithTracks {
   factory _PlaylistTracksResponse(
       {required final String href,
       required final int total,
-      required final List<PlaylistTrack> items,
+      required final List<PlaylistTrackEntity> items,
       final int limit,
       final int offset,
       final String? next,
@@ -278,7 +278,7 @@ abstract class _PlaylistTracksResponse implements PlaylistWithTracks {
   @override
   int get total;
   @override
-  List<PlaylistTrack> get items;
+  List<PlaylistTrackEntity> get items;
   @override
   int get limit;
   @override

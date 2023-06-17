@@ -12,7 +12,7 @@ _$_PlaylistTracksResponse _$$_PlaylistTracksResponseFromJson(
       href: json['href'] as String,
       total: json['total'] as int,
       items: (json['items'] as List<dynamic>)
-          .map((e) => PlaylistTrack.fromJson(e as Map<String, dynamic>))
+          .map((e) => PlaylistTrackEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       limit: json['limit'] as int? ?? 50,
       offset: json['offset'] as int? ?? 0,

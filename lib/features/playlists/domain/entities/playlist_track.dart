@@ -6,12 +6,12 @@ part 'playlist_track.freezed.dart';
 part 'playlist_track.g.dart';
 
 @freezed
-class PlaylistTrack with _$PlaylistTrack {
-  factory PlaylistTrack({
+class PlaylistTrackEntity with _$PlaylistTrackEntity {
+  factory PlaylistTrackEntity({
     required String added_at,
-    required Track track,
-  }) = _PlaylistTrack;
+    required TrackEntity track,
+  }) = _PlaylistTrackEntity;
 
-  factory PlaylistTrack.fromJson(Map<String, dynamic> json) =>
-      _$PlaylistTrackFromJson(json);
+  factory PlaylistTrackEntity.fromJson(Map<String, dynamic> json) =>
+      _$PlaylistTrackEntityFromJson(json);
 }

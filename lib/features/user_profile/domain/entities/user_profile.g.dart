@@ -12,7 +12,7 @@ _$_UserProfile _$$_UserProfileFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       id: json['id'] as String,
       images: (json['images'] as List<dynamic>)
-          .map((e) => SpotifyImage.fromJson(e as Map<String, dynamic>))
+          .map((e) => ImageEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       uri: json['uri'] as String,
     );

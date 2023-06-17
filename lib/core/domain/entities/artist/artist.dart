@@ -4,15 +4,15 @@ part 'artist.freezed.dart';
 part 'artist.g.dart';
 
 @freezed
-class Artist with _$Artist {
+class ArtistEntity with _$ArtistEntity {
 
-  factory Artist({
+  factory ArtistEntity({
     required String href,
     required String id,
     required String name,
     required String uri,
-}) = _Artist;
+}) = _ArtistEntity;
 
-  factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);
+  factory ArtistEntity.fromJson(Map<String, dynamic> json) => _$ArtistEntityFromJson(json);
 
 }

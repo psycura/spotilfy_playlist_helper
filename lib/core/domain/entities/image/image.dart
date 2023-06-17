@@ -1,16 +1,16 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'spotify_image.freezed.dart';
+part 'image.freezed.dart';
 
-part 'spotify_image.g.dart';
+part 'image.g.dart';
 
 @freezed
-class SpotifyImage with _$SpotifyImage {
-  factory SpotifyImage({
+class ImageEntity with _$ImageEntity {
+  factory ImageEntity({
     required String url,
     int? height,
     int? width,
-  }) = _SpotifyImage;
+  }) = _ImageEntity;
 
   @override
   String toString() {
@@ -20,6 +20,6 @@ class SpotifyImage with _$SpotifyImage {
         ')';
   }
 
-  factory SpotifyImage.fromJson(Map<String, dynamic> json) =>
-      _$SpotifyImageFromJson(json);
+  factory ImageEntity.fromJson(Map<String, dynamic> json) =>
+      _$ImageEntityFromJson(json);
 }

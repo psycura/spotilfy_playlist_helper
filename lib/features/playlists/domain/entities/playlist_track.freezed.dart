@@ -14,36 +14,36 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-PlaylistTrack _$PlaylistTrackFromJson(Map<String, dynamic> json) {
-  return _PlaylistTrack.fromJson(json);
+PlaylistTrackEntity _$PlaylistTrackEntityFromJson(Map<String, dynamic> json) {
+  return _PlaylistTrackEntity.fromJson(json);
 }
 
 /// @nodoc
-mixin _$PlaylistTrack {
+mixin _$PlaylistTrackEntity {
   String get added_at => throw _privateConstructorUsedError;
-  Track get track => throw _privateConstructorUsedError;
+  TrackEntity get track => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PlaylistTrackCopyWith<PlaylistTrack> get copyWith =>
+  $PlaylistTrackEntityCopyWith<PlaylistTrackEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PlaylistTrackCopyWith<$Res> {
-  factory $PlaylistTrackCopyWith(
-          PlaylistTrack value, $Res Function(PlaylistTrack) then) =
-      _$PlaylistTrackCopyWithImpl<$Res, PlaylistTrack>;
+abstract class $PlaylistTrackEntityCopyWith<$Res> {
+  factory $PlaylistTrackEntityCopyWith(
+          PlaylistTrackEntity value, $Res Function(PlaylistTrackEntity) then) =
+      _$PlaylistTrackEntityCopyWithImpl<$Res, PlaylistTrackEntity>;
   @useResult
-  $Res call({String added_at, Track track});
+  $Res call({String added_at, TrackEntity track});
 
-  $TrackCopyWith<$Res> get track;
+  $TrackEntityCopyWith<$Res> get track;
 }
 
 /// @nodoc
-class _$PlaylistTrackCopyWithImpl<$Res, $Val extends PlaylistTrack>
-    implements $PlaylistTrackCopyWith<$Res> {
-  _$PlaylistTrackCopyWithImpl(this._value, this._then);
+class _$PlaylistTrackEntityCopyWithImpl<$Res, $Val extends PlaylistTrackEntity>
+    implements $PlaylistTrackEntityCopyWith<$Res> {
+  _$PlaylistTrackEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -64,39 +64,39 @@ class _$PlaylistTrackCopyWithImpl<$Res, $Val extends PlaylistTrack>
       track: null == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
-              as Track,
+              as TrackEntity,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $TrackCopyWith<$Res> get track {
-    return $TrackCopyWith<$Res>(_value.track, (value) {
+  $TrackEntityCopyWith<$Res> get track {
+    return $TrackEntityCopyWith<$Res>(_value.track, (value) {
       return _then(_value.copyWith(track: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_PlaylistTrackCopyWith<$Res>
-    implements $PlaylistTrackCopyWith<$Res> {
-  factory _$$_PlaylistTrackCopyWith(
-          _$_PlaylistTrack value, $Res Function(_$_PlaylistTrack) then) =
-      __$$_PlaylistTrackCopyWithImpl<$Res>;
+abstract class _$$_PlaylistTrackEntityCopyWith<$Res>
+    implements $PlaylistTrackEntityCopyWith<$Res> {
+  factory _$$_PlaylistTrackEntityCopyWith(_$_PlaylistTrackEntity value,
+          $Res Function(_$_PlaylistTrackEntity) then) =
+      __$$_PlaylistTrackEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String added_at, Track track});
+  $Res call({String added_at, TrackEntity track});
 
   @override
-  $TrackCopyWith<$Res> get track;
+  $TrackEntityCopyWith<$Res> get track;
 }
 
 /// @nodoc
-class __$$_PlaylistTrackCopyWithImpl<$Res>
-    extends _$PlaylistTrackCopyWithImpl<$Res, _$_PlaylistTrack>
-    implements _$$_PlaylistTrackCopyWith<$Res> {
-  __$$_PlaylistTrackCopyWithImpl(
-      _$_PlaylistTrack _value, $Res Function(_$_PlaylistTrack) _then)
+class __$$_PlaylistTrackEntityCopyWithImpl<$Res>
+    extends _$PlaylistTrackEntityCopyWithImpl<$Res, _$_PlaylistTrackEntity>
+    implements _$$_PlaylistTrackEntityCopyWith<$Res> {
+  __$$_PlaylistTrackEntityCopyWithImpl(_$_PlaylistTrackEntity _value,
+      $Res Function(_$_PlaylistTrackEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -105,7 +105,7 @@ class __$$_PlaylistTrackCopyWithImpl<$Res>
     Object? added_at = null,
     Object? track = null,
   }) {
-    return _then(_$_PlaylistTrack(
+    return _then(_$_PlaylistTrackEntity(
       added_at: null == added_at
           ? _value.added_at
           : added_at // ignore: cast_nullable_to_non_nullable
@@ -113,34 +113,34 @@ class __$$_PlaylistTrackCopyWithImpl<$Res>
       track: null == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
-              as Track,
+              as TrackEntity,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaylistTrack implements _PlaylistTrack {
-  _$_PlaylistTrack({required this.added_at, required this.track});
+class _$_PlaylistTrackEntity implements _PlaylistTrackEntity {
+  _$_PlaylistTrackEntity({required this.added_at, required this.track});
 
-  factory _$_PlaylistTrack.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaylistTrackFromJson(json);
+  factory _$_PlaylistTrackEntity.fromJson(Map<String, dynamic> json) =>
+      _$$_PlaylistTrackEntityFromJson(json);
 
   @override
   final String added_at;
   @override
-  final Track track;
+  final TrackEntity track;
 
   @override
   String toString() {
-    return 'PlaylistTrack(added_at: $added_at, track: $track)';
+    return 'PlaylistTrackEntity(added_at: $added_at, track: $track)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaylistTrack &&
+            other is _$_PlaylistTrackEntity &&
             (identical(other.added_at, added_at) ||
                 other.added_at == added_at) &&
             (identical(other.track, track) || other.track == track));
@@ -153,31 +153,32 @@ class _$_PlaylistTrack implements _PlaylistTrack {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaylistTrackCopyWith<_$_PlaylistTrack> get copyWith =>
-      __$$_PlaylistTrackCopyWithImpl<_$_PlaylistTrack>(this, _$identity);
+  _$$_PlaylistTrackEntityCopyWith<_$_PlaylistTrackEntity> get copyWith =>
+      __$$_PlaylistTrackEntityCopyWithImpl<_$_PlaylistTrackEntity>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaylistTrackToJson(
+    return _$$_PlaylistTrackEntityToJson(
       this,
     );
   }
 }
 
-abstract class _PlaylistTrack implements PlaylistTrack {
-  factory _PlaylistTrack(
+abstract class _PlaylistTrackEntity implements PlaylistTrackEntity {
+  factory _PlaylistTrackEntity(
       {required final String added_at,
-      required final Track track}) = _$_PlaylistTrack;
+      required final TrackEntity track}) = _$_PlaylistTrackEntity;
 
-  factory _PlaylistTrack.fromJson(Map<String, dynamic> json) =
-      _$_PlaylistTrack.fromJson;
+  factory _PlaylistTrackEntity.fromJson(Map<String, dynamic> json) =
+      _$_PlaylistTrackEntity.fromJson;
 
   @override
   String get added_at;
   @override
-  Track get track;
+  TrackEntity get track;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaylistTrackCopyWith<_$_PlaylistTrack> get copyWith =>
+  _$$_PlaylistTrackEntityCopyWith<_$_PlaylistTrackEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

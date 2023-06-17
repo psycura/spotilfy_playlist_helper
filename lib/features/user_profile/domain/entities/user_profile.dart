@@ -11,7 +11,7 @@ class UserProfile with _$UserProfile {
     required String displayName,
     required String email,
     required String id,
-    required List<SpotifyImage> images,
+    required List<ImageEntity> images,
     required String uri,
   }) = _UserProfile;
 

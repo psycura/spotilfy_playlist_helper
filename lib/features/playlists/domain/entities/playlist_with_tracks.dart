@@ -10,7 +10,7 @@ class PlaylistWithTracks with _$PlaylistWithTracks {
   factory PlaylistWithTracks({
     required String href,
     required int total,
-    required List<PlaylistTrack> items,
+    required List<PlaylistTrackEntity> items,
     @Default(50) int limit,
     @Default(0) int offset,
     String? next,

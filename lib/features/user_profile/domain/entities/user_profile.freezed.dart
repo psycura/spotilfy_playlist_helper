@@ -23,7 +23,7 @@ mixin _$UserProfile {
   String get displayName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
-  List<SpotifyImage> get images => throw _privateConstructorUsedError;
+  List<ImageEntity> get images => throw _privateConstructorUsedError;
   String get uri => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $UserProfileCopyWith<$Res> {
       {String displayName,
       String email,
       String id,
-      List<SpotifyImage> images,
+      List<ImageEntity> images,
       String uri});
 }
 
@@ -81,7 +81,7 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
       images: null == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<SpotifyImage>,
+              as List<ImageEntity>,
       uri: null == uri
           ? _value.uri
           : uri // ignore: cast_nullable_to_non_nullable
@@ -102,7 +102,7 @@ abstract class _$$_UserProfileCopyWith<$Res>
       {String displayName,
       String email,
       String id,
-      List<SpotifyImage> images,
+      List<ImageEntity> images,
       String uri});
 }
 
@@ -139,7 +139,7 @@ class __$$_UserProfileCopyWithImpl<$Res>
       images: null == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<SpotifyImage>,
+              as List<ImageEntity>,
       uri: null == uri
           ? _value.uri
           : uri // ignore: cast_nullable_to_non_nullable
@@ -155,7 +155,7 @@ class _$_UserProfile implements _UserProfile {
       {required this.displayName,
       required this.email,
       required this.id,
-      required final List<SpotifyImage> images,
+      required final List<ImageEntity> images,
       required this.uri})
       : _images = images;
 
@@ -168,9 +168,9 @@ class _$_UserProfile implements _UserProfile {
   final String email;
   @override
   final String id;
-  final List<SpotifyImage> _images;
+  final List<ImageEntity> _images;
   @override
-  List<SpotifyImage> get images {
+  List<ImageEntity> get images {
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_images);
@@ -221,7 +221,7 @@ abstract class _UserProfile implements UserProfile {
       {required final String displayName,
       required final String email,
       required final String id,
-      required final List<SpotifyImage> images,
+      required final List<ImageEntity> images,
       required final String uri}) = _$_UserProfile;
 
   factory _UserProfile.fromJson(Map<String, dynamic> json) =
@@ -234,7 +234,7 @@ abstract class _UserProfile implements UserProfile {
   @override
   String get id;
   @override
-  List<SpotifyImage> get images;
+  List<ImageEntity> get images;
   @override
   String get uri;
   @override

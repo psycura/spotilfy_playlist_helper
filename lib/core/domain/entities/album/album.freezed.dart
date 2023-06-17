@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Album _$AlbumFromJson(Map<String, dynamic> json) {
-  return _Album.fromJson(json);
+AlbumEntity _$AlbumEntityFromJson(Map<String, dynamic> json) {
+  return _AlbumEntity.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Album {
+mixin _$AlbumEntity {
   String get album_type => throw _privateConstructorUsedError;
   int get total_tracks => throw _privateConstructorUsedError;
   String get href => throw _privateConstructorUsedError;
@@ -29,17 +29,19 @@ mixin _$Album {
   String get release_date_precision => throw _privateConstructorUsedError;
   String get uri => throw _privateConstructorUsedError;
   List<SpotifyImage> get images => throw _privateConstructorUsedError;
-  List<Artist> get artists => throw _privateConstructorUsedError;
+  List<ArtistEntity> get artists => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AlbumCopyWith<Album> get copyWith => throw _privateConstructorUsedError;
+  $AlbumEntityCopyWith<AlbumEntity> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AlbumCopyWith<$Res> {
-  factory $AlbumCopyWith(Album value, $Res Function(Album) then) =
-      _$AlbumCopyWithImpl<$Res, Album>;
+abstract class $AlbumEntityCopyWith<$Res> {
+  factory $AlbumEntityCopyWith(
+          AlbumEntity value, $Res Function(AlbumEntity) then) =
+      _$AlbumEntityCopyWithImpl<$Res, AlbumEntity>;
   @useResult
   $Res call(
       {String album_type,
@@ -51,13 +53,13 @@ abstract class $AlbumCopyWith<$Res> {
       String release_date_precision,
       String uri,
       List<SpotifyImage> images,
-      List<Artist> artists});
+      List<ArtistEntity> artists});
 }
 
 /// @nodoc
-class _$AlbumCopyWithImpl<$Res, $Val extends Album>
-    implements $AlbumCopyWith<$Res> {
-  _$AlbumCopyWithImpl(this._value, this._then);
+class _$AlbumEntityCopyWithImpl<$Res, $Val extends AlbumEntity>
+    implements $AlbumEntityCopyWith<$Res> {
+  _$AlbumEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -118,15 +120,17 @@ class _$AlbumCopyWithImpl<$Res, $Val extends Album>
       artists: null == artists
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
-              as List<Artist>,
+              as List<ArtistEntity>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_AlbumCopyWith<$Res> implements $AlbumCopyWith<$Res> {
-  factory _$$_AlbumCopyWith(_$_Album value, $Res Function(_$_Album) then) =
-      __$$_AlbumCopyWithImpl<$Res>;
+abstract class _$$_AlbumEntityCopyWith<$Res>
+    implements $AlbumEntityCopyWith<$Res> {
+  factory _$$_AlbumEntityCopyWith(
+          _$_AlbumEntity value, $Res Function(_$_AlbumEntity) then) =
+      __$$_AlbumEntityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -139,13 +143,15 @@ abstract class _$$_AlbumCopyWith<$Res> implements $AlbumCopyWith<$Res> {
       String release_date_precision,
       String uri,
       List<SpotifyImage> images,
-      List<Artist> artists});
+      List<ArtistEntity> artists});
 }
 
 /// @nodoc
-class __$$_AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res, _$_Album>
-    implements _$$_AlbumCopyWith<$Res> {
-  __$$_AlbumCopyWithImpl(_$_Album _value, $Res Function(_$_Album) _then)
+class __$$_AlbumEntityCopyWithImpl<$Res>
+    extends _$AlbumEntityCopyWithImpl<$Res, _$_AlbumEntity>
+    implements _$$_AlbumEntityCopyWith<$Res> {
+  __$$_AlbumEntityCopyWithImpl(
+      _$_AlbumEntity _value, $Res Function(_$_AlbumEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -162,7 +168,7 @@ class __$$_AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res, _$_Album>
     Object? images = null,
     Object? artists = null,
   }) {
-    return _then(_$_Album(
+    return _then(_$_AlbumEntity(
       album_type: null == album_type
           ? _value.album_type
           : album_type // ignore: cast_nullable_to_non_nullable
@@ -202,15 +208,15 @@ class __$$_AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res, _$_Album>
       artists: null == artists
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
-              as List<Artist>,
+              as List<ArtistEntity>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_Album implements _Album {
-  _$_Album(
+class _$_AlbumEntity implements _AlbumEntity {
+  _$_AlbumEntity(
       {required this.album_type,
       required this.total_tracks,
       required this.href,
@@ -220,12 +226,12 @@ class _$_Album implements _Album {
       required this.release_date_precision,
       required this.uri,
       required final List<SpotifyImage> images,
-      required final List<Artist> artists})
+      required final List<ArtistEntity> artists})
       : _images = images,
         _artists = artists;
 
-  factory _$_Album.fromJson(Map<String, dynamic> json) =>
-      _$$_AlbumFromJson(json);
+  factory _$_AlbumEntity.fromJson(Map<String, dynamic> json) =>
+      _$$_AlbumEntityFromJson(json);
 
   @override
   final String album_type;
@@ -251,9 +257,9 @@ class _$_Album implements _Album {
     return EqualUnmodifiableListView(_images);
   }
 
-  final List<Artist> _artists;
+  final List<ArtistEntity> _artists;
   @override
-  List<Artist> get artists {
+  List<ArtistEntity> get artists {
     if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_artists);
@@ -261,14 +267,14 @@ class _$_Album implements _Album {
 
   @override
   String toString() {
-    return 'Album(album_type: $album_type, total_tracks: $total_tracks, href: $href, id: $id, name: $name, release_date: $release_date, release_date_precision: $release_date_precision, uri: $uri, images: $images, artists: $artists)';
+    return 'AlbumEntity(album_type: $album_type, total_tracks: $total_tracks, href: $href, id: $id, name: $name, release_date: $release_date, release_date_precision: $release_date_precision, uri: $uri, images: $images, artists: $artists)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Album &&
+            other is _$_AlbumEntity &&
             (identical(other.album_type, album_type) ||
                 other.album_type == album_type) &&
             (identical(other.total_tracks, total_tracks) ||
@@ -303,19 +309,19 @@ class _$_Album implements _Album {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AlbumCopyWith<_$_Album> get copyWith =>
-      __$$_AlbumCopyWithImpl<_$_Album>(this, _$identity);
+  _$$_AlbumEntityCopyWith<_$_AlbumEntity> get copyWith =>
+      __$$_AlbumEntityCopyWithImpl<_$_AlbumEntity>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AlbumToJson(
+    return _$$_AlbumEntityToJson(
       this,
     );
   }
 }
 
-abstract class _Album implements Album {
-  factory _Album(
+abstract class _AlbumEntity implements AlbumEntity {
+  factory _AlbumEntity(
       {required final String album_type,
       required final int total_tracks,
       required final String href,
@@ -325,9 +331,10 @@ abstract class _Album implements Album {
       required final String release_date_precision,
       required final String uri,
       required final List<SpotifyImage> images,
-      required final List<Artist> artists}) = _$_Album;
+      required final List<ArtistEntity> artists}) = _$_AlbumEntity;
 
-  factory _Album.fromJson(Map<String, dynamic> json) = _$_Album.fromJson;
+  factory _AlbumEntity.fromJson(Map<String, dynamic> json) =
+      _$_AlbumEntity.fromJson;
 
   @override
   String get album_type;
@@ -348,9 +355,9 @@ abstract class _Album implements Album {
   @override
   List<SpotifyImage> get images;
   @override
-  List<Artist> get artists;
+  List<ArtistEntity> get artists;
   @override
   @JsonKey(ignore: true)
-  _$$_AlbumCopyWith<_$_Album> get copyWith =>
+  _$$_AlbumEntityCopyWith<_$_AlbumEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

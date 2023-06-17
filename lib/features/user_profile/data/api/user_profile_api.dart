@@ -28,7 +28,7 @@ class UserProfileApi implements IUserProfileApi {
           await client.getRequest('${Apis.baseSpotify}/${Apis.currentUser}');
 
       final images = (res.data['images'] as List<dynamic>)
-          .map((i) => SpotifyImage.fromJson(i));
+          .map((i) => ImageEntity.fromJson(i));
 
       final resp = UserProfile(
         displayName: res.data['display_name'],

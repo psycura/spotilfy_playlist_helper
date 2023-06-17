@@ -10,7 +10,7 @@ _$_Playlist _$$_PlaylistFromJson(Map<String, dynamic> json) => _$_Playlist(
       href: json['href'] as String,
       id: json['id'] as String,
       images: (json['images'] as List<dynamic>)
-          .map((e) => SpotifyImage.fromJson(e as Map<String, dynamic>))
+          .map((e) => ImageEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String,
       uri: json['uri'] as String,

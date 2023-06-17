@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Artist _$ArtistFromJson(Map<String, dynamic> json) {
-  return _Artist.fromJson(json);
+ArtistEntity _$ArtistEntityFromJson(Map<String, dynamic> json) {
+  return _ArtistEntity.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Artist {
+mixin _$ArtistEntity {
   String get href => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -27,21 +27,23 @@ mixin _$Artist {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ArtistCopyWith<Artist> get copyWith => throw _privateConstructorUsedError;
+  $ArtistEntityCopyWith<ArtistEntity> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ArtistCopyWith<$Res> {
-  factory $ArtistCopyWith(Artist value, $Res Function(Artist) then) =
-      _$ArtistCopyWithImpl<$Res, Artist>;
+abstract class $ArtistEntityCopyWith<$Res> {
+  factory $ArtistEntityCopyWith(
+          ArtistEntity value, $Res Function(ArtistEntity) then) =
+      _$ArtistEntityCopyWithImpl<$Res, ArtistEntity>;
   @useResult
   $Res call({String href, String id, String name, String uri});
 }
 
 /// @nodoc
-class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
-    implements $ArtistCopyWith<$Res> {
-  _$ArtistCopyWithImpl(this._value, this._then);
+class _$ArtistEntityCopyWithImpl<$Res, $Val extends ArtistEntity>
+    implements $ArtistEntityCopyWith<$Res> {
+  _$ArtistEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -78,19 +80,22 @@ class _$ArtistCopyWithImpl<$Res, $Val extends Artist>
 }
 
 /// @nodoc
-abstract class _$$_ArtistCopyWith<$Res> implements $ArtistCopyWith<$Res> {
-  factory _$$_ArtistCopyWith(_$_Artist value, $Res Function(_$_Artist) then) =
-      __$$_ArtistCopyWithImpl<$Res>;
+abstract class _$$_ArtistEntityCopyWith<$Res>
+    implements $ArtistEntityCopyWith<$Res> {
+  factory _$$_ArtistEntityCopyWith(
+          _$_ArtistEntity value, $Res Function(_$_ArtistEntity) then) =
+      __$$_ArtistEntityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String href, String id, String name, String uri});
 }
 
 /// @nodoc
-class __$$_ArtistCopyWithImpl<$Res>
-    extends _$ArtistCopyWithImpl<$Res, _$_Artist>
-    implements _$$_ArtistCopyWith<$Res> {
-  __$$_ArtistCopyWithImpl(_$_Artist _value, $Res Function(_$_Artist) _then)
+class __$$_ArtistEntityCopyWithImpl<$Res>
+    extends _$ArtistEntityCopyWithImpl<$Res, _$_ArtistEntity>
+    implements _$$_ArtistEntityCopyWith<$Res> {
+  __$$_ArtistEntityCopyWithImpl(
+      _$_ArtistEntity _value, $Res Function(_$_ArtistEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -101,7 +106,7 @@ class __$$_ArtistCopyWithImpl<$Res>
     Object? name = null,
     Object? uri = null,
   }) {
-    return _then(_$_Artist(
+    return _then(_$_ArtistEntity(
       href: null == href
           ? _value.href
           : href // ignore: cast_nullable_to_non_nullable
@@ -124,15 +129,15 @@ class __$$_ArtistCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Artist implements _Artist {
-  _$_Artist(
+class _$_ArtistEntity implements _ArtistEntity {
+  _$_ArtistEntity(
       {required this.href,
       required this.id,
       required this.name,
       required this.uri});
 
-  factory _$_Artist.fromJson(Map<String, dynamic> json) =>
-      _$$_ArtistFromJson(json);
+  factory _$_ArtistEntity.fromJson(Map<String, dynamic> json) =>
+      _$$_ArtistEntityFromJson(json);
 
   @override
   final String href;
@@ -145,14 +150,14 @@ class _$_Artist implements _Artist {
 
   @override
   String toString() {
-    return 'Artist(href: $href, id: $id, name: $name, uri: $uri)';
+    return 'ArtistEntity(href: $href, id: $id, name: $name, uri: $uri)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Artist &&
+            other is _$_ArtistEntity &&
             (identical(other.href, href) || other.href == href) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
@@ -166,25 +171,26 @@ class _$_Artist implements _Artist {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ArtistCopyWith<_$_Artist> get copyWith =>
-      __$$_ArtistCopyWithImpl<_$_Artist>(this, _$identity);
+  _$$_ArtistEntityCopyWith<_$_ArtistEntity> get copyWith =>
+      __$$_ArtistEntityCopyWithImpl<_$_ArtistEntity>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ArtistToJson(
+    return _$$_ArtistEntityToJson(
       this,
     );
   }
 }
 
-abstract class _Artist implements Artist {
-  factory _Artist(
+abstract class _ArtistEntity implements ArtistEntity {
+  factory _ArtistEntity(
       {required final String href,
       required final String id,
       required final String name,
-      required final String uri}) = _$_Artist;
+      required final String uri}) = _$_ArtistEntity;
 
-  factory _Artist.fromJson(Map<String, dynamic> json) = _$_Artist.fromJson;
+  factory _ArtistEntity.fromJson(Map<String, dynamic> json) =
+      _$_ArtistEntity.fromJson;
 
   @override
   String get href;
@@ -196,6 +202,6 @@ abstract class _Artist implements Artist {
   String get uri;
   @override
   @JsonKey(ignore: true)
-  _$$_ArtistCopyWith<_$_Artist> get copyWith =>
+  _$$_ArtistEntityCopyWith<_$_ArtistEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

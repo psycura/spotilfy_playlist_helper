@@ -9,7 +9,7 @@ abstract interface class IPlaylistsRepository {
     int? offset,
   });
 
-  Future<Either<GeneralFailure, List<PlaylistTrack>>> getPlaylistTracks(
+  Future<Either<GeneralFailure, List<PlaylistTrackEntity>>> getPlaylistTracks(
     String playlistId,
   );
 }

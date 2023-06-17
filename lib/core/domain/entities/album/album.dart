@@ -5,9 +5,9 @@ part 'album.freezed.dart';
 part 'album.g.dart';
 
 @freezed
-class Album with _$Album {
+class AlbumEntity with _$AlbumEntity {
 
-  factory Album({
+  factory AlbumEntity({
     required String album_type,
     required int total_tracks,
     required String href,
@@ -16,10 +16,10 @@ class Album with _$Album {
     required String release_date,
     required String release_date_precision,
     required String uri,
-    required List<SpotifyImage> images,
-    required List<Artist> artists,
-}) = _Album;
+    required List<ImageEntity> images,
+    required List<ArtistEntity> artists,
+}) = _AlbumEntity;
 
-  factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
+  factory AlbumEntity.fromJson(Map<String, dynamic> json) => _$AlbumEntityFromJson(json);
 
 }

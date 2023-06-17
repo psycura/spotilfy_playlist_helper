@@ -6,10 +6,10 @@ part 'track.freezed.dart';
 part 'track.g.dart';
 
 @freezed
-class Track with _$Track {
-  factory Track({
-    required Album album,
-    required List<Artist> artists,
+class TrackEntity with _$TrackEntity {
+  factory TrackEntity({
+    required AlbumEntity album,
+    required List<ArtistEntity> artists,
     required int duration_ms,
     required String href,
     required String id,
@@ -21,7 +21,7 @@ class Track with _$Track {
     @Default(true) bool is_playable,
     @Default(false) bool is_saved,
 
-  }) = _Track;
+  }) = _TrackEntity;
 
-  factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
+  factory TrackEntity.fromJson(Map<String, dynamic> json) => _$TrackEntityFromJson(json);
 }

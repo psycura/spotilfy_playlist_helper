@@ -12,7 +12,7 @@ class SimplifiedPlaylist with _$SimplifiedPlaylist {
   factory SimplifiedPlaylist({
     required String href,
     required String id,
-    required List<SpotifyImage> images,
+    required List<ImageEntity> images,
     required String name,
     required String uri,
     Tracks? tracks,

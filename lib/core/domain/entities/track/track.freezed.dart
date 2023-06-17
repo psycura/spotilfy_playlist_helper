@@ -14,14 +14,14 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Track _$TrackFromJson(Map<String, dynamic> json) {
-  return _Track.fromJson(json);
+TrackEntity _$TrackEntityFromJson(Map<String, dynamic> json) {
+  return _TrackEntity.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Track {
-  Album get album => throw _privateConstructorUsedError;
-  List<Artist> get artists => throw _privateConstructorUsedError;
+mixin _$TrackEntity {
+  AlbumEntity get album => throw _privateConstructorUsedError;
+  List<ArtistEntity> get artists => throw _privateConstructorUsedError;
   int get duration_ms => throw _privateConstructorUsedError;
   String get href => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
@@ -35,17 +35,19 @@ mixin _$Track {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TrackCopyWith<Track> get copyWith => throw _privateConstructorUsedError;
+  $TrackEntityCopyWith<TrackEntity> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TrackCopyWith<$Res> {
-  factory $TrackCopyWith(Track value, $Res Function(Track) then) =
-      _$TrackCopyWithImpl<$Res, Track>;
+abstract class $TrackEntityCopyWith<$Res> {
+  factory $TrackEntityCopyWith(
+          TrackEntity value, $Res Function(TrackEntity) then) =
+      _$TrackEntityCopyWithImpl<$Res, TrackEntity>;
   @useResult
   $Res call(
-      {Album album,
-      List<Artist> artists,
+      {AlbumEntity album,
+      List<ArtistEntity> artists,
       int duration_ms,
       String href,
       String id,
@@ -57,13 +59,13 @@ abstract class $TrackCopyWith<$Res> {
       bool is_playable,
       bool is_saved});
 
-  $AlbumCopyWith<$Res> get album;
+  $AlbumEntityCopyWith<$Res> get album;
 }
 
 /// @nodoc
-class _$TrackCopyWithImpl<$Res, $Val extends Track>
-    implements $TrackCopyWith<$Res> {
-  _$TrackCopyWithImpl(this._value, this._then);
+class _$TrackEntityCopyWithImpl<$Res, $Val extends TrackEntity>
+    implements $TrackEntityCopyWith<$Res> {
+  _$TrackEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -90,11 +92,11 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
       album: null == album
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
-              as Album,
+              as AlbumEntity,
       artists: null == artists
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
-              as List<Artist>,
+              as List<ArtistEntity>,
       duration_ms: null == duration_ms
           ? _value.duration_ms
           : duration_ms // ignore: cast_nullable_to_non_nullable
@@ -140,22 +142,24 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
 
   @override
   @pragma('vm:prefer-inline')
-  $AlbumCopyWith<$Res> get album {
-    return $AlbumCopyWith<$Res>(_value.album, (value) {
+  $AlbumEntityCopyWith<$Res> get album {
+    return $AlbumEntityCopyWith<$Res>(_value.album, (value) {
       return _then(_value.copyWith(album: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_TrackCopyWith<$Res> implements $TrackCopyWith<$Res> {
-  factory _$$_TrackCopyWith(_$_Track value, $Res Function(_$_Track) then) =
-      __$$_TrackCopyWithImpl<$Res>;
+abstract class _$$_TrackEntityCopyWith<$Res>
+    implements $TrackEntityCopyWith<$Res> {
+  factory _$$_TrackEntityCopyWith(
+          _$_TrackEntity value, $Res Function(_$_TrackEntity) then) =
+      __$$_TrackEntityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {Album album,
-      List<Artist> artists,
+      {AlbumEntity album,
+      List<ArtistEntity> artists,
       int duration_ms,
       String href,
       String id,
@@ -168,13 +172,15 @@ abstract class _$$_TrackCopyWith<$Res> implements $TrackCopyWith<$Res> {
       bool is_saved});
 
   @override
-  $AlbumCopyWith<$Res> get album;
+  $AlbumEntityCopyWith<$Res> get album;
 }
 
 /// @nodoc
-class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res, _$_Track>
-    implements _$$_TrackCopyWith<$Res> {
-  __$$_TrackCopyWithImpl(_$_Track _value, $Res Function(_$_Track) _then)
+class __$$_TrackEntityCopyWithImpl<$Res>
+    extends _$TrackEntityCopyWithImpl<$Res, _$_TrackEntity>
+    implements _$$_TrackEntityCopyWith<$Res> {
+  __$$_TrackEntityCopyWithImpl(
+      _$_TrackEntity _value, $Res Function(_$_TrackEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -193,15 +199,15 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res, _$_Track>
     Object? is_playable = null,
     Object? is_saved = null,
   }) {
-    return _then(_$_Track(
+    return _then(_$_TrackEntity(
       album: null == album
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
-              as Album,
+              as AlbumEntity,
       artists: null == artists
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
-              as List<Artist>,
+              as List<ArtistEntity>,
       duration_ms: null == duration_ms
           ? _value.duration_ms
           : duration_ms // ignore: cast_nullable_to_non_nullable
@@ -248,10 +254,10 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res, _$_Track>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Track implements _Track {
-  _$_Track(
+class _$_TrackEntity implements _TrackEntity {
+  _$_TrackEntity(
       {required this.album,
-      required final List<Artist> artists,
+      required final List<ArtistEntity> artists,
       required this.duration_ms,
       required this.href,
       required this.id,
@@ -264,14 +270,14 @@ class _$_Track implements _Track {
       this.is_saved = false})
       : _artists = artists;
 
-  factory _$_Track.fromJson(Map<String, dynamic> json) =>
-      _$$_TrackFromJson(json);
+  factory _$_TrackEntity.fromJson(Map<String, dynamic> json) =>
+      _$$_TrackEntityFromJson(json);
 
   @override
-  final Album album;
-  final List<Artist> _artists;
+  final AlbumEntity album;
+  final List<ArtistEntity> _artists;
   @override
-  List<Artist> get artists {
+  List<ArtistEntity> get artists {
     if (_artists is EqualUnmodifiableListView) return _artists;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_artists);
@@ -303,14 +309,14 @@ class _$_Track implements _Track {
 
   @override
   String toString() {
-    return 'Track(album: $album, artists: $artists, duration_ms: $duration_ms, href: $href, id: $id, name: $name, popularity: $popularity, track_number: $track_number, uri: $uri, preview_url: $preview_url, is_playable: $is_playable, is_saved: $is_saved)';
+    return 'TrackEntity(album: $album, artists: $artists, duration_ms: $duration_ms, href: $href, id: $id, name: $name, popularity: $popularity, track_number: $track_number, uri: $uri, preview_url: $preview_url, is_playable: $is_playable, is_saved: $is_saved)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Track &&
+            other is _$_TrackEntity &&
             (identical(other.album, album) || other.album == album) &&
             const DeepCollectionEquality().equals(other._artists, _artists) &&
             (identical(other.duration_ms, duration_ms) ||
@@ -351,21 +357,21 @@ class _$_Track implements _Track {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TrackCopyWith<_$_Track> get copyWith =>
-      __$$_TrackCopyWithImpl<_$_Track>(this, _$identity);
+  _$$_TrackEntityCopyWith<_$_TrackEntity> get copyWith =>
+      __$$_TrackEntityCopyWithImpl<_$_TrackEntity>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TrackToJson(
+    return _$$_TrackEntityToJson(
       this,
     );
   }
 }
 
-abstract class _Track implements Track {
-  factory _Track(
-      {required final Album album,
-      required final List<Artist> artists,
+abstract class _TrackEntity implements TrackEntity {
+  factory _TrackEntity(
+      {required final AlbumEntity album,
+      required final List<ArtistEntity> artists,
       required final int duration_ms,
       required final String href,
       required final String id,
@@ -375,14 +381,15 @@ abstract class _Track implements Track {
       required final String uri,
       final String preview_url,
       final bool is_playable,
-      final bool is_saved}) = _$_Track;
+      final bool is_saved}) = _$_TrackEntity;
 
-  factory _Track.fromJson(Map<String, dynamic> json) = _$_Track.fromJson;
+  factory _TrackEntity.fromJson(Map<String, dynamic> json) =
+      _$_TrackEntity.fromJson;
 
   @override
-  Album get album;
+  AlbumEntity get album;
   @override
-  List<Artist> get artists;
+  List<ArtistEntity> get artists;
   @override
   int get duration_ms;
   @override
@@ -405,6 +412,6 @@ abstract class _Track implements Track {
   bool get is_saved;
   @override
   @JsonKey(ignore: true)
-  _$$_TrackCopyWith<_$_Track> get copyWith =>
+  _$$_TrackEntityCopyWith<_$_TrackEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

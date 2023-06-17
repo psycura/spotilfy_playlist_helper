@@ -6,7 +6,7 @@ import 'package:spotify_playlist_helper/core/utils/extensions/duration_extension
 class TrackItem extends StatelessWidget {
   static const String tag = 'TrackItem';
 
-  final Track track;
+  final TrackEntity track;
   final int index;
 
   const TrackItem(this.track, this.index);
