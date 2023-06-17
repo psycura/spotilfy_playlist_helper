@@ -4,9 +4,11 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
 import 'package:spotify_playlist_helper/core/data/api/playlists_api.dart';
+import 'package:spotify_playlist_helper/core/data/storage/playlists/playlists_dao.dart';
+import 'package:spotify_playlist_helper/core/data/success/success.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist_track.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlists_response.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
+import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
 
 @LazySingleton(as: IPlaylistsRepository)
 class PlaylistsRepository implements IPlaylistsRepository {
@@ -16,20 +18,33 @@ class PlaylistsRepository implements IPlaylistsRepository {
   @protected
   final IPlaylistsApi api;
 
-  PlaylistsRepository(this.logger, this.api);
+  @protected
+  final IPlaylistsDao dao;
+
+  PlaylistsRepository(this.logger, this.api, this.dao);
 
   @override
-  Future<Either<GeneralFailure, PlaylistsResponse>> getCurrentUserPlaylists({
-    int? limit,
-    int? offset,
-  }) async {
+  Future<Either<GeneralFailure, SuccessEmpty>> getCurrentUserPlaylists() async {
     try {
-      final res = await api.getCurrentUserPlaylists(
-        limit: limit,
-        offset: offset,
-      );
+      final items = <SimplifiedPlaylist>[];
+      var allFetched = false;
+      String? nextUrls;
 
-      return Right(res);
+      while (!allFetched) {
+        final res = await api.getCurrentUserPlaylists(nextUrl: nextUrls);
+
+        items.addAll(res.items);
+
+        if (res.next == null) {
+          allFetched = true;
+        } else {
+          nextUrls = res.next;
+        }
+      }
+
+      await dao.savePlaylists(items);
+
+      return const Right(SuccessEmpty());
     } catch (e, s) {
       logger.e(e, e, s);
 
@@ -44,25 +59,20 @@ class PlaylistsRepository implements IPlaylistsRepository {
     try {
       final items = <PlaylistTrackEntity>[];
       var allFetched = false;
-      String? playlistUrl;
+      String? nextUrls;
 
       while (!allFetched) {
         final res = await api.getPlaylistWithTracks(
-          playlistUrl: playlistUrl,
+          playlistUrl: nextUrls,
           playlistId: playlistId,
         );
 
         items.addAll(res.items);
 
         if (res.next == null) {
-          logger.i('[getPlaylistTracks] all tracks are fetched');
           allFetched = true;
         } else {
-
-          playlistUrl = res.next;
-          logger.i(
-            '[getPlaylistTracks] still tracks to fetch, next url:$playlistUrl',
-          );
+          nextUrls = res.next;
         }
       }
 
@@ -73,4 +83,11 @@ class PlaylistsRepository implements IPlaylistsRepository {
       return const Left(GeneralFailure());
     }
   }
+
+  @override
+  Stream<List<SimplifiedPlaylist>> getCurrentPlaylistsStream() =>
+      dao.getPlaylistsStream();
+
+  @override
+  Future<List<SimplifiedPlaylist>> getInitialPlaylists()=>dao.getPlaylists();
 }

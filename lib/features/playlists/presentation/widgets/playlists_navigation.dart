@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/di.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/playlists_cubit.dart';
@@ -17,7 +16,7 @@ class PlaylistsNavigation extends StatelessWidget {
       create: (_) => PlaylistsCubit(
         logger: di.get(),
         repo: di.get(),
-      )..fetchCurrentUserPlaylists(),
+      )..init(),
       child: Builder(
         builder: (context) {
           final mode = context.select<SelectedPlaylistCubit, SelectedMode>(
@@ -28,7 +27,7 @@ class PlaylistsNavigation extends StatelessWidget {
             children: [
               FavoriteTracks(isSelected: mode == SelectedMode.favorites),
               const Divider(),
-              Expanded(
+              const Expanded(
                 child: Playlists(),
               ),
             ],

@@ -28,7 +28,7 @@ mixin _$AlbumEntity {
   String get release_date => throw _privateConstructorUsedError;
   String get release_date_precision => throw _privateConstructorUsedError;
   String get uri => throw _privateConstructorUsedError;
-  List<SpotifyImage> get images => throw _privateConstructorUsedError;
+  List<ImageEntity> get images => throw _privateConstructorUsedError;
   List<ArtistEntity> get artists => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ abstract class $AlbumEntityCopyWith<$Res> {
       String release_date,
       String release_date_precision,
       String uri,
-      List<SpotifyImage> images,
+      List<ImageEntity> images,
       List<ArtistEntity> artists});
 }
 
@@ -116,7 +116,7 @@ class _$AlbumEntityCopyWithImpl<$Res, $Val extends AlbumEntity>
       images: null == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<SpotifyImage>,
+              as List<ImageEntity>,
       artists: null == artists
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
@@ -142,7 +142,7 @@ abstract class _$$_AlbumEntityCopyWith<$Res>
       String release_date,
       String release_date_precision,
       String uri,
-      List<SpotifyImage> images,
+      List<ImageEntity> images,
       List<ArtistEntity> artists});
 }
 
@@ -204,7 +204,7 @@ class __$$_AlbumEntityCopyWithImpl<$Res>
       images: null == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<SpotifyImage>,
+              as List<ImageEntity>,
       artists: null == artists
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
@@ -225,7 +225,7 @@ class _$_AlbumEntity implements _AlbumEntity {
       required this.release_date,
       required this.release_date_precision,
       required this.uri,
-      required final List<SpotifyImage> images,
+      required final List<ImageEntity> images,
       required final List<ArtistEntity> artists})
       : _images = images,
         _artists = artists;
@@ -249,9 +249,9 @@ class _$_AlbumEntity implements _AlbumEntity {
   final String release_date_precision;
   @override
   final String uri;
-  final List<SpotifyImage> _images;
+  final List<ImageEntity> _images;
   @override
-  List<SpotifyImage> get images {
+  List<ImageEntity> get images {
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_images);
@@ -330,7 +330,7 @@ abstract class _AlbumEntity implements AlbumEntity {
       required final String release_date,
       required final String release_date_precision,
       required final String uri,
-      required final List<SpotifyImage> images,
+      required final List<ImageEntity> images,
       required final List<ArtistEntity> artists}) = _$_AlbumEntity;
 
   factory _AlbumEntity.fromJson(Map<String, dynamic> json) =
@@ -353,7 +353,7 @@ abstract class _AlbumEntity implements AlbumEntity {
   @override
   String get uri;
   @override
-  List<SpotifyImage> get images;
+  List<ImageEntity> get images;
   @override
   List<ArtistEntity> get artists;
   @override

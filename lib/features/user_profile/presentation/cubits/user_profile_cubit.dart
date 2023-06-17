@@ -46,7 +46,6 @@ class UserProfileCubit extends Cubit<UserProfileState> with HydratedMixin {
   // }
 
   Future<void> getCurrentUserProfile() async {
-    print('[alitz] getCurrentUserProfile_1:$state');
     emit(state.copyWith(fetchingState: FetchingState.fetching));
 
     final res = await _repo.getCurrentUserProfile();

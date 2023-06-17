@@ -10,6 +10,7 @@ abstract interface class IPlaylistsApi {
   Future<PlaylistsResponse> getCurrentUserPlaylists({
     int? limit,
     int? offset,
+    String? nextUrl,
   });
 
   Future<PlaylistWithTracks> getPlaylistWithTracks({
@@ -34,10 +35,12 @@ class PlaylistsApi implements IPlaylistsApi {
   Future<PlaylistsResponse> getCurrentUserPlaylists({
     int? limit,
     int? offset,
+    String? nextUrl,
   }) async {
     try {
       final res = await client.getRequest(
-        '${Apis.baseSpotify}/${Apis.currentUser}/${Apis.playlists}?offset=${offset ?? 0}&limit=${limit ?? 20}',
+        nextUrl ??
+            '${Apis.baseSpotify}/${Apis.currentUser}/${Apis.playlists}?offset=${offset ?? 0}&limit=${limit ?? 20}',
       );
 
       return PlaylistsResponse.fromJson(res.data);

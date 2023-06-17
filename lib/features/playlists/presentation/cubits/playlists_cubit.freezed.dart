@@ -14,17 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-PlaylistsState _$PlaylistsStateFromJson(Map<String, dynamic> json) {
-  return _PlaylistsState.fromJson(json);
-}
-
 /// @nodoc
 mixin _$PlaylistsState {
   FetchingState get fetchingState => throw _privateConstructorUsedError;
-  PlaylistsResponse? get playlistsResponse =>
-      throw _privateConstructorUsedError;
+  List<SimplifiedPlaylist> get playlists => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PlaylistsStateCopyWith<PlaylistsState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -36,10 +30,7 @@ abstract class $PlaylistsStateCopyWith<$Res> {
           PlaylistsState value, $Res Function(PlaylistsState) then) =
       _$PlaylistsStateCopyWithImpl<$Res, PlaylistsState>;
   @useResult
-  $Res call(
-      {FetchingState fetchingState, PlaylistsResponse? playlistsResponse});
-
-  $PlaylistsResponseCopyWith<$Res>? get playlistsResponse;
+  $Res call({FetchingState fetchingState, List<SimplifiedPlaylist> playlists});
 }
 
 /// @nodoc
@@ -56,30 +47,18 @@ class _$PlaylistsStateCopyWithImpl<$Res, $Val extends PlaylistsState>
   @override
   $Res call({
     Object? fetchingState = null,
-    Object? playlistsResponse = freezed,
+    Object? playlists = null,
   }) {
     return _then(_value.copyWith(
       fetchingState: null == fetchingState
           ? _value.fetchingState
           : fetchingState // ignore: cast_nullable_to_non_nullable
               as FetchingState,
-      playlistsResponse: freezed == playlistsResponse
-          ? _value.playlistsResponse
-          : playlistsResponse // ignore: cast_nullable_to_non_nullable
-              as PlaylistsResponse?,
+      playlists: null == playlists
+          ? _value.playlists
+          : playlists // ignore: cast_nullable_to_non_nullable
+              as List<SimplifiedPlaylist>,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $PlaylistsResponseCopyWith<$Res>? get playlistsResponse {
-    if (_value.playlistsResponse == null) {
-      return null;
-    }
-
-    return $PlaylistsResponseCopyWith<$Res>(_value.playlistsResponse!, (value) {
-      return _then(_value.copyWith(playlistsResponse: value) as $Val);
-    });
   }
 }
 
@@ -91,11 +70,7 @@ abstract class _$$_PlaylistsStateCopyWith<$Res>
       __$$_PlaylistsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {FetchingState fetchingState, PlaylistsResponse? playlistsResponse});
-
-  @override
-  $PlaylistsResponseCopyWith<$Res>? get playlistsResponse;
+  $Res call({FetchingState fetchingState, List<SimplifiedPlaylist> playlists});
 }
 
 /// @nodoc
@@ -110,40 +85,45 @@ class __$$_PlaylistsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? fetchingState = null,
-    Object? playlistsResponse = freezed,
+    Object? playlists = null,
   }) {
     return _then(_$_PlaylistsState(
       fetchingState: null == fetchingState
           ? _value.fetchingState
           : fetchingState // ignore: cast_nullable_to_non_nullable
               as FetchingState,
-      playlistsResponse: freezed == playlistsResponse
-          ? _value.playlistsResponse
-          : playlistsResponse // ignore: cast_nullable_to_non_nullable
-              as PlaylistsResponse?,
+      playlists: null == playlists
+          ? _value._playlists
+          : playlists // ignore: cast_nullable_to_non_nullable
+              as List<SimplifiedPlaylist>,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$_PlaylistsState extends _PlaylistsState {
   const _$_PlaylistsState(
-      {this.fetchingState = FetchingState.idle, this.playlistsResponse})
-      : super._();
-
-  factory _$_PlaylistsState.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaylistsStateFromJson(json);
+      {this.fetchingState = FetchingState.idle,
+      final List<SimplifiedPlaylist> playlists = const <SimplifiedPlaylist>[]})
+      : _playlists = playlists,
+        super._();
 
   @override
   @JsonKey()
   final FetchingState fetchingState;
+  final List<SimplifiedPlaylist> _playlists;
   @override
-  final PlaylistsResponse? playlistsResponse;
+  @JsonKey()
+  List<SimplifiedPlaylist> get playlists {
+    if (_playlists is EqualUnmodifiableListView) return _playlists;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_playlists);
+  }
 
   @override
   String toString() {
-    return 'PlaylistsState(fetchingState: $fetchingState, playlistsResponse: $playlistsResponse)';
+    return 'PlaylistsState(fetchingState: $fetchingState, playlists: $playlists)';
   }
 
   @override
@@ -153,42 +133,31 @@ class _$_PlaylistsState extends _PlaylistsState {
             other is _$_PlaylistsState &&
             (identical(other.fetchingState, fetchingState) ||
                 other.fetchingState == fetchingState) &&
-            (identical(other.playlistsResponse, playlistsResponse) ||
-                other.playlistsResponse == playlistsResponse));
+            const DeepCollectionEquality()
+                .equals(other._playlists, _playlists));
   }
 
-  @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, fetchingState, playlistsResponse);
+  int get hashCode => Object.hash(runtimeType, fetchingState,
+      const DeepCollectionEquality().hash(_playlists));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$_PlaylistsStateCopyWith<_$_PlaylistsState> get copyWith =>
       __$$_PlaylistsStateCopyWithImpl<_$_PlaylistsState>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_PlaylistsStateToJson(
-      this,
-    );
-  }
 }
 
 abstract class _PlaylistsState extends PlaylistsState {
   const factory _PlaylistsState(
       {final FetchingState fetchingState,
-      final PlaylistsResponse? playlistsResponse}) = _$_PlaylistsState;
+      final List<SimplifiedPlaylist> playlists}) = _$_PlaylistsState;
   const _PlaylistsState._() : super._();
-
-  factory _PlaylistsState.fromJson(Map<String, dynamic> json) =
-      _$_PlaylistsState.fromJson;
 
   @override
   FetchingState get fetchingState;
   @override
-  PlaylistsResponse? get playlistsResponse;
+  List<SimplifiedPlaylist> get playlists;
   @override
   @JsonKey(ignore: true)
   _$$_PlaylistsStateCopyWith<_$_PlaylistsState> get copyWith =>

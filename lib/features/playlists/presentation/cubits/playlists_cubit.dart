@@ -1,14 +1,13 @@
+import 'dart:async';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlists_response.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
 
 part 'playlists_cubit.freezed.dart';
-
-part 'playlists_cubit.g.dart';
 
 @freezed
 class PlaylistsState with _$PlaylistsState {
@@ -16,22 +15,18 @@ class PlaylistsState with _$PlaylistsState {
 
   const factory PlaylistsState({
     @Default(FetchingState.idle) FetchingState fetchingState,
-    PlaylistsResponse? playlistsResponse,
+    @Default(<SimplifiedPlaylist>[]) List<SimplifiedPlaylist> playlists,
   }) = _PlaylistsState;
-
-  List<SimplifiedPlaylist> get playlists =>
-      playlistsResponse?.items ?? List<SimplifiedPlaylist>.empty();
-
-  factory PlaylistsState.fromJson(Map<String, dynamic> json) =>
-      _$PlaylistsStateFromJson(json);
 }
 
-class PlaylistsCubit extends HydratedCubit<PlaylistsState> {
+class PlaylistsCubit extends Cubit<PlaylistsState> {
   static const String tag = 'PlaylistsCubit';
 
   final Logger _logger;
 
   final IPlaylistsRepository _repo;
+
+  StreamSubscription<List<SimplifiedPlaylist>>? _playlistsSub;
 
   PlaylistsCubit({
     required Logger logger,
@@ -39,8 +34,6 @@ class PlaylistsCubit extends HydratedCubit<PlaylistsState> {
   })  : _logger = logger,
         _repo = repo,
         super(const PlaylistsState());
-
-
 
   // @override
   // void onChange(change) {
@@ -52,21 +45,29 @@ class PlaylistsCubit extends HydratedCubit<PlaylistsState> {
   //   super.onChange(change);
   // }
 
-  Future<void> fetchCurrentUserPlaylists() async {
-    print('[alitz] fetchCurrentUserPlaylists:$state');
+  Future<void> init() async {
+    final initialData = await _repo.getInitialPlaylists();
 
+    _handlePlaylistsUpdates(initialData);
+
+    _playlistsSub =
+        _repo.getCurrentPlaylistsStream().listen(_handlePlaylistsUpdates);
+
+    fetchCurrentUserPlaylists();
+  }
+
+  void _handlePlaylistsUpdates(List<SimplifiedPlaylist> items) {
+    emit(state.copyWith(playlists: items));
+  }
+
+  Future<void> fetchCurrentUserPlaylists() async {
     emit(state.copyWith(fetchingState: FetchingState.fetching));
 
     final res = await _repo.getCurrentUserPlaylists();
 
     res.fold(
       (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
-      (response) => emit(
-        state.copyWith(
-          fetchingState: FetchingState.done,
-          playlistsResponse: response,
-        ),
-      ),
+      (success) => emit(state.copyWith(fetchingState: FetchingState.done)),
     );
 
     emit(state.copyWith(fetchingState: FetchingState.idle));
@@ -75,9 +76,8 @@ class PlaylistsCubit extends HydratedCubit<PlaylistsState> {
   void reset() => emit(const PlaylistsState());
 
   @override
-  PlaylistsState? fromJson(Map<String, dynamic> json) =>
-      PlaylistsState.fromJson(json);
-
-  @override
-  Map<String, dynamic>? toJson(PlaylistsState state) => state.toJson();
+  Future<void> close() async {
+    await _playlistsSub?.cancel();
+    super.close();
+  }
 }
