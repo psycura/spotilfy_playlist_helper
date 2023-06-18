@@ -11,7 +11,6 @@ abstract interface class IPlaylistsRepository {
     String playlistId,
   );
 
-  Stream<List<SimplifiedPlaylist>> getCurrentPlaylistsStream();
+  Stream<Iterable<SimplifiedPlaylist>> getCurrentPlaylistsStream();
 
-  Future<List<SimplifiedPlaylist>> getInitialPlaylists();
 }

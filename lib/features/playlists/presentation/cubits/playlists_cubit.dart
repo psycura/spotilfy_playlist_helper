@@ -26,7 +26,7 @@ class PlaylistsCubit extends Cubit<PlaylistsState> {
 
   final IPlaylistsRepository _repo;
 
-  StreamSubscription<List<SimplifiedPlaylist>>? _playlistsSub;
+  StreamSubscription<Iterable<SimplifiedPlaylist>>? _playlistsSub;
 
   PlaylistsCubit({
     required Logger logger,
@@ -46,18 +46,14 @@ class PlaylistsCubit extends Cubit<PlaylistsState> {
   // }
 
   Future<void> init() async {
-    final initialData = await _repo.getInitialPlaylists();
-
-    _handlePlaylistsUpdates(initialData);
-
     _playlistsSub =
         _repo.getCurrentPlaylistsStream().listen(_handlePlaylistsUpdates);
 
     fetchCurrentUserPlaylists();
   }
 
-  void _handlePlaylistsUpdates(List<SimplifiedPlaylist> items) {
-    emit(state.copyWith(playlists: items));
+  void _handlePlaylistsUpdates(Iterable<SimplifiedPlaylist> items) {
+    emit(state.copyWith(playlists: items.toList()));
   }
 
   Future<void> fetchCurrentUserPlaylists() async {

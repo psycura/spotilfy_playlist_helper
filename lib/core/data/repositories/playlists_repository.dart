@@ -85,9 +85,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
   }
 
   @override
-  Stream<List<SimplifiedPlaylist>> getCurrentPlaylistsStream() =>
+  Stream<Iterable<SimplifiedPlaylist>> getCurrentPlaylistsStream() =>
       dao.getPlaylistsStream();
 
-  @override
-  Future<List<SimplifiedPlaylist>> getInitialPlaylists()=>dao.getPlaylists();
 }

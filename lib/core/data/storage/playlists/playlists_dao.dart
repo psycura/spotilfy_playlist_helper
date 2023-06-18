@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
 import 'package:logger/logger.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:spotify_playlist_helper/core/data/adapters/playlist_dto_adapter.dart';
 import 'package:spotify_playlist_helper/core/data/storage/playlists/playlists_collection.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
@@ -22,7 +21,7 @@ abstract interface class IPlaylistsDao {
 
   Future<void> dispose();
 
-  Stream<List<SimplifiedPlaylist>> getPlaylistsStream();
+  Stream<Iterable<SimplifiedPlaylist>> getPlaylistsStream();
 
   Future<List<SimplifiedPlaylist>> getPlaylists();
 }
@@ -39,18 +38,6 @@ class PlaylistsDao implements IPlaylistsDao {
 
   PlaylistsDao(this.logger, this.db);
 
-  @postConstruct
-  void initSubscriptions() {
-    _playlistsSub = db.playlists
-        .watchLazy()
-        .asyncMap((event) => _handlePlaylistsChanges())
-        .listen((_) {});
-  }
-
-  late StreamSubscription<void> _playlistsSub;
-
-  final BehaviorSubject<List<SimplifiedPlaylist>> _playlistsSubject =
-      BehaviorSubject<List<SimplifiedPlaylist>>();
 
   @override
   Future<void> saveTracks(List<TrackEntity> tracks) {
@@ -80,19 +67,14 @@ class PlaylistsDao implements IPlaylistsDao {
   }
 
   @override
-  Stream<List<SimplifiedPlaylist>> getPlaylistsStream() =>
-      _playlistsSubject.stream;
+  Stream<Iterable<SimplifiedPlaylist>> getPlaylistsStream() {
+    Query<Playlists> playlists = db.playlists.filter().idIsNotNull().build();
 
-  Future<void> _handlePlaylistsChanges() async {
-    final items = await getPlaylists();
-    _playlistsSubject.add(items);
+    return playlists
+        .watch(fireImmediately: true)
+        .map((items) => items.map((e) => playlistAdapter.fromDto(e)));
   }
 
-  @disposeMethod
-  @override
-  Future<void> dispose() async {
-    await _playlistsSub.cancel();
-  }
 
   @override
   Future<List<SimplifiedPlaylist>> getPlaylists() async {
@@ -101,5 +83,10 @@ class PlaylistsDao implements IPlaylistsDao {
         .toList();
 
     return playlists;
+  }
+
+  @disposeMethod
+  @override
+  Future<void> dispose() async {
   }
 }
