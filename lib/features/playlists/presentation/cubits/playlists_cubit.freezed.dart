@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PlaylistsState {
   FetchingState get fetchingState => throw _privateConstructorUsedError;
-  List<SimplifiedPlaylist> get playlists => throw _privateConstructorUsedError;
+  Map<String, PlaylistWithState> get playlists =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PlaylistsStateCopyWith<PlaylistsState> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $PlaylistsStateCopyWith<$Res> {
           PlaylistsState value, $Res Function(PlaylistsState) then) =
       _$PlaylistsStateCopyWithImpl<$Res, PlaylistsState>;
   @useResult
-  $Res call({FetchingState fetchingState, List<SimplifiedPlaylist> playlists});
+  $Res call(
+      {FetchingState fetchingState, Map<String, PlaylistWithState> playlists});
 }
 
 /// @nodoc
@@ -57,7 +59,7 @@ class _$PlaylistsStateCopyWithImpl<$Res, $Val extends PlaylistsState>
       playlists: null == playlists
           ? _value.playlists
           : playlists // ignore: cast_nullable_to_non_nullable
-              as List<SimplifiedPlaylist>,
+              as Map<String, PlaylistWithState>,
     ) as $Val);
   }
 }
@@ -70,7 +72,8 @@ abstract class _$$_PlaylistsStateCopyWith<$Res>
       __$$_PlaylistsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FetchingState fetchingState, List<SimplifiedPlaylist> playlists});
+  $Res call(
+      {FetchingState fetchingState, Map<String, PlaylistWithState> playlists});
 }
 
 /// @nodoc
@@ -95,7 +98,7 @@ class __$$_PlaylistsStateCopyWithImpl<$Res>
       playlists: null == playlists
           ? _value._playlists
           : playlists // ignore: cast_nullable_to_non_nullable
-              as List<SimplifiedPlaylist>,
+              as Map<String, PlaylistWithState>,
     ));
   }
 }
@@ -105,20 +108,21 @@ class __$$_PlaylistsStateCopyWithImpl<$Res>
 class _$_PlaylistsState extends _PlaylistsState {
   const _$_PlaylistsState(
       {this.fetchingState = FetchingState.idle,
-      final List<SimplifiedPlaylist> playlists = const <SimplifiedPlaylist>[]})
+      final Map<String, PlaylistWithState> playlists =
+          const <String, PlaylistWithState>{}})
       : _playlists = playlists,
         super._();
 
   @override
   @JsonKey()
   final FetchingState fetchingState;
-  final List<SimplifiedPlaylist> _playlists;
+  final Map<String, PlaylistWithState> _playlists;
   @override
   @JsonKey()
-  List<SimplifiedPlaylist> get playlists {
-    if (_playlists is EqualUnmodifiableListView) return _playlists;
+  Map<String, PlaylistWithState> get playlists {
+    if (_playlists is EqualUnmodifiableMapView) return _playlists;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_playlists);
+    return EqualUnmodifiableMapView(_playlists);
   }
 
   @override
@@ -151,13 +155,13 @@ class _$_PlaylistsState extends _PlaylistsState {
 abstract class _PlaylistsState extends PlaylistsState {
   const factory _PlaylistsState(
       {final FetchingState fetchingState,
-      final List<SimplifiedPlaylist> playlists}) = _$_PlaylistsState;
+      final Map<String, PlaylistWithState> playlists}) = _$_PlaylistsState;
   const _PlaylistsState._() : super._();
 
   @override
   FetchingState get fetchingState;
   @override
-  List<SimplifiedPlaylist> get playlists;
+  Map<String, PlaylistWithState> get playlists;
   @override
   @JsonKey(ignore: true)
   _$$_PlaylistsStateCopyWith<_$_PlaylistsState> get copyWith =>

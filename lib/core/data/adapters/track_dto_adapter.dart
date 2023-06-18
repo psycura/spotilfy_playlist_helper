@@ -20,13 +20,13 @@ typedef TrackDtoRecord = (
   AlbumDtoRecord albumRecord,
 );
 
-class SavedTrackDtoAdapter {
+class TrackWithMetaDtoAdapter {
   final trackAdapter = TrackDtoAdapter();
 
-  TrackWithMeta fromDto(SavedTracks item) {
+  TrackWithMeta fromDto(Tracks track, String addedAt) {
     return TrackWithMeta(
-      added_at: item.addedAt,
-      track: trackAdapter.fromDto(item.track.value!),
+      added_at: addedAt,
+      track: trackAdapter.fromDto(track),
     );
   }
 

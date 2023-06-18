@@ -13,7 +13,7 @@ class SelectedPlaylistState with _$SelectedPlaylistState {
 
   const factory SelectedPlaylistState({
     @Default(SelectedMode.favorites) SelectedMode mode,
-    SimplifiedPlaylist? playlist,
+    String? playlistId,
   }) = _SelectedPlaylistState;
 }
 
@@ -37,9 +37,9 @@ class SelectedPlaylistCubit extends Cubit<SelectedPlaylistState> {
     super.onChange(change);
   }
 
-  void selectPlaylist(SimplifiedPlaylist playlist) {
+  void selectPlaylist(String id) {
     emit(
-      SelectedPlaylistState(playlist: playlist, mode: SelectedMode.playlist),
+      SelectedPlaylistState(playlistId: id, mode: SelectedMode.playlist),
     );
   }
 

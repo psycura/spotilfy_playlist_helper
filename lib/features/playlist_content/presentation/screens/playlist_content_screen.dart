@@ -6,7 +6,6 @@ import 'package:spotify_playlist_helper/di.dart';
 import 'package:spotify_playlist_helper/features/playlist_content/presentation/cubits/playlist_cubit.dart';
 import 'package:spotify_playlist_helper/features/playlist_content/presentation/widgets/playlist_tracks.dart';
 
-
 @RoutePage()
 class PlaylistContentScreen extends StatelessWidget {
   static const String tag = 'PlaylistContentScreen';
@@ -39,10 +38,12 @@ class PlaylistContentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PlaylistCubit>(
-      create: (_) => PlaylistCubit(logger: di.get(), repo: di.get()),
-        // ..getPlaylistTracks(playlistId),
+      create: (_) => PlaylistCubit(
+        logger: di.get(),
+        repo: di.get(),
+      )..init(playlistId),
       child: Center(
-        child: PlaylistTracks(),
+        child: PlaylistTracks(playlistId: playlistId),
       ),
     );
   }

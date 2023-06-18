@@ -20,7 +20,7 @@ const PlaylistTracksSchema = CollectionSchema(
     r'addedAt': PropertySchema(
       id: 0,
       name: r'addedAt',
-      type: IsarType.dateTime,
+      type: IsarType.string,
     ),
     r'updatedAt': PropertySchema(
       id: 1,
@@ -61,6 +61,7 @@ int _playlistTracksEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.addedAt.length * 3;
   return bytesCount;
 }
 
@@ -70,7 +71,7 @@ void _playlistTracksSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.addedAt);
+  writer.writeString(offsets[0], object.addedAt);
   writer.writeDateTime(offsets[1], object.updatedAt);
 }
 
@@ -81,7 +82,7 @@ PlaylistTracks _playlistTracksDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = PlaylistTracks();
-  object.addedAt = reader.readDateTime(offsets[0]);
+  object.addedAt = reader.readString(offsets[0]);
   object.id = id;
   object.updatedAt = reader.readDateTimeOrNull(offsets[1]);
   return object;
@@ -95,7 +96,7 @@ P _playlistTracksDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 1:
       return (reader.readDateTimeOrNull(offset)) as P;
     default:
@@ -203,49 +204,58 @@ extension PlaylistTracksQueryWhere
 extension PlaylistTracksQueryFilter
     on QueryBuilder<PlaylistTracks, PlaylistTracks, QFilterCondition> {
   QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
-      addedAtEqualTo(DateTime value) {
+      addedAtEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'addedAt',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
       addedAtGreaterThan(
-    DateTime value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'addedAt',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
       addedAtLessThan(
-    DateTime value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'addedAt',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
       addedAtBetween(
-    DateTime lower,
-    DateTime upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -254,6 +264,77 @@ extension PlaylistTracksQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+      addedAtStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'addedAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+      addedAtEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'addedAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+      addedAtContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'addedAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+      addedAtMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'addedAt',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+      addedAtIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'addedAt',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+      addedAtIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'addedAt',
+        value: '',
       ));
     });
   }
@@ -494,9 +575,10 @@ extension PlaylistTracksQuerySortThenBy
 
 extension PlaylistTracksQueryWhereDistinct
     on QueryBuilder<PlaylistTracks, PlaylistTracks, QDistinct> {
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QDistinct> distinctByAddedAt() {
+  QueryBuilder<PlaylistTracks, PlaylistTracks, QDistinct> distinctByAddedAt(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'addedAt');
+      return query.addDistinctBy(r'addedAt', caseSensitive: caseSensitive);
     });
   }
 
@@ -516,7 +598,7 @@ extension PlaylistTracksQueryProperty
     });
   }
 
-  QueryBuilder<PlaylistTracks, DateTime, QQueryOperations> addedAtProperty() {
+  QueryBuilder<PlaylistTracks, String, QQueryOperations> addedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'addedAt');
     });

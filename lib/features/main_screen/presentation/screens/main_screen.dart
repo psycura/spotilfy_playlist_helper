@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/core/presentation/widgets/main_screen_template.dart';
 import 'package:spotify_playlist_helper/di.dart';
 import 'package:spotify_playlist_helper/features/main_navigation/presentation/widgets/main_navigation.dart';
+import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/playlists_cubit.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/widgets/playlists_navigation.dart';
 import 'package:spotify_playlist_helper/features/tracks/presentation/cubits/saved_tracks_cubit.dart';
 
@@ -30,6 +31,13 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<PlaylistsCubit>(
+          create: (_) => PlaylistsCubit(
+            logger: di.get(),
+            playlistsRepo: di.get(),
+            tracksRepo: di.get(),
+          )..init(),
+        ),
         BlocProvider<SavedTracksCubit>(
           create: (_) =>
               SavedTracksCubit(logger: di.get(), repo: di.get())..init(),

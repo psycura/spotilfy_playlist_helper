@@ -52,40 +52,9 @@ class PlaylistsRepository implements IPlaylistsRepository {
     }
   }
 
-  @override
-  Future<Either<GeneralFailure, List<TrackWithMeta>>> getPlaylistTracks(
-    String playlistId,
-  ) async {
-    try {
-      final items = <TrackWithMeta>[];
-      var allFetched = false;
-      String? nextUrls;
 
-      while (!allFetched) {
-        final res = await api.getPlaylistWithTracks(
-          playlistUrl: nextUrls,
-          playlistId: playlistId,
-        );
-
-        items.addAll(res.items);
-
-        if (res.next == null) {
-          allFetched = true;
-        } else {
-          nextUrls = res.next;
-        }
-      }
-
-      return Right(items);
-    } catch (e, s) {
-      logger.e(e, e, s);
-
-      return const Left(GeneralFailure());
-    }
-  }
 
   @override
   Stream<Iterable<SimplifiedPlaylist>> getCurrentPlaylistsStream() =>
       dao.getPlaylistsStream();
-
 }

@@ -9,7 +9,7 @@ class PlaylistTracks {
   Id id = Isar.autoIncrement; // you can also use id = null to auto increment
   DateTime? updatedAt;
 
-  late DateTime addedAt;
+  late String addedAt;
 
   final track = IsarLink<Tracks>();
   final playlist = IsarLink<Playlists>();

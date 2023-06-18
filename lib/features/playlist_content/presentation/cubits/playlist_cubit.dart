@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/repositories/tracks_repository.dart';
 
 part 'playlist_cubit.freezed.dart';
 
@@ -21,37 +23,42 @@ class PlaylistCubit extends Cubit<PlaylistState> {
   static const String tag = 'PlaylistCubit';
 
   final Logger _logger;
-  final IPlaylistsRepository _repo;
+
+  final ITracksRepository _repo;
+
+  StreamSubscription<Iterable<TrackWithMeta>>? _tracksSub;
 
   PlaylistCubit({
     required Logger logger,
-    required IPlaylistsRepository repo,
+    required ITracksRepository repo,
   })  : _logger = logger,
         _repo = repo,
         super(const PlaylistState());
 
-  @override
-  void onChange(change) {
-    _logger.d(
-      '$tag onChange'
-      '\n [CURRENT STATE]: ${change.currentState}'
-      '\n [NEXT STATE]: ${change.nextState}',
-    );
-    super.onChange(change);
+  void init(String playlistId) {
+    _tracksSub =
+        _repo.getPlaylistTracksStream(playlistId).listen(_handleTracksUpdates);
   }
 
-  Future<void> getPlaylistTracks(String playlistId) async {
-    emit(const PlaylistState(fetchingState: FetchingState.fetching));
-
-    final res = await _repo.getPlaylistTracks(playlistId);
-
-    res.fold(
-      (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
-      (tracks) => emit(
-        state.copyWith(fetchingState: FetchingState.done, tracks: tracks),
-      ),
-    );
+  void _handleTracksUpdates(Iterable<TrackWithMeta> items) {
+    emit(state.copyWith(tracks: items.toList()));
   }
+
+  // @override
+  // void onChange(change) {
+  //   _logger.d(
+  //     '$tag onChange'
+  //     '\n [CURRENT STATE]: ${change.currentState}'
+  //     '\n [NEXT STATE]: ${change.nextState}',
+  //   );
+  //   super.onChange(change);
+  // }
 
   void reset() => emit(const PlaylistState());
+
+  @override
+  Future<void> close() async {
+    await _tracksSub?.cancel();
+    super.close();
+  }
 }

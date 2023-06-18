@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
 import 'package:spotify_playlist_helper/core/data/success/success.dart';
+import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
 import 'package:spotify_playlist_helper/features/tracks/data/api/tracks_api.dart';
 import 'package:spotify_playlist_helper/features/tracks/data/storage/tracks_dao.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
@@ -43,6 +44,41 @@ class TracksRepository implements ITracksRepository {
 
       await dao.saveSavedTracks(items);
 
+      return const Right(SuccessEmpty());
+    } catch (e, s) {
+      logger.e(e, e, s);
+
+      return const Left(GeneralFailure());
+    }
+  }
+
+  @override
+  Future<Either<GeneralFailure, SuccessEmpty>> fetchPlaylistTracks(
+    SimplifiedPlaylist playlist,
+  ) async {
+    try {
+      final items = <TrackWithMeta>[];
+      var allFetched = false;
+      String? nextUrls;
+
+      while (!allFetched) {
+        final res = await api.getPlaylistWithTracks(
+          playlistUrl: nextUrls,
+          playlistId: playlist.id,
+        );
+
+
+        items.addAll(res.items);
+
+        if (res.next == null) {
+          allFetched = true;
+        } else {
+          nextUrls = res.next;
+        }
+      }
+
+      await dao.savePlaylistTracks(playlist, items);
+
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
@@ -53,7 +89,10 @@ class TracksRepository implements ITracksRepository {
   }
 
   @override
-  Stream<Iterable<TrackWithMeta>> getSavedTracksStream() {
-    return dao.getSavedTracksStream();
-  }
+  Stream<Iterable<TrackWithMeta>> getSavedTracksStream() =>
+      dao.getSavedTracksStream();
+
+  @override
+  Stream<Iterable<TrackWithMeta>> getPlaylistTracksStream(String playlistId) =>
+      dao.getPlaylistTracksStream(playlistId);
 }

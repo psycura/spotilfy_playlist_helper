@@ -22,8 +22,6 @@ class UserProfileRepository implements IUserProfileRepository {
     try {
       final res = await api.getCurrentUser();
 
-      print('[alitz]getCurrentUserProfile:$res');
-
       return Right(res);
     } catch (e, s) {
       logger.e(e, e, s);

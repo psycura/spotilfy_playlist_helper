@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SelectedPlaylistState {
   SelectedMode get mode => throw _privateConstructorUsedError;
-  SimplifiedPlaylist? get playlist => throw _privateConstructorUsedError;
+  String? get playlistId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SelectedPlaylistStateCopyWith<SelectedPlaylistState> get copyWith =>
@@ -30,9 +30,7 @@ abstract class $SelectedPlaylistStateCopyWith<$Res> {
           $Res Function(SelectedPlaylistState) then) =
       _$SelectedPlaylistStateCopyWithImpl<$Res, SelectedPlaylistState>;
   @useResult
-  $Res call({SelectedMode mode, SimplifiedPlaylist? playlist});
-
-  $SimplifiedPlaylistCopyWith<$Res>? get playlist;
+  $Res call({SelectedMode mode, String? playlistId});
 }
 
 /// @nodoc
@@ -50,30 +48,18 @@ class _$SelectedPlaylistStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? mode = null,
-    Object? playlist = freezed,
+    Object? playlistId = freezed,
   }) {
     return _then(_value.copyWith(
       mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as SelectedMode,
-      playlist: freezed == playlist
-          ? _value.playlist
-          : playlist // ignore: cast_nullable_to_non_nullable
-              as SimplifiedPlaylist?,
+      playlistId: freezed == playlistId
+          ? _value.playlistId
+          : playlistId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $SimplifiedPlaylistCopyWith<$Res>? get playlist {
-    if (_value.playlist == null) {
-      return null;
-    }
-
-    return $SimplifiedPlaylistCopyWith<$Res>(_value.playlist!, (value) {
-      return _then(_value.copyWith(playlist: value) as $Val);
-    });
   }
 }
 
@@ -85,10 +71,7 @@ abstract class _$$_SelectedPlaylistStateCopyWith<$Res>
       __$$_SelectedPlaylistStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SelectedMode mode, SimplifiedPlaylist? playlist});
-
-  @override
-  $SimplifiedPlaylistCopyWith<$Res>? get playlist;
+  $Res call({SelectedMode mode, String? playlistId});
 }
 
 /// @nodoc
@@ -103,17 +86,17 @@ class __$$_SelectedPlaylistStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? mode = null,
-    Object? playlist = freezed,
+    Object? playlistId = freezed,
   }) {
     return _then(_$_SelectedPlaylistState(
       mode: null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as SelectedMode,
-      playlist: freezed == playlist
-          ? _value.playlist
-          : playlist // ignore: cast_nullable_to_non_nullable
-              as SimplifiedPlaylist?,
+      playlistId: freezed == playlistId
+          ? _value.playlistId
+          : playlistId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -122,18 +105,18 @@ class __$$_SelectedPlaylistStateCopyWithImpl<$Res>
 
 class _$_SelectedPlaylistState extends _SelectedPlaylistState {
   const _$_SelectedPlaylistState(
-      {this.mode = SelectedMode.favorites, this.playlist})
+      {this.mode = SelectedMode.favorites, this.playlistId})
       : super._();
 
   @override
   @JsonKey()
   final SelectedMode mode;
   @override
-  final SimplifiedPlaylist? playlist;
+  final String? playlistId;
 
   @override
   String toString() {
-    return 'SelectedPlaylistState(mode: $mode, playlist: $playlist)';
+    return 'SelectedPlaylistState(mode: $mode, playlistId: $playlistId)';
   }
 
   @override
@@ -142,12 +125,12 @@ class _$_SelectedPlaylistState extends _SelectedPlaylistState {
         (other.runtimeType == runtimeType &&
             other is _$_SelectedPlaylistState &&
             (identical(other.mode, mode) || other.mode == mode) &&
-            (identical(other.playlist, playlist) ||
-                other.playlist == playlist));
+            (identical(other.playlistId, playlistId) ||
+                other.playlistId == playlistId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, mode, playlist);
+  int get hashCode => Object.hash(runtimeType, mode, playlistId);
 
   @JsonKey(ignore: true)
   @override
@@ -160,13 +143,13 @@ class _$_SelectedPlaylistState extends _SelectedPlaylistState {
 abstract class _SelectedPlaylistState extends SelectedPlaylistState {
   const factory _SelectedPlaylistState(
       {final SelectedMode mode,
-      final SimplifiedPlaylist? playlist}) = _$_SelectedPlaylistState;
+      final String? playlistId}) = _$_SelectedPlaylistState;
   const _SelectedPlaylistState._() : super._();
 
   @override
   SelectedMode get mode;
   @override
-  SimplifiedPlaylist? get playlist;
+  String? get playlistId;
   @override
   @JsonKey(ignore: true)
   _$$_SelectedPlaylistStateCopyWith<_$_SelectedPlaylistState> get copyWith =>
