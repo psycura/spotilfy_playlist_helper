@@ -14,32 +14,34 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Tracks _$TracksFromJson(Map<String, dynamic> json) {
-  return _Tracks.fromJson(json);
+TracksEntity _$TracksEntityFromJson(Map<String, dynamic> json) {
+  return _TracksEntity.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Tracks {
+mixin _$TracksEntity {
   String get href => throw _privateConstructorUsedError;
   int get total => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TracksCopyWith<Tracks> get copyWith => throw _privateConstructorUsedError;
+  $TracksEntityCopyWith<TracksEntity> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TracksCopyWith<$Res> {
-  factory $TracksCopyWith(Tracks value, $Res Function(Tracks) then) =
-      _$TracksCopyWithImpl<$Res, Tracks>;
+abstract class $TracksEntityCopyWith<$Res> {
+  factory $TracksEntityCopyWith(
+          TracksEntity value, $Res Function(TracksEntity) then) =
+      _$TracksEntityCopyWithImpl<$Res, TracksEntity>;
   @useResult
   $Res call({String href, int total});
 }
 
 /// @nodoc
-class _$TracksCopyWithImpl<$Res, $Val extends Tracks>
-    implements $TracksCopyWith<$Res> {
-  _$TracksCopyWithImpl(this._value, this._then);
+class _$TracksEntityCopyWithImpl<$Res, $Val extends TracksEntity>
+    implements $TracksEntityCopyWith<$Res> {
+  _$TracksEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -66,19 +68,22 @@ class _$TracksCopyWithImpl<$Res, $Val extends Tracks>
 }
 
 /// @nodoc
-abstract class _$$_TracksCopyWith<$Res> implements $TracksCopyWith<$Res> {
-  factory _$$_TracksCopyWith(_$_Tracks value, $Res Function(_$_Tracks) then) =
-      __$$_TracksCopyWithImpl<$Res>;
+abstract class _$$_TracksEntityCopyWith<$Res>
+    implements $TracksEntityCopyWith<$Res> {
+  factory _$$_TracksEntityCopyWith(
+          _$_TracksEntity value, $Res Function(_$_TracksEntity) then) =
+      __$$_TracksEntityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String href, int total});
 }
 
 /// @nodoc
-class __$$_TracksCopyWithImpl<$Res>
-    extends _$TracksCopyWithImpl<$Res, _$_Tracks>
-    implements _$$_TracksCopyWith<$Res> {
-  __$$_TracksCopyWithImpl(_$_Tracks _value, $Res Function(_$_Tracks) _then)
+class __$$_TracksEntityCopyWithImpl<$Res>
+    extends _$TracksEntityCopyWithImpl<$Res, _$_TracksEntity>
+    implements _$$_TracksEntityCopyWith<$Res> {
+  __$$_TracksEntityCopyWithImpl(
+      _$_TracksEntity _value, $Res Function(_$_TracksEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +92,7 @@ class __$$_TracksCopyWithImpl<$Res>
     Object? href = null,
     Object? total = null,
   }) {
-    return _then(_$_Tracks(
+    return _then(_$_TracksEntity(
       href: null == href
           ? _value.href
           : href // ignore: cast_nullable_to_non_nullable
@@ -102,11 +107,11 @@ class __$$_TracksCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Tracks implements _Tracks {
-  _$_Tracks({required this.href, required this.total});
+class _$_TracksEntity implements _TracksEntity {
+  _$_TracksEntity({required this.href, required this.total});
 
-  factory _$_Tracks.fromJson(Map<String, dynamic> json) =>
-      _$$_TracksFromJson(json);
+  factory _$_TracksEntity.fromJson(Map<String, dynamic> json) =>
+      _$$_TracksEntityFromJson(json);
 
   @override
   final String href;
@@ -115,14 +120,14 @@ class _$_Tracks implements _Tracks {
 
   @override
   String toString() {
-    return 'Tracks(href: $href, total: $total)';
+    return 'TracksEntity(href: $href, total: $total)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Tracks &&
+            other is _$_TracksEntity &&
             (identical(other.href, href) || other.href == href) &&
             (identical(other.total, total) || other.total == total));
   }
@@ -134,22 +139,23 @@ class _$_Tracks implements _Tracks {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TracksCopyWith<_$_Tracks> get copyWith =>
-      __$$_TracksCopyWithImpl<_$_Tracks>(this, _$identity);
+  _$$_TracksEntityCopyWith<_$_TracksEntity> get copyWith =>
+      __$$_TracksEntityCopyWithImpl<_$_TracksEntity>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TracksToJson(
+    return _$$_TracksEntityToJson(
       this,
     );
   }
 }
 
-abstract class _Tracks implements Tracks {
-  factory _Tracks({required final String href, required final int total}) =
-      _$_Tracks;
+abstract class _TracksEntity implements TracksEntity {
+  factory _TracksEntity(
+      {required final String href, required final int total}) = _$_TracksEntity;
 
-  factory _Tracks.fromJson(Map<String, dynamic> json) = _$_Tracks.fromJson;
+  factory _TracksEntity.fromJson(Map<String, dynamic> json) =
+      _$_TracksEntity.fromJson;
 
   @override
   String get href;
@@ -157,6 +163,6 @@ abstract class _Tracks implements Tracks {
   int get total;
   @override
   @JsonKey(ignore: true)
-  _$$_TracksCopyWith<_$_Tracks> get copyWith =>
+  _$$_TracksEntityCopyWith<_$_TracksEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

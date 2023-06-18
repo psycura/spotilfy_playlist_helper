@@ -15,7 +15,7 @@ class SimplifiedPlaylist with _$SimplifiedPlaylist {
     required List<ImageEntity> images,
     required String name,
     required String uri,
-    Tracks? tracks,
+    TracksEntity? tracks,
     String? description,
   }) = _Playlist;
 

@@ -16,7 +16,7 @@ _$_Playlist _$$_PlaylistFromJson(Map<String, dynamic> json) => _$_Playlist(
       uri: json['uri'] as String,
       tracks: json['tracks'] == null
           ? null
-          : Tracks.fromJson(json['tracks'] as Map<String, dynamic>),
+          : TracksEntity.fromJson(json['tracks'] as Map<String, dynamic>),
       description: json['description'] as String?,
     );
 

@@ -15,7 +15,7 @@ class Albums {
   late String albumType;
   late int totalTracks;
   late String href;
-  late DateTime releaseDate;
+  late String releaseDate;
   late String releaseDatePrecision;
   late String uri;
   late List<String> images;

@@ -7,13 +7,13 @@ import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/adapters/playlist_dto_adapter.dart';
 import 'package:spotify_playlist_helper/core/data/storage/playlists/playlists_collection.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist_track.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
 
 abstract interface class IPlaylistsDao {
   Future<void> saveTracks(List<TrackEntity> items);
 
-  Future<void> savePlaylistTracks(List<PlaylistTrackEntity> items);
+  Future<void> savePlaylistTracks(List<TrackWithMeta> items);
 
   Future<void> savePlaylist(SimplifiedPlaylist item);
 
@@ -46,7 +46,7 @@ class PlaylistsDao implements IPlaylistsDao {
   }
 
   @override
-  Future<void> savePlaylistTracks(List<PlaylistTrackEntity> tracks) {
+  Future<void> savePlaylistTracks(List<TrackWithMeta> tracks) {
     // TODO: implement savePlaylistTracks
     throw UnimplementedError();
   }

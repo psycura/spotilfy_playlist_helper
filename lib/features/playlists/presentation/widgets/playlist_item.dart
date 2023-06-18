@@ -18,8 +18,8 @@ class PlaylistItem extends StatelessWidget {
     PlaylistContentScreen.open(context, playlistId: playlist.id);
   }
 
-  void _onDeleteTap(BuildContext context) {
-    print('[alitz]  delete ${playlist.name}');
+  void _onRefreshTap(BuildContext context) {
+    print('[alitz]  refresh ${playlist.name}');
   }
 
   @override
@@ -41,8 +41,8 @@ class PlaylistItem extends StatelessWidget {
       ),
       trailing: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(16)),
-        onTap: () => _onDeleteTap(context),
-        child: const Icon(Icons.delete_outline),
+        onTap: () => _onRefreshTap(context),
+        child: const Icon(Icons.refresh),
       ),
       onTap: () => _onItemTap(context),
     );

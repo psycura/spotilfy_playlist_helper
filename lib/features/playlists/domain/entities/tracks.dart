@@ -5,11 +5,11 @@ part 'tracks.freezed.dart';
 part 'tracks.g.dart';
 
 @freezed
-class Tracks with _$Tracks {
-  factory Tracks({
+class TracksEntity with _$TracksEntity {
+  factory TracksEntity({
     required String href,
     required int total,
-  }) = _Tracks;
+  }) = _TracksEntity;
 
-  factory Tracks.fromJson(Map<String, dynamic> json) => _$TracksFromJson(json);
+  factory TracksEntity.fromJson(Map<String, dynamic> json) => _$TracksEntityFromJson(json);
 }

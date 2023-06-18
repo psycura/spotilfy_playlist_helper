@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist_track.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 
 part 'playlist_with_tracks.freezed.dart';
 
@@ -10,7 +10,7 @@ class PlaylistWithTracks with _$PlaylistWithTracks {
   factory PlaylistWithTracks({
     required String href,
     required int total,
-    required List<PlaylistTrackEntity> items,
+    required List<TrackWithMeta> items,
     @Default(50) int limit,
     @Default(0) int offset,
     String? next,

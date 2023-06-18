@@ -25,7 +25,7 @@ mixin _$SimplifiedPlaylist {
   List<ImageEntity> get images => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get uri => throw _privateConstructorUsedError;
-  Tracks? get tracks => throw _privateConstructorUsedError;
+  TracksEntity? get tracks => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,10 +46,10 @@ abstract class $SimplifiedPlaylistCopyWith<$Res> {
       List<ImageEntity> images,
       String name,
       String uri,
-      Tracks? tracks,
+      TracksEntity? tracks,
       String? description});
 
-  $TracksCopyWith<$Res>? get tracks;
+  $TracksEntityCopyWith<$Res>? get tracks;
 }
 
 /// @nodoc
@@ -97,7 +97,7 @@ class _$SimplifiedPlaylistCopyWithImpl<$Res, $Val extends SimplifiedPlaylist>
       tracks: freezed == tracks
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as Tracks?,
+              as TracksEntity?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -107,12 +107,12 @@ class _$SimplifiedPlaylistCopyWithImpl<$Res, $Val extends SimplifiedPlaylist>
 
   @override
   @pragma('vm:prefer-inline')
-  $TracksCopyWith<$Res>? get tracks {
+  $TracksEntityCopyWith<$Res>? get tracks {
     if (_value.tracks == null) {
       return null;
     }
 
-    return $TracksCopyWith<$Res>(_value.tracks!, (value) {
+    return $TracksEntityCopyWith<$Res>(_value.tracks!, (value) {
       return _then(_value.copyWith(tracks: value) as $Val);
     });
   }
@@ -132,11 +132,11 @@ abstract class _$$_PlaylistCopyWith<$Res>
       List<ImageEntity> images,
       String name,
       String uri,
-      Tracks? tracks,
+      TracksEntity? tracks,
       String? description});
 
   @override
-  $TracksCopyWith<$Res>? get tracks;
+  $TracksEntityCopyWith<$Res>? get tracks;
 }
 
 /// @nodoc
@@ -182,7 +182,7 @@ class __$$_PlaylistCopyWithImpl<$Res>
       tracks: freezed == tracks
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as Tracks?,
+              as TracksEntity?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -224,7 +224,7 @@ class _$_Playlist implements _Playlist {
   @override
   final String uri;
   @override
-  final Tracks? tracks;
+  final TracksEntity? tracks;
   @override
   final String? description;
 
@@ -281,7 +281,7 @@ abstract class _Playlist implements SimplifiedPlaylist {
       required final List<ImageEntity> images,
       required final String name,
       required final String uri,
-      final Tracks? tracks,
+      final TracksEntity? tracks,
       final String? description}) = _$_Playlist;
 
   factory _Playlist.fromJson(Map<String, dynamic> json) = _$_Playlist.fromJson;
@@ -297,7 +297,7 @@ abstract class _Playlist implements SimplifiedPlaylist {
   @override
   String get uri;
   @override
-  Tracks? get tracks;
+  TracksEntity? get tracks;
   @override
   String? get description;
   @override

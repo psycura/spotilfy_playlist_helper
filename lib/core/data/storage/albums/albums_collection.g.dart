@@ -45,7 +45,7 @@ const AlbumsSchema = CollectionSchema(
     r'releaseDate': PropertySchema(
       id: 5,
       name: r'releaseDate',
-      type: IsarType.dateTime,
+      type: IsarType.string,
     ),
     r'releaseDatePrecision': PropertySchema(
       id: 6,
@@ -111,6 +111,7 @@ int _albumsEstimateSize(
     }
   }
   bytesCount += 3 + object.name.length * 3;
+  bytesCount += 3 + object.releaseDate.length * 3;
   bytesCount += 3 + object.releaseDatePrecision.length * 3;
   bytesCount += 3 + object.uri.length * 3;
   return bytesCount;
@@ -127,7 +128,7 @@ void _albumsSerialize(
   writer.writeString(offsets[2], object.id);
   writer.writeStringList(offsets[3], object.images);
   writer.writeString(offsets[4], object.name);
-  writer.writeDateTime(offsets[5], object.releaseDate);
+  writer.writeString(offsets[5], object.releaseDate);
   writer.writeString(offsets[6], object.releaseDatePrecision);
   writer.writeLong(offsets[7], object.totalTracks);
   writer.writeDateTime(offsets[8], object.updatedAt);
@@ -146,7 +147,7 @@ Albums _albumsDeserialize(
   object.id = reader.readStringOrNull(offsets[2]);
   object.images = reader.readStringList(offsets[3]) ?? [];
   object.name = reader.readString(offsets[4]);
-  object.releaseDate = reader.readDateTime(offsets[5]);
+  object.releaseDate = reader.readString(offsets[5]);
   object.releaseDatePrecision = reader.readString(offsets[6]);
   object.totalTracks = reader.readLong(offsets[7]);
   object.updatedAt = reader.readDateTimeOrNull(offsets[8]);
@@ -172,7 +173,7 @@ P _albumsDeserializeProp<P>(
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 6:
       return (reader.readString(offset)) as P;
     case 7:
@@ -1074,46 +1075,54 @@ extension AlbumsQueryFilter on QueryBuilder<Albums, Albums, QFilterCondition> {
   }
 
   QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateEqualTo(
-      DateTime value) {
+    String value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'releaseDate',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateGreaterThan(
-    DateTime value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'releaseDate',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateLessThan(
-    DateTime value, {
+    String value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'releaseDate',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateBetween(
-    DateTime lower,
-    DateTime upper, {
+    String lower,
+    String upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -1122,6 +1131,75 @@ extension AlbumsQueryFilter on QueryBuilder<Albums, Albums, QFilterCondition> {
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'releaseDate',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'releaseDate',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'releaseDate',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'releaseDate',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'releaseDate',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Albums, Albums, QAfterFilterCondition> releaseDateIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'releaseDate',
+        value: '',
       ));
     });
   }
@@ -1840,9 +1918,10 @@ extension AlbumsQueryWhereDistinct on QueryBuilder<Albums, Albums, QDistinct> {
     });
   }
 
-  QueryBuilder<Albums, Albums, QDistinct> distinctByReleaseDate() {
+  QueryBuilder<Albums, Albums, QDistinct> distinctByReleaseDate(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'releaseDate');
+      return query.addDistinctBy(r'releaseDate', caseSensitive: caseSensitive);
     });
   }
 
@@ -1911,7 +1990,7 @@ extension AlbumsQueryProperty on QueryBuilder<Albums, Albums, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Albums, DateTime, QQueryOperations> releaseDateProperty() {
+  QueryBuilder<Albums, String, QQueryOperations> releaseDateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'releaseDate');
     });

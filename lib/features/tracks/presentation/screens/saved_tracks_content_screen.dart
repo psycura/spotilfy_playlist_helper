@@ -1,10 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:auto_route/auto_route.dart';
 
+import '../widgets/saved_tracks.dart';
+
 @RoutePage()
-class FavoritesContentScreen extends StatelessWidget {
-  static const String tag='FavoritesContentScreen';
-  static const String path = 'FavoritesContentScreen';
+class SavedTracksContentScreen extends StatelessWidget {
+  static const String tag = 'SavedTracksContentScreen';
+  static const String path = 'SavedTracksContentScreen';
 
   static void open(
     BuildContext context, {
@@ -23,8 +25,8 @@ class FavoritesContentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Favorites'),
+    return Center(
+      child: SavedTracks(),
     );
   }
 }

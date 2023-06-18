@@ -14,7 +14,6 @@ dependencies:
   cached_network_image: ^3.2.3
   collection: ^1.17.1
   cupertino_icons: ^1.0.2
-  drift: ^2.8.2
   data_table_2: ^2.5.3
   dartz: ^0.10.1
   dio: ^5.2.1+1
@@ -49,7 +48,6 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.4.5
   dart_code_metrics: ^5.7.5
-  drift_dev: ^2.8.2
   envied_generator: ^0.3.0+3
   injectable_generator: ^2.1.5
   isar_generator: ^3.1.0+1

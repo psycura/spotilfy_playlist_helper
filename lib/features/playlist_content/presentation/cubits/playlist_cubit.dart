@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
-import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
+import 'package:spotify_playlist_helper/features/playlists/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist_track.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 
 part 'playlist_cubit.freezed.dart';
 
@@ -13,7 +13,7 @@ class PlaylistState with _$PlaylistState {
 
   const factory PlaylistState({
     @Default(FetchingState.idle) FetchingState fetchingState,
-    @Default(<PlaylistTrackEntity>[]) List<PlaylistTrackEntity> tracks,
+    @Default(<TrackWithMeta>[]) List<TrackWithMeta> tracks,
   }) = _PlaylistState;
 }
 

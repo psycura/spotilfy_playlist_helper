@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/core/presentation/widgets/main_screen_template.dart';
+import 'package:spotify_playlist_helper/di.dart';
 import 'package:spotify_playlist_helper/features/main_navigation/presentation/widgets/main_navigation.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/widgets/playlists_navigation.dart';
+import 'package:spotify_playlist_helper/features/tracks/presentation/cubits/saved_tracks_cubit.dart';
 
 import '../widgets/main_content.dart';
 
@@ -25,13 +28,21 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainScreenTemplate(
-      mainNavigation: MainNavigation(),
-      playlistNavigation: PlaylistsNavigation(),
-      playerWidget: Container(
-        height: 100,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SavedTracksCubit>(
+          create: (_) =>
+              SavedTracksCubit(logger: di.get(), repo: di.get())..init(),
+        ),
+      ],
+      child: MainScreenTemplate(
+        mainNavigation: MainNavigation(),
+        playlistNavigation: PlaylistsNavigation(),
+        playerWidget: Container(
+          height: 100,
+        ),
+        mainContent: MainContent(),
       ),
-      mainContent: MainContent(),
     );
   }
 }

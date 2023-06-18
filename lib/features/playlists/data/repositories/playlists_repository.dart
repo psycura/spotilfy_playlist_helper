@@ -3,11 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
-import 'package:spotify_playlist_helper/core/data/api/playlists_api.dart';
-import 'package:spotify_playlist_helper/core/data/storage/playlists/playlists_dao.dart';
+import 'package:spotify_playlist_helper/features/playlists/data/api/playlists_api.dart';
+import 'package:spotify_playlist_helper/features/playlists/data/storage/playlists_dao.dart';
 import 'package:spotify_playlist_helper/core/data/success/success.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist_track.dart';
-import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
+import 'package:spotify_playlist_helper/features/playlists/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
 
 @LazySingleton(as: IPlaylistsRepository)
@@ -53,11 +53,11 @@ class PlaylistsRepository implements IPlaylistsRepository {
   }
 
   @override
-  Future<Either<GeneralFailure, List<PlaylistTrackEntity>>> getPlaylistTracks(
+  Future<Either<GeneralFailure, List<TrackWithMeta>>> getPlaylistTracks(
     String playlistId,
   ) async {
     try {
-      final items = <PlaylistTrackEntity>[];
+      final items = <TrackWithMeta>[];
       var allFetched = false;
       String? nextUrls;
 

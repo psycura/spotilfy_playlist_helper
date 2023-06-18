@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:spotify_playlist_helper/features/favorites_content/presentation/screens/favorites_content_screen.dart';
 import 'package:spotify_playlist_helper/features/login/presentation/screens/login_screen.dart';
 import 'package:spotify_playlist_helper/features/main_screen/presentation/screens/main_screen.dart';
 import 'package:spotify_playlist_helper/features/playlist_content/presentation/screens/playlist_content_screen.dart';
 import 'package:spotify_playlist_helper/features/splash/presentation/screens/splash_screen.dart';
+import 'package:spotify_playlist_helper/features/tracks/presentation/screens/saved_tracks_content_screen.dart';
 
 part 'app_router.gr.dart';
 
@@ -21,11 +21,11 @@ class AppRouter extends _$AppRouter {
           page: MainRoute.page,
           transitionsBuilder: TransitionsBuilders.noTransition,
           children: [
-            RedirectRoute(path: '', redirectTo: FavoritesContentScreen.path),
+            RedirectRoute(path: '', redirectTo: SavedTracksContentScreen.path),
 
             CustomRoute(
-              path: FavoritesContentScreen.path,
-              page: FavoritesContentRoute.page,
+              path: SavedTracksContentScreen.path,
+              page: SavedTracksContentRoute.page,
               transitionsBuilder: TransitionsBuilders.fadeIn,
               durationInMilliseconds: 50,
             ),

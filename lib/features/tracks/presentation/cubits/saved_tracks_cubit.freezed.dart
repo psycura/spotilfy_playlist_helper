@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'playlist_cubit.dart';
+part of 'saved_tracks_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,28 +15,28 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$PlaylistState {
+mixin _$SavedTracksState {
   FetchingState get fetchingState => throw _privateConstructorUsedError;
   List<TrackWithMeta> get tracks => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $PlaylistStateCopyWith<PlaylistState> get copyWith =>
+  $SavedTracksStateCopyWith<SavedTracksState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PlaylistStateCopyWith<$Res> {
-  factory $PlaylistStateCopyWith(
-          PlaylistState value, $Res Function(PlaylistState) then) =
-      _$PlaylistStateCopyWithImpl<$Res, PlaylistState>;
+abstract class $SavedTracksStateCopyWith<$Res> {
+  factory $SavedTracksStateCopyWith(
+          SavedTracksState value, $Res Function(SavedTracksState) then) =
+      _$SavedTracksStateCopyWithImpl<$Res, SavedTracksState>;
   @useResult
   $Res call({FetchingState fetchingState, List<TrackWithMeta> tracks});
 }
 
 /// @nodoc
-class _$PlaylistStateCopyWithImpl<$Res, $Val extends PlaylistState>
-    implements $PlaylistStateCopyWith<$Res> {
-  _$PlaylistStateCopyWithImpl(this._value, this._then);
+class _$SavedTracksStateCopyWithImpl<$Res, $Val extends SavedTracksState>
+    implements $SavedTracksStateCopyWith<$Res> {
+  _$SavedTracksStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -63,22 +63,22 @@ class _$PlaylistStateCopyWithImpl<$Res, $Val extends PlaylistState>
 }
 
 /// @nodoc
-abstract class _$$_PlaylistStateCopyWith<$Res>
-    implements $PlaylistStateCopyWith<$Res> {
-  factory _$$_PlaylistStateCopyWith(
-          _$_PlaylistState value, $Res Function(_$_PlaylistState) then) =
-      __$$_PlaylistStateCopyWithImpl<$Res>;
+abstract class _$$_SavedTracksStateCopyWith<$Res>
+    implements $SavedTracksStateCopyWith<$Res> {
+  factory _$$_SavedTracksStateCopyWith(
+          _$_SavedTracksState value, $Res Function(_$_SavedTracksState) then) =
+      __$$_SavedTracksStateCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({FetchingState fetchingState, List<TrackWithMeta> tracks});
 }
 
 /// @nodoc
-class __$$_PlaylistStateCopyWithImpl<$Res>
-    extends _$PlaylistStateCopyWithImpl<$Res, _$_PlaylistState>
-    implements _$$_PlaylistStateCopyWith<$Res> {
-  __$$_PlaylistStateCopyWithImpl(
-      _$_PlaylistState _value, $Res Function(_$_PlaylistState) _then)
+class __$$_SavedTracksStateCopyWithImpl<$Res>
+    extends _$SavedTracksStateCopyWithImpl<$Res, _$_SavedTracksState>
+    implements _$$_SavedTracksStateCopyWith<$Res> {
+  __$$_SavedTracksStateCopyWithImpl(
+      _$_SavedTracksState _value, $Res Function(_$_SavedTracksState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
     Object? fetchingState = null,
     Object? tracks = null,
   }) {
-    return _then(_$_PlaylistState(
+    return _then(_$_SavedTracksState(
       fetchingState: null == fetchingState
           ? _value.fetchingState
           : fetchingState // ignore: cast_nullable_to_non_nullable
@@ -102,8 +102,8 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PlaylistState extends _PlaylistState {
-  const _$_PlaylistState(
+class _$_SavedTracksState extends _SavedTracksState {
+  const _$_SavedTracksState(
       {this.fetchingState = FetchingState.idle,
       final List<TrackWithMeta> tracks = const <TrackWithMeta>[]})
       : _tracks = tracks,
@@ -123,14 +123,14 @@ class _$_PlaylistState extends _PlaylistState {
 
   @override
   String toString() {
-    return 'PlaylistState(fetchingState: $fetchingState, tracks: $tracks)';
+    return 'SavedTracksState(fetchingState: $fetchingState, tracks: $tracks)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaylistState &&
+            other is _$_SavedTracksState &&
             (identical(other.fetchingState, fetchingState) ||
                 other.fetchingState == fetchingState) &&
             const DeepCollectionEquality().equals(other._tracks, _tracks));
@@ -143,15 +143,15 @@ class _$_PlaylistState extends _PlaylistState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaylistStateCopyWith<_$_PlaylistState> get copyWith =>
-      __$$_PlaylistStateCopyWithImpl<_$_PlaylistState>(this, _$identity);
+  _$$_SavedTracksStateCopyWith<_$_SavedTracksState> get copyWith =>
+      __$$_SavedTracksStateCopyWithImpl<_$_SavedTracksState>(this, _$identity);
 }
 
-abstract class _PlaylistState extends PlaylistState {
-  const factory _PlaylistState(
+abstract class _SavedTracksState extends SavedTracksState {
+  const factory _SavedTracksState(
       {final FetchingState fetchingState,
-      final List<TrackWithMeta> tracks}) = _$_PlaylistState;
-  const _PlaylistState._() : super._();
+      final List<TrackWithMeta> tracks}) = _$_SavedTracksState;
+  const _SavedTracksState._() : super._();
 
   @override
   FetchingState get fetchingState;
@@ -159,6 +159,6 @@ abstract class _PlaylistState extends PlaylistState {
   List<TrackWithMeta> get tracks;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaylistStateCopyWith<_$_PlaylistState> get copyWith =>
+  _$$_SavedTracksStateCopyWith<_$_SavedTracksState> get copyWith =>
       throw _privateConstructorUsedError;
 }

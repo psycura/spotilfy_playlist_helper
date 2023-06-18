@@ -28,12 +28,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: PlaylistContentScreen(args.playlistId),
       );
     },
-    FavoritesContentRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: FavoritesContentScreen(),
-      );
-    },
     MainRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -44,6 +38,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: LoginScreen(),
+      );
+    },
+    SavedTracksContentRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SavedTracksContentScreen(),
       );
     },
   };
@@ -93,20 +93,6 @@ class PlaylistContentRouteArgs {
 }
 
 /// generated route for
-/// [FavoritesContentScreen]
-class FavoritesContentRoute extends PageRouteInfo<void> {
-  const FavoritesContentRoute({List<PageRouteInfo>? children})
-      : super(
-          FavoritesContentRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'FavoritesContentRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [MainScreen]
 class MainRoute extends PageRouteInfo<void> {
   const MainRoute({List<PageRouteInfo>? children})
@@ -130,6 +116,20 @@ class LoginRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'LoginRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SavedTracksContentScreen]
+class SavedTracksContentRoute extends PageRouteInfo<void> {
+  const SavedTracksContentRoute({List<PageRouteInfo>? children})
+      : super(
+          SavedTracksContentRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SavedTracksContentRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
