@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
 import 'package:spotify_playlist_helper/core/data/success/success.dart';
-import 'package:spotify_playlist_helper/core/domain/entities/track/track.dart';
 import 'package:spotify_playlist_helper/features/tracks/data/api/tracks_api.dart';
 import 'package:spotify_playlist_helper/features/tracks/data/storage/tracks_dao.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
