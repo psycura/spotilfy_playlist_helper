@@ -1,12 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'simplified_playlist.dart';
+part of 'playlist_item_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Playlist _$$_PlaylistFromJson(Map<String, dynamic> json) => _$_Playlist(
+_$_PlaylistItemResponse _$$_PlaylistItemResponseFromJson(
+        Map<String, dynamic> json) =>
+    _$_PlaylistItemResponse(
       href: json['href'] as String,
       id: json['id'] as String,
       images: (json['images'] as List<dynamic>)
@@ -16,11 +18,13 @@ _$_Playlist _$$_PlaylistFromJson(Map<String, dynamic> json) => _$_Playlist(
       uri: json['uri'] as String,
       tracks: json['tracks'] == null
           ? null
-          : TracksEntity.fromJson(json['tracks'] as Map<String, dynamic>),
+          : PlaylistTracksResponse.fromJson(
+              json['tracks'] as Map<String, dynamic>),
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$_PlaylistToJson(_$_Playlist instance) =>
+Map<String, dynamic> _$$_PlaylistItemResponseToJson(
+        _$_PlaylistItemResponse instance) =>
     <String, dynamic>{
       'href': instance.href,
       'id': instance.id,

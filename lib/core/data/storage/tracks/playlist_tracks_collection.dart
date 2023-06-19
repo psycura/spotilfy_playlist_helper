@@ -4,13 +4,14 @@ import 'package:spotify_playlist_helper/core/data/storage/tracks/tracks_collecti
 
 part 'playlist_tracks_collection.g.dart';
 
-@collection
-class PlaylistTracks {
-  Id id = Isar.autoIncrement; // you can also use id = null to auto increment
-  DateTime? updatedAt;
-
+@Collection(accessor: 'playlistTracks')
+class PlaylistTrackDto {
+  Id id = Isar.autoIncrement;
   late String addedAt;
 
-  final track = IsarLink<Tracks>();
-  final playlist = IsarLink<Playlists>();
+  @Index()
+  final track = IsarLink<TrackDto>();
+
+  @Index()
+  final playlist = IsarLink<PlaylistDto>();
 }

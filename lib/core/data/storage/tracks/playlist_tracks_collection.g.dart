@@ -9,54 +9,49 @@ part of 'playlist_tracks_collection.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetPlaylistTracksCollection on Isar {
-  IsarCollection<PlaylistTracks> get playlistTracks => this.collection();
+extension GetPlaylistTrackDtoCollection on Isar {
+  IsarCollection<PlaylistTrackDto> get playlistTracks => this.collection();
 }
 
-const PlaylistTracksSchema = CollectionSchema(
-  name: r'PlaylistTracks',
-  id: -2793102295267283649,
+const PlaylistTrackDtoSchema = CollectionSchema(
+  name: r'PlaylistTrackDto',
+  id: 8317165829630568403,
   properties: {
     r'addedAt': PropertySchema(
       id: 0,
       name: r'addedAt',
       type: IsarType.string,
-    ),
-    r'updatedAt': PropertySchema(
-      id: 1,
-      name: r'updatedAt',
-      type: IsarType.dateTime,
     )
   },
-  estimateSize: _playlistTracksEstimateSize,
-  serialize: _playlistTracksSerialize,
-  deserialize: _playlistTracksDeserialize,
-  deserializeProp: _playlistTracksDeserializeProp,
+  estimateSize: _playlistTrackDtoEstimateSize,
+  serialize: _playlistTrackDtoSerialize,
+  deserialize: _playlistTrackDtoDeserialize,
+  deserializeProp: _playlistTrackDtoDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {
     r'track': LinkSchema(
-      id: 4529229045007316477,
+      id: -2769922297321614566,
       name: r'track',
-      target: r'Tracks',
+      target: r'TrackDto',
       single: true,
     ),
     r'playlist': LinkSchema(
-      id: 5143855857161425840,
+      id: 6784583829589952057,
       name: r'playlist',
-      target: r'Playlists',
+      target: r'PlaylistDto',
       single: true,
     )
   },
   embeddedSchemas: {},
-  getId: _playlistTracksGetId,
-  getLinks: _playlistTracksGetLinks,
-  attach: _playlistTracksAttach,
+  getId: _playlistTrackDtoGetId,
+  getLinks: _playlistTrackDtoGetLinks,
+  attach: _playlistTrackDtoAttach,
   version: '3.1.0+1',
 );
 
-int _playlistTracksEstimateSize(
-  PlaylistTracks object,
+int _playlistTrackDtoEstimateSize(
+  PlaylistTrackDto object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -65,30 +60,28 @@ int _playlistTracksEstimateSize(
   return bytesCount;
 }
 
-void _playlistTracksSerialize(
-  PlaylistTracks object,
+void _playlistTrackDtoSerialize(
+  PlaylistTrackDto object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.addedAt);
-  writer.writeDateTime(offsets[1], object.updatedAt);
 }
 
-PlaylistTracks _playlistTracksDeserialize(
+PlaylistTrackDto _playlistTrackDtoDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = PlaylistTracks();
+  final object = PlaylistTrackDto();
   object.addedAt = reader.readString(offsets[0]);
   object.id = id;
-  object.updatedAt = reader.readDateTimeOrNull(offsets[1]);
   return object;
 }
 
-P _playlistTracksDeserializeProp<P>(
+P _playlistTrackDtoDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -97,41 +90,39 @@ P _playlistTracksDeserializeProp<P>(
   switch (propertyId) {
     case 0:
       return (reader.readString(offset)) as P;
-    case 1:
-      return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
-Id _playlistTracksGetId(PlaylistTracks object) {
+Id _playlistTrackDtoGetId(PlaylistTrackDto object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _playlistTracksGetLinks(PlaylistTracks object) {
+List<IsarLinkBase<dynamic>> _playlistTrackDtoGetLinks(PlaylistTrackDto object) {
   return [object.track, object.playlist];
 }
 
-void _playlistTracksAttach(
-    IsarCollection<dynamic> col, Id id, PlaylistTracks object) {
+void _playlistTrackDtoAttach(
+    IsarCollection<dynamic> col, Id id, PlaylistTrackDto object) {
   object.id = id;
-  object.track.attach(col, col.isar.collection<Tracks>(), r'track', id);
+  object.track.attach(col, col.isar.collection<TrackDto>(), r'track', id);
   object.playlist
-      .attach(col, col.isar.collection<Playlists>(), r'playlist', id);
+      .attach(col, col.isar.collection<PlaylistDto>(), r'playlist', id);
 }
 
-extension PlaylistTracksQueryWhereSort
-    on QueryBuilder<PlaylistTracks, PlaylistTracks, QWhere> {
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterWhere> anyId() {
+extension PlaylistTrackDtoQueryWhereSort
+    on QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QWhere> {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension PlaylistTracksQueryWhere
-    on QueryBuilder<PlaylistTracks, PlaylistTracks, QWhereClause> {
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterWhereClause> idEqualTo(
+extension PlaylistTrackDtoQueryWhere
+    on QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QWhereClause> {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterWhereClause> idEqualTo(
       Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
@@ -141,8 +132,8 @@ extension PlaylistTracksQueryWhere
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterWhereClause> idNotEqualTo(
-      Id id) {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterWhereClause>
+      idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -164,9 +155,8 @@ extension PlaylistTracksQueryWhere
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterWhereClause> idGreaterThan(
-      Id id,
-      {bool include = false}) {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterWhereClause>
+      idGreaterThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -174,9 +164,8 @@ extension PlaylistTracksQueryWhere
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterWhereClause> idLessThan(
-      Id id,
-      {bool include = false}) {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterWhereClause>
+      idLessThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -184,7 +173,7 @@ extension PlaylistTracksQueryWhere
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterWhereClause> idBetween(
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -201,9 +190,9 @@ extension PlaylistTracksQueryWhere
   }
 }
 
-extension PlaylistTracksQueryFilter
-    on QueryBuilder<PlaylistTracks, PlaylistTracks, QFilterCondition> {
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+extension PlaylistTrackDtoQueryFilter
+    on QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QFilterCondition> {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -217,7 +206,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtGreaterThan(
     String value, {
     bool include = false,
@@ -233,7 +222,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtLessThan(
     String value, {
     bool include = false,
@@ -249,7 +238,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtBetween(
     String lower,
     String upper, {
@@ -269,7 +258,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtStartsWith(
     String value, {
     bool caseSensitive = true,
@@ -283,7 +272,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtEndsWith(
     String value, {
     bool caseSensitive = true,
@@ -297,7 +286,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -308,7 +297,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -319,7 +308,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -329,7 +318,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       addedAtIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -339,8 +328,8 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition> idEqualTo(
-      Id value) {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
+      idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -349,7 +338,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       idGreaterThan(
     Id value, {
     bool include = false,
@@ -363,7 +352,7 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       idLessThan(
     Id value, {
     bool include = false,
@@ -377,7 +366,8 @@ extension PlaylistTracksQueryFilter
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition> idBetween(
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
+      idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -393,109 +383,35 @@ extension PlaylistTracksQueryFilter
       ));
     });
   }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
-      updatedAtIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'updatedAt',
-      ));
-    });
-  }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
-      updatedAtIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'updatedAt',
-      ));
-    });
-  }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
-      updatedAtEqualTo(DateTime? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'updatedAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
-      updatedAtGreaterThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'updatedAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
-      updatedAtLessThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'updatedAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
-      updatedAtBetween(
-    DateTime? lower,
-    DateTime? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'updatedAt',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
 }
 
-extension PlaylistTracksQueryObject
-    on QueryBuilder<PlaylistTracks, PlaylistTracks, QFilterCondition> {}
+extension PlaylistTrackDtoQueryObject
+    on QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QFilterCondition> {}
 
-extension PlaylistTracksQueryLinks
-    on QueryBuilder<PlaylistTracks, PlaylistTracks, QFilterCondition> {
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition> track(
-      FilterQuery<Tracks> q) {
+extension PlaylistTrackDtoQueryLinks
+    on QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QFilterCondition> {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition> track(
+      FilterQuery<TrackDto> q) {
     return QueryBuilder.apply(this, (query) {
       return query.link(q, r'track');
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       trackIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(r'track', 0, true, 0, true);
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition> playlist(
-      FilterQuery<Playlists> q) {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
+      playlist(FilterQuery<PlaylistDto> q) {
     return QueryBuilder.apply(this, (query) {
       return query.link(q, r'playlist');
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterFilterCondition>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
       playlistIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.linkLength(r'playlist', 0, true, 0, true);
@@ -503,111 +419,74 @@ extension PlaylistTracksQueryLinks
   }
 }
 
-extension PlaylistTracksQuerySortBy
-    on QueryBuilder<PlaylistTracks, PlaylistTracks, QSortBy> {
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy> sortByAddedAt() {
+extension PlaylistTrackDtoQuerySortBy
+    on QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QSortBy> {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy>
+      sortByAddedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'addedAt', Sort.asc);
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy>
       sortByAddedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'addedAt', Sort.desc);
     });
   }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy> sortByUpdatedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'updatedAt', Sort.asc);
-    });
-  }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy>
-      sortByUpdatedAtDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'updatedAt', Sort.desc);
-    });
-  }
 }
 
-extension PlaylistTracksQuerySortThenBy
-    on QueryBuilder<PlaylistTracks, PlaylistTracks, QSortThenBy> {
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy> thenByAddedAt() {
+extension PlaylistTrackDtoQuerySortThenBy
+    on QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QSortThenBy> {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy>
+      thenByAddedAt() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'addedAt', Sort.asc);
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy>
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy>
       thenByAddedAtDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'addedAt', Sort.desc);
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy> thenById() {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy>
+      thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy> thenByUpdatedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'updatedAt', Sort.asc);
-    });
-  }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QAfterSortBy>
-      thenByUpdatedAtDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'updatedAt', Sort.desc);
-    });
-  }
 }
 
-extension PlaylistTracksQueryWhereDistinct
-    on QueryBuilder<PlaylistTracks, PlaylistTracks, QDistinct> {
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QDistinct> distinctByAddedAt(
+extension PlaylistTrackDtoQueryWhereDistinct
+    on QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QDistinct> {
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QDistinct> distinctByAddedAt(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'addedAt', caseSensitive: caseSensitive);
     });
   }
-
-  QueryBuilder<PlaylistTracks, PlaylistTracks, QDistinct>
-      distinctByUpdatedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'updatedAt');
-    });
-  }
 }
 
-extension PlaylistTracksQueryProperty
-    on QueryBuilder<PlaylistTracks, PlaylistTracks, QQueryProperty> {
-  QueryBuilder<PlaylistTracks, int, QQueryOperations> idProperty() {
+extension PlaylistTrackDtoQueryProperty
+    on QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QQueryProperty> {
+  QueryBuilder<PlaylistTrackDto, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<PlaylistTracks, String, QQueryOperations> addedAtProperty() {
+  QueryBuilder<PlaylistTrackDto, String, QQueryOperations> addedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'addedAt');
-    });
-  }
-
-  QueryBuilder<PlaylistTracks, DateTime?, QQueryOperations>
-      updatedAtProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'updatedAt');
     });
   }
 }

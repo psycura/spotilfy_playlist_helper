@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'simplified_playlist.dart';
+part of 'playlist.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,31 +14,30 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-SimplifiedPlaylist _$SimplifiedPlaylistFromJson(Map<String, dynamic> json) {
-  return _Playlist.fromJson(json);
+PlaylistEntity _$PlaylistEntityFromJson(Map<String, dynamic> json) {
+  return _PlaylistEntity.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SimplifiedPlaylist {
+mixin _$PlaylistEntity {
   String get href => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   List<ImageEntity> get images => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get uri => throw _privateConstructorUsedError;
-  TracksEntity? get tracks => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SimplifiedPlaylistCopyWith<SimplifiedPlaylist> get copyWith =>
+  $PlaylistEntityCopyWith<PlaylistEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SimplifiedPlaylistCopyWith<$Res> {
-  factory $SimplifiedPlaylistCopyWith(
-          SimplifiedPlaylist value, $Res Function(SimplifiedPlaylist) then) =
-      _$SimplifiedPlaylistCopyWithImpl<$Res, SimplifiedPlaylist>;
+abstract class $PlaylistEntityCopyWith<$Res> {
+  factory $PlaylistEntityCopyWith(
+          PlaylistEntity value, $Res Function(PlaylistEntity) then) =
+      _$PlaylistEntityCopyWithImpl<$Res, PlaylistEntity>;
   @useResult
   $Res call(
       {String href,
@@ -46,16 +45,13 @@ abstract class $SimplifiedPlaylistCopyWith<$Res> {
       List<ImageEntity> images,
       String name,
       String uri,
-      TracksEntity? tracks,
       String? description});
-
-  $TracksEntityCopyWith<$Res>? get tracks;
 }
 
 /// @nodoc
-class _$SimplifiedPlaylistCopyWithImpl<$Res, $Val extends SimplifiedPlaylist>
-    implements $SimplifiedPlaylistCopyWith<$Res> {
-  _$SimplifiedPlaylistCopyWithImpl(this._value, this._then);
+class _$PlaylistEntityCopyWithImpl<$Res, $Val extends PlaylistEntity>
+    implements $PlaylistEntityCopyWith<$Res> {
+  _$PlaylistEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -70,7 +66,6 @@ class _$SimplifiedPlaylistCopyWithImpl<$Res, $Val extends SimplifiedPlaylist>
     Object? images = null,
     Object? name = null,
     Object? uri = null,
-    Object? tracks = freezed,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
@@ -94,36 +89,20 @@ class _$SimplifiedPlaylistCopyWithImpl<$Res, $Val extends SimplifiedPlaylist>
           ? _value.uri
           : uri // ignore: cast_nullable_to_non_nullable
               as String,
-      tracks: freezed == tracks
-          ? _value.tracks
-          : tracks // ignore: cast_nullable_to_non_nullable
-              as TracksEntity?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $TracksEntityCopyWith<$Res>? get tracks {
-    if (_value.tracks == null) {
-      return null;
-    }
-
-    return $TracksEntityCopyWith<$Res>(_value.tracks!, (value) {
-      return _then(_value.copyWith(tracks: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$_PlaylistCopyWith<$Res>
-    implements $SimplifiedPlaylistCopyWith<$Res> {
-  factory _$$_PlaylistCopyWith(
-          _$_Playlist value, $Res Function(_$_Playlist) then) =
-      __$$_PlaylistCopyWithImpl<$Res>;
+abstract class _$$_PlaylistEntityCopyWith<$Res>
+    implements $PlaylistEntityCopyWith<$Res> {
+  factory _$$_PlaylistEntityCopyWith(
+          _$_PlaylistEntity value, $Res Function(_$_PlaylistEntity) then) =
+      __$$_PlaylistEntityCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -132,19 +111,15 @@ abstract class _$$_PlaylistCopyWith<$Res>
       List<ImageEntity> images,
       String name,
       String uri,
-      TracksEntity? tracks,
       String? description});
-
-  @override
-  $TracksEntityCopyWith<$Res>? get tracks;
 }
 
 /// @nodoc
-class __$$_PlaylistCopyWithImpl<$Res>
-    extends _$SimplifiedPlaylistCopyWithImpl<$Res, _$_Playlist>
-    implements _$$_PlaylistCopyWith<$Res> {
-  __$$_PlaylistCopyWithImpl(
-      _$_Playlist _value, $Res Function(_$_Playlist) _then)
+class __$$_PlaylistEntityCopyWithImpl<$Res>
+    extends _$PlaylistEntityCopyWithImpl<$Res, _$_PlaylistEntity>
+    implements _$$_PlaylistEntityCopyWith<$Res> {
+  __$$_PlaylistEntityCopyWithImpl(
+      _$_PlaylistEntity _value, $Res Function(_$_PlaylistEntity) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -155,10 +130,9 @@ class __$$_PlaylistCopyWithImpl<$Res>
     Object? images = null,
     Object? name = null,
     Object? uri = null,
-    Object? tracks = freezed,
     Object? description = freezed,
   }) {
-    return _then(_$_Playlist(
+    return _then(_$_PlaylistEntity(
       href: null == href
           ? _value.href
           : href // ignore: cast_nullable_to_non_nullable
@@ -179,10 +153,6 @@ class __$$_PlaylistCopyWithImpl<$Res>
           ? _value.uri
           : uri // ignore: cast_nullable_to_non_nullable
               as String,
-      tracks: freezed == tracks
-          ? _value.tracks
-          : tracks // ignore: cast_nullable_to_non_nullable
-              as TracksEntity?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -193,19 +163,18 @@ class __$$_PlaylistCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Playlist implements _Playlist {
-  _$_Playlist(
+class _$_PlaylistEntity implements _PlaylistEntity {
+  _$_PlaylistEntity(
       {required this.href,
       required this.id,
       required final List<ImageEntity> images,
       required this.name,
       required this.uri,
-      this.tracks,
       this.description})
       : _images = images;
 
-  factory _$_Playlist.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaylistFromJson(json);
+  factory _$_PlaylistEntity.fromJson(Map<String, dynamic> json) =>
+      _$$_PlaylistEntityFromJson(json);
 
   @override
   final String href;
@@ -224,67 +193,57 @@ class _$_Playlist implements _Playlist {
   @override
   final String uri;
   @override
-  final TracksEntity? tracks;
-  @override
   final String? description;
 
   @override
   String toString() {
-    return 'SimplifiedPlaylist(href: $href, id: $id, images: $images, name: $name, uri: $uri, tracks: $tracks, description: $description)';
+    return 'PlaylistEntity(href: $href, id: $id, images: $images, name: $name, uri: $uri, description: $description)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Playlist &&
+            other is _$_PlaylistEntity &&
             (identical(other.href, href) || other.href == href) &&
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.uri, uri) || other.uri == uri) &&
-            (identical(other.tracks, tracks) || other.tracks == tracks) &&
             (identical(other.description, description) ||
                 other.description == description));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      href,
-      id,
-      const DeepCollectionEquality().hash(_images),
-      name,
-      uri,
-      tracks,
-      description);
+  int get hashCode => Object.hash(runtimeType, href, id,
+      const DeepCollectionEquality().hash(_images), name, uri, description);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaylistCopyWith<_$_Playlist> get copyWith =>
-      __$$_PlaylistCopyWithImpl<_$_Playlist>(this, _$identity);
+  _$$_PlaylistEntityCopyWith<_$_PlaylistEntity> get copyWith =>
+      __$$_PlaylistEntityCopyWithImpl<_$_PlaylistEntity>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaylistToJson(
+    return _$$_PlaylistEntityToJson(
       this,
     );
   }
 }
 
-abstract class _Playlist implements SimplifiedPlaylist {
-  factory _Playlist(
+abstract class _PlaylistEntity implements PlaylistEntity {
+  factory _PlaylistEntity(
       {required final String href,
       required final String id,
       required final List<ImageEntity> images,
       required final String name,
       required final String uri,
-      final TracksEntity? tracks,
-      final String? description}) = _$_Playlist;
+      final String? description}) = _$_PlaylistEntity;
 
-  factory _Playlist.fromJson(Map<String, dynamic> json) = _$_Playlist.fromJson;
+  factory _PlaylistEntity.fromJson(Map<String, dynamic> json) =
+      _$_PlaylistEntity.fromJson;
 
   @override
   String get href;
@@ -297,11 +256,9 @@ abstract class _Playlist implements SimplifiedPlaylist {
   @override
   String get uri;
   @override
-  TracksEntity? get tracks;
-  @override
   String? get description;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaylistCopyWith<_$_Playlist> get copyWith =>
+  _$$_PlaylistEntityCopyWith<_$_PlaylistEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }

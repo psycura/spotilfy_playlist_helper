@@ -15,7 +15,7 @@ class SavedTracksState with _$SavedTracksState {
 
   const factory SavedTracksState({
     @Default(FetchingState.idle) FetchingState fetchingState,
-    @Default(<TrackWithMeta>[]) List<TrackWithMeta> tracks,
+    @Default(<TrackWithMetaEntity>[]) List<TrackWithMetaEntity> tracks,
   }) = _SavedTracksState;
 }
 
@@ -26,7 +26,7 @@ class SavedTracksCubit extends Cubit<SavedTracksState> {
 
   final ITracksRepository _repo;
 
-  StreamSubscription<Iterable<TrackWithMeta>>? _tracksSub;
+  StreamSubscription<Iterable<TrackWithMetaEntity>>? _tracksSub;
 
   SavedTracksCubit({
     required Logger logger,
@@ -49,7 +49,7 @@ class SavedTracksCubit extends Cubit<SavedTracksState> {
     _tracksSub = _repo.getSavedTracksStream().listen(_handleTracksUpdates);
   }
 
-  void _handleTracksUpdates(Iterable<TrackWithMeta> items) {
+  void _handleTracksUpdates(Iterable<TrackWithMetaEntity> items) {
     emit(state.copyWith(tracks: items.toList()));
   }
 

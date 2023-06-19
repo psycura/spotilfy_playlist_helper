@@ -1,17 +1,18 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
+
+import 'track.dart';
 
 part 'track_with_meta.freezed.dart';
 
 part 'track_with_meta.g.dart';
 
 @freezed
-class TrackWithMeta with _$TrackWithMeta {
-  factory TrackWithMeta({
+class TrackWithMetaEntity with _$TrackWithMetaEntity {
+  factory TrackWithMetaEntity({
     required String added_at,
     required TrackEntity track,
-  }) = _TrackWithMeta;
+  }) = _TrackWithMetaEntity;
 
-  factory TrackWithMeta.fromJson(Map<String, dynamic> json) =>
-      _$TrackWithMetaFromJson(json);
+  factory TrackWithMetaEntity.fromJson(Map<String, dynamic> json) =>
+      _$TrackWithMetaEntityFromJson(json);
 }

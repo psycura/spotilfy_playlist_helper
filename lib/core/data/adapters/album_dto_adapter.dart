@@ -3,17 +3,17 @@ import 'package:spotify_playlist_helper/core/data/storage/albums/albums_collecti
 import 'package:spotify_playlist_helper/core/data/storage/artists/artists_collection.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 
-typedef AlbumDtoRecord = (Albums album, Iterable<Artists> albumArtists);
+typedef AlbumDtoRecord = (AlbumDto album, Iterable<ArtistDto> albumArtists);
 
 class AlbumDtoAdapter {
   final artistAdapter = ArtistDtoAdapter();
 
-  AlbumEntity fromDto(Albums item) {
+  AlbumEntity fromDto(AlbumDto item) {
     final images = item.images.map((e) => ImageEntity(url: e)).toList();
 
     return AlbumEntity(
       href: item.href,
-      id: item.id!,
+      id: item.spotifyId,
       images: images,
       name: item.name,
       uri: item.uri,
@@ -30,13 +30,12 @@ class AlbumDtoAdapter {
 
     final artists = item.artists.map((e) => artistAdapter.toDto(e));
 
-    final album = Albums()
+    final album = AlbumDto()
       ..images = images
       ..href = item.href
-      ..id = item.id
+      ..spotifyId = item.id
       ..name = item.name
       ..uri = item.uri
-      ..updatedAt = DateTime.now()
       ..albumType = item.album_type
       ..totalTracks = item.total_tracks
       ..releaseDate = item.release_date

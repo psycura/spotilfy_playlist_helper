@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'track.dart';
+part of 'track_item_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TrackEntity _$$_TrackEntityFromJson(Map<String, dynamic> json) =>
-    _$_TrackEntity(
+_$_TrackItemResponse _$$_TrackItemResponseFromJson(Map<String, dynamic> json) =>
+    _$_TrackItemResponse(
       album: AlbumEntity.fromJson(json['album'] as Map<String, dynamic>),
       artists: (json['artists'] as List<dynamic>)
           .map((e) => ArtistEntity.fromJson(e as Map<String, dynamic>))
@@ -21,10 +21,10 @@ _$_TrackEntity _$$_TrackEntityFromJson(Map<String, dynamic> json) =>
       uri: json['uri'] as String,
       preview_url: json['preview_url'] as String? ?? '',
       is_playable: json['is_playable'] as bool? ?? true,
-      is_saved: json['is_saved'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$_TrackEntityToJson(_$_TrackEntity instance) =>
+Map<String, dynamic> _$$_TrackItemResponseToJson(
+        _$_TrackItemResponse instance) =>
     <String, dynamic>{
       'album': instance.album.toJson(),
       'artists': instance.artists.map((e) => e.toJson()).toList(),
@@ -37,5 +37,4 @@ Map<String, dynamic> _$$_TrackEntityToJson(_$_TrackEntity instance) =>
       'uri': instance.uri,
       'preview_url': instance.preview_url,
       'is_playable': instance.is_playable,
-      'is_saved': instance.is_saved,
     };

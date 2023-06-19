@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 import 'package:spotify_playlist_helper/core/utils/extensions/duration_extension.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
 
 class TrackItem extends StatelessWidget {
   static const String tag = 'TrackItem';
@@ -48,7 +48,10 @@ class TrackItem extends StatelessWidget {
                 children: [
                   Text(
                     track.name,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(trackArtists),
@@ -58,14 +61,30 @@ class TrackItem extends StatelessWidget {
           ),
           Flexible(
             flex: 2,
+            child: Text(
+              track.playlists.isNotEmpty
+                  ? track.playlists.length.toString()
+                  : '',
+            ),
+          ),
+          Flexible(
+            flex: 2,
             child:
                 Text(Duration(milliseconds: track.duration_ms).toElapsedTime()),
           ),
           Flexible(
             flex: 1,
-            child:
-            InkWell(
-              onTap: (){},
+            child: InkWell(
+              onTap: () {},
+              child: track.is_saved
+                  ? const Icon(Icons.favorite)
+                  : const Icon(Icons.favorite_outline),
+            ),
+          ),
+          Flexible(
+            flex: 1,
+            child: InkWell(
+              onTap: () {},
               child: const Icon(Icons.more_vert),
             ),
           )

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'playlist_with_tracks.dart';
+part of 'playlists_response.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,46 +14,46 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-PlaylistWithTracks _$PlaylistWithTracksFromJson(Map<String, dynamic> json) {
-  return _PlaylistTracksResponse.fromJson(json);
+PlaylistsResponse _$PlaylistsResponseFromJson(Map<String, dynamic> json) {
+  return _PlaylistsResponse.fromJson(json);
 }
 
 /// @nodoc
-mixin _$PlaylistWithTracks {
+mixin _$PlaylistsResponse {
   String get href => throw _privateConstructorUsedError;
-  int get total => throw _privateConstructorUsedError;
-  List<TrackWithMeta> get items => throw _privateConstructorUsedError;
   int get limit => throw _privateConstructorUsedError;
   int get offset => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
+  List<PlaylistItemResponse> get items => throw _privateConstructorUsedError;
   String? get next => throw _privateConstructorUsedError;
   String? get previous => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PlaylistWithTracksCopyWith<PlaylistWithTracks> get copyWith =>
+  $PlaylistsResponseCopyWith<PlaylistsResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PlaylistWithTracksCopyWith<$Res> {
-  factory $PlaylistWithTracksCopyWith(
-          PlaylistWithTracks value, $Res Function(PlaylistWithTracks) then) =
-      _$PlaylistWithTracksCopyWithImpl<$Res, PlaylistWithTracks>;
+abstract class $PlaylistsResponseCopyWith<$Res> {
+  factory $PlaylistsResponseCopyWith(
+          PlaylistsResponse value, $Res Function(PlaylistsResponse) then) =
+      _$PlaylistsResponseCopyWithImpl<$Res, PlaylistsResponse>;
   @useResult
   $Res call(
       {String href,
-      int total,
-      List<TrackWithMeta> items,
       int limit,
       int offset,
+      int total,
+      List<PlaylistItemResponse> items,
       String? next,
       String? previous});
 }
 
 /// @nodoc
-class _$PlaylistWithTracksCopyWithImpl<$Res, $Val extends PlaylistWithTracks>
-    implements $PlaylistWithTracksCopyWith<$Res> {
-  _$PlaylistWithTracksCopyWithImpl(this._value, this._then);
+class _$PlaylistsResponseCopyWithImpl<$Res, $Val extends PlaylistsResponse>
+    implements $PlaylistsResponseCopyWith<$Res> {
+  _$PlaylistsResponseCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -64,10 +64,10 @@ class _$PlaylistWithTracksCopyWithImpl<$Res, $Val extends PlaylistWithTracks>
   @override
   $Res call({
     Object? href = null,
-    Object? total = null,
-    Object? items = null,
     Object? limit = null,
     Object? offset = null,
+    Object? total = null,
+    Object? items = null,
     Object? next = freezed,
     Object? previous = freezed,
   }) {
@@ -76,14 +76,6 @@ class _$PlaylistWithTracksCopyWithImpl<$Res, $Val extends PlaylistWithTracks>
           ? _value.href
           : href // ignore: cast_nullable_to_non_nullable
               as String,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
-      items: null == items
-          ? _value.items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<TrackWithMeta>,
       limit: null == limit
           ? _value.limit
           : limit // ignore: cast_nullable_to_non_nullable
@@ -92,6 +84,14 @@ class _$PlaylistWithTracksCopyWithImpl<$Res, $Val extends PlaylistWithTracks>
           ? _value.offset
           : offset // ignore: cast_nullable_to_non_nullable
               as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int,
+      items: null == items
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<PlaylistItemResponse>,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -105,55 +105,47 @@ class _$PlaylistWithTracksCopyWithImpl<$Res, $Val extends PlaylistWithTracks>
 }
 
 /// @nodoc
-abstract class _$$_PlaylistTracksResponseCopyWith<$Res>
-    implements $PlaylistWithTracksCopyWith<$Res> {
-  factory _$$_PlaylistTracksResponseCopyWith(_$_PlaylistTracksResponse value,
-          $Res Function(_$_PlaylistTracksResponse) then) =
-      __$$_PlaylistTracksResponseCopyWithImpl<$Res>;
+abstract class _$$_PlaylistsResponseCopyWith<$Res>
+    implements $PlaylistsResponseCopyWith<$Res> {
+  factory _$$_PlaylistsResponseCopyWith(_$_PlaylistsResponse value,
+          $Res Function(_$_PlaylistsResponse) then) =
+      __$$_PlaylistsResponseCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String href,
-      int total,
-      List<TrackWithMeta> items,
       int limit,
       int offset,
+      int total,
+      List<PlaylistItemResponse> items,
       String? next,
       String? previous});
 }
 
 /// @nodoc
-class __$$_PlaylistTracksResponseCopyWithImpl<$Res>
-    extends _$PlaylistWithTracksCopyWithImpl<$Res, _$_PlaylistTracksResponse>
-    implements _$$_PlaylistTracksResponseCopyWith<$Res> {
-  __$$_PlaylistTracksResponseCopyWithImpl(_$_PlaylistTracksResponse _value,
-      $Res Function(_$_PlaylistTracksResponse) _then)
+class __$$_PlaylistsResponseCopyWithImpl<$Res>
+    extends _$PlaylistsResponseCopyWithImpl<$Res, _$_PlaylistsResponse>
+    implements _$$_PlaylistsResponseCopyWith<$Res> {
+  __$$_PlaylistsResponseCopyWithImpl(
+      _$_PlaylistsResponse _value, $Res Function(_$_PlaylistsResponse) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? href = null,
-    Object? total = null,
-    Object? items = null,
     Object? limit = null,
     Object? offset = null,
+    Object? total = null,
+    Object? items = null,
     Object? next = freezed,
     Object? previous = freezed,
   }) {
-    return _then(_$_PlaylistTracksResponse(
+    return _then(_$_PlaylistsResponse(
       href: null == href
           ? _value.href
           : href // ignore: cast_nullable_to_non_nullable
               as String,
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
-      items: null == items
-          ? _value._items
-          : items // ignore: cast_nullable_to_non_nullable
-              as List<TrackWithMeta>,
       limit: null == limit
           ? _value.limit
           : limit // ignore: cast_nullable_to_non_nullable
@@ -162,6 +154,14 @@ class __$$_PlaylistTracksResponseCopyWithImpl<$Res>
           ? _value.offset
           : offset // ignore: cast_nullable_to_non_nullable
               as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int,
+      items: null == items
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<PlaylistItemResponse>,
       next: freezed == next
           ? _value.next
           : next // ignore: cast_nullable_to_non_nullable
@@ -176,38 +176,36 @@ class __$$_PlaylistTracksResponseCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PlaylistTracksResponse implements _PlaylistTracksResponse {
-  _$_PlaylistTracksResponse(
+class _$_PlaylistsResponse implements _PlaylistsResponse {
+  _$_PlaylistsResponse(
       {required this.href,
+      required this.limit,
+      required this.offset,
       required this.total,
-      required final List<TrackWithMeta> items,
-      this.limit = 50,
-      this.offset = 0,
+      required final List<PlaylistItemResponse> items,
       this.next,
       this.previous})
       : _items = items;
 
-  factory _$_PlaylistTracksResponse.fromJson(Map<String, dynamic> json) =>
-      _$$_PlaylistTracksResponseFromJson(json);
+  factory _$_PlaylistsResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_PlaylistsResponseFromJson(json);
 
   @override
   final String href;
   @override
-  final int total;
-  final List<TrackWithMeta> _items;
+  final int limit;
   @override
-  List<TrackWithMeta> get items {
+  final int offset;
+  @override
+  final int total;
+  final List<PlaylistItemResponse> _items;
+  @override
+  List<PlaylistItemResponse> get items {
     if (_items is EqualUnmodifiableListView) return _items;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_items);
   }
 
-  @override
-  @JsonKey()
-  final int limit;
-  @override
-  @JsonKey()
-  final int offset;
   @override
   final String? next;
   @override
@@ -215,19 +213,19 @@ class _$_PlaylistTracksResponse implements _PlaylistTracksResponse {
 
   @override
   String toString() {
-    return 'PlaylistWithTracks(href: $href, total: $total, items: $items, limit: $limit, offset: $offset, next: $next, previous: $previous)';
+    return 'PlaylistsResponse(href: $href, limit: $limit, offset: $offset, total: $total, items: $items, next: $next, previous: $previous)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PlaylistTracksResponse &&
+            other is _$_PlaylistsResponse &&
             (identical(other.href, href) || other.href == href) &&
-            (identical(other.total, total) || other.total == total) &&
-            const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.limit, limit) || other.limit == limit) &&
             (identical(other.offset, offset) || other.offset == offset) &&
+            (identical(other.total, total) || other.total == total) &&
+            const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.next, next) || other.next == next) &&
             (identical(other.previous, previous) ||
                 other.previous == previous));
@@ -235,60 +233,53 @@ class _$_PlaylistTracksResponse implements _PlaylistTracksResponse {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      href,
-      total,
-      const DeepCollectionEquality().hash(_items),
-      limit,
-      offset,
-      next,
-      previous);
+  int get hashCode => Object.hash(runtimeType, href, limit, offset, total,
+      const DeepCollectionEquality().hash(_items), next, previous);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PlaylistTracksResponseCopyWith<_$_PlaylistTracksResponse> get copyWith =>
-      __$$_PlaylistTracksResponseCopyWithImpl<_$_PlaylistTracksResponse>(
+  _$$_PlaylistsResponseCopyWith<_$_PlaylistsResponse> get copyWith =>
+      __$$_PlaylistsResponseCopyWithImpl<_$_PlaylistsResponse>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PlaylistTracksResponseToJson(
+    return _$$_PlaylistsResponseToJson(
       this,
     );
   }
 }
 
-abstract class _PlaylistTracksResponse implements PlaylistWithTracks {
-  factory _PlaylistTracksResponse(
+abstract class _PlaylistsResponse implements PlaylistsResponse {
+  factory _PlaylistsResponse(
       {required final String href,
+      required final int limit,
+      required final int offset,
       required final int total,
-      required final List<TrackWithMeta> items,
-      final int limit,
-      final int offset,
+      required final List<PlaylistItemResponse> items,
       final String? next,
-      final String? previous}) = _$_PlaylistTracksResponse;
+      final String? previous}) = _$_PlaylistsResponse;
 
-  factory _PlaylistTracksResponse.fromJson(Map<String, dynamic> json) =
-      _$_PlaylistTracksResponse.fromJson;
+  factory _PlaylistsResponse.fromJson(Map<String, dynamic> json) =
+      _$_PlaylistsResponse.fromJson;
 
   @override
   String get href;
   @override
-  int get total;
-  @override
-  List<TrackWithMeta> get items;
-  @override
   int get limit;
   @override
   int get offset;
+  @override
+  int get total;
+  @override
+  List<PlaylistItemResponse> get items;
   @override
   String? get next;
   @override
   String? get previous;
   @override
   @JsonKey(ignore: true)
-  _$$_PlaylistTracksResponseCopyWith<_$_PlaylistTracksResponse> get copyWith =>
+  _$$_PlaylistsResponseCopyWith<_$_PlaylistsResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }

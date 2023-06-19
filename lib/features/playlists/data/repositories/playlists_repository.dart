@@ -6,9 +6,9 @@ import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
 import 'package:spotify_playlist_helper/features/playlists/data/api/playlists_api.dart';
 import 'package:spotify_playlist_helper/features/playlists/data/storage/playlists_dao.dart';
 import 'package:spotify_playlist_helper/core/data/success/success.dart';
-import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
+import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/repositories/playlists_repository.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
+import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_response.dart';
 
 @LazySingleton(as: IPlaylistsRepository)
 class PlaylistsRepository implements IPlaylistsRepository {
@@ -26,7 +26,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
   @override
   Future<Either<GeneralFailure, SuccessEmpty>> getCurrentUserPlaylists() async {
     try {
-      final items = <SimplifiedPlaylist>[];
+      final items = <PlaylistItemResponse>[];
       var allFetched = false;
       String? nextUrls;
 
@@ -52,9 +52,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
     }
   }
 
-
-
   @override
-  Stream<Iterable<SimplifiedPlaylist>> getCurrentPlaylistsStream() =>
+  Stream<Iterable<PlaylistEntity>> getCurrentPlaylistsStream() =>
       dao.getPlaylistsStream();
 }

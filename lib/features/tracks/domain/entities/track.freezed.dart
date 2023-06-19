@@ -32,6 +32,7 @@ mixin _$TrackEntity {
   String get preview_url => throw _privateConstructorUsedError;
   bool get is_playable => throw _privateConstructorUsedError;
   bool get is_saved => throw _privateConstructorUsedError;
+  List<PlaylistEntity> get playlists => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +58,8 @@ abstract class $TrackEntityCopyWith<$Res> {
       String uri,
       String preview_url,
       bool is_playable,
-      bool is_saved});
+      bool is_saved,
+      List<PlaylistEntity> playlists});
 
   $AlbumEntityCopyWith<$Res> get album;
 }
@@ -87,6 +89,7 @@ class _$TrackEntityCopyWithImpl<$Res, $Val extends TrackEntity>
     Object? preview_url = null,
     Object? is_playable = null,
     Object? is_saved = null,
+    Object? playlists = null,
   }) {
     return _then(_value.copyWith(
       album: null == album
@@ -137,6 +140,10 @@ class _$TrackEntityCopyWithImpl<$Res, $Val extends TrackEntity>
           ? _value.is_saved
           : is_saved // ignore: cast_nullable_to_non_nullable
               as bool,
+      playlists: null == playlists
+          ? _value.playlists
+          : playlists // ignore: cast_nullable_to_non_nullable
+              as List<PlaylistEntity>,
     ) as $Val);
   }
 
@@ -169,7 +176,8 @@ abstract class _$$_TrackEntityCopyWith<$Res>
       String uri,
       String preview_url,
       bool is_playable,
-      bool is_saved});
+      bool is_saved,
+      List<PlaylistEntity> playlists});
 
   @override
   $AlbumEntityCopyWith<$Res> get album;
@@ -198,6 +206,7 @@ class __$$_TrackEntityCopyWithImpl<$Res>
     Object? preview_url = null,
     Object? is_playable = null,
     Object? is_saved = null,
+    Object? playlists = null,
   }) {
     return _then(_$_TrackEntity(
       album: null == album
@@ -248,6 +257,10 @@ class __$$_TrackEntityCopyWithImpl<$Res>
           ? _value.is_saved
           : is_saved // ignore: cast_nullable_to_non_nullable
               as bool,
+      playlists: null == playlists
+          ? _value._playlists
+          : playlists // ignore: cast_nullable_to_non_nullable
+              as List<PlaylistEntity>,
     ));
   }
 }
@@ -267,8 +280,10 @@ class _$_TrackEntity implements _TrackEntity {
       required this.uri,
       this.preview_url = '',
       this.is_playable = true,
-      this.is_saved = false})
-      : _artists = artists;
+      this.is_saved = false,
+      final List<PlaylistEntity> playlists = const <PlaylistEntity>[]})
+      : _artists = artists,
+        _playlists = playlists;
 
   factory _$_TrackEntity.fromJson(Map<String, dynamic> json) =>
       _$$_TrackEntityFromJson(json);
@@ -306,10 +321,18 @@ class _$_TrackEntity implements _TrackEntity {
   @override
   @JsonKey()
   final bool is_saved;
+  final List<PlaylistEntity> _playlists;
+  @override
+  @JsonKey()
+  List<PlaylistEntity> get playlists {
+    if (_playlists is EqualUnmodifiableListView) return _playlists;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_playlists);
+  }
 
   @override
   String toString() {
-    return 'TrackEntity(album: $album, artists: $artists, duration_ms: $duration_ms, href: $href, id: $id, name: $name, popularity: $popularity, track_number: $track_number, uri: $uri, preview_url: $preview_url, is_playable: $is_playable, is_saved: $is_saved)';
+    return 'TrackEntity(album: $album, artists: $artists, duration_ms: $duration_ms, href: $href, id: $id, name: $name, popularity: $popularity, track_number: $track_number, uri: $uri, preview_url: $preview_url, is_playable: $is_playable, is_saved: $is_saved, playlists: $playlists)';
   }
 
   @override
@@ -334,7 +357,9 @@ class _$_TrackEntity implements _TrackEntity {
             (identical(other.is_playable, is_playable) ||
                 other.is_playable == is_playable) &&
             (identical(other.is_saved, is_saved) ||
-                other.is_saved == is_saved));
+                other.is_saved == is_saved) &&
+            const DeepCollectionEquality()
+                .equals(other._playlists, _playlists));
   }
 
   @JsonKey(ignore: true)
@@ -352,7 +377,8 @@ class _$_TrackEntity implements _TrackEntity {
       uri,
       preview_url,
       is_playable,
-      is_saved);
+      is_saved,
+      const DeepCollectionEquality().hash(_playlists));
 
   @JsonKey(ignore: true)
   @override
@@ -381,7 +407,8 @@ abstract class _TrackEntity implements TrackEntity {
       required final String uri,
       final String preview_url,
       final bool is_playable,
-      final bool is_saved}) = _$_TrackEntity;
+      final bool is_saved,
+      final List<PlaylistEntity> playlists}) = _$_TrackEntity;
 
   factory _TrackEntity.fromJson(Map<String, dynamic> json) =
       _$_TrackEntity.fromJson;
@@ -410,6 +437,8 @@ abstract class _TrackEntity implements TrackEntity {
   bool get is_playable;
   @override
   bool get is_saved;
+  @override
+  List<PlaylistEntity> get playlists;
   @override
   @JsonKey(ignore: true)
   _$$_TrackEntityCopyWith<_$_TrackEntity> get copyWith =>

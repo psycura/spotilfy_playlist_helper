@@ -74,13 +74,10 @@ Future<_i1.GetIt> $initGetIt(
   );
   gh.lazySingleton<_i7.EasyLoggerWrapper>(
       () => logsModule.easyLoggerWrapper(gh<_i4.Logger>()));
-  gh.singleton<_i8.IPlaylistsDao>(
-    _i8.PlaylistsDao(
-      gh<_i4.Logger>(),
-      gh<_i3.Isar>(),
-    ),
-    dispose: (i) => i.dispose(),
-  );
+  gh.singleton<_i8.IPlaylistsDao>(_i8.PlaylistsDao(
+    gh<_i4.Logger>(),
+    gh<_i3.Isar>(),
+  ));
   gh.singleton<_i6.IStorageService>(
       storageModule.storageService(gh<_i6.SharedPreferences>()));
   gh.singleton<_i9.ITracksDao>(_i9.TracksDao(

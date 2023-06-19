@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PlaylistState {
   FetchingState get fetchingState => throw _privateConstructorUsedError;
-  List<TrackWithMeta> get tracks => throw _privateConstructorUsedError;
+  List<TrackWithMetaEntity> get tracks => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PlaylistStateCopyWith<PlaylistState> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $PlaylistStateCopyWith<$Res> {
           PlaylistState value, $Res Function(PlaylistState) then) =
       _$PlaylistStateCopyWithImpl<$Res, PlaylistState>;
   @useResult
-  $Res call({FetchingState fetchingState, List<TrackWithMeta> tracks});
+  $Res call({FetchingState fetchingState, List<TrackWithMetaEntity> tracks});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$PlaylistStateCopyWithImpl<$Res, $Val extends PlaylistState>
       tracks: null == tracks
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as List<TrackWithMeta>,
+              as List<TrackWithMetaEntity>,
     ) as $Val);
   }
 }
@@ -70,7 +70,7 @@ abstract class _$$_PlaylistStateCopyWith<$Res>
       __$$_PlaylistStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FetchingState fetchingState, List<TrackWithMeta> tracks});
+  $Res call({FetchingState fetchingState, List<TrackWithMetaEntity> tracks});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
       tracks: null == tracks
           ? _value._tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as List<TrackWithMeta>,
+              as List<TrackWithMetaEntity>,
     ));
   }
 }
@@ -105,17 +105,17 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
 class _$_PlaylistState extends _PlaylistState {
   const _$_PlaylistState(
       {this.fetchingState = FetchingState.idle,
-      final List<TrackWithMeta> tracks = const <TrackWithMeta>[]})
+      final List<TrackWithMetaEntity> tracks = const <TrackWithMetaEntity>[]})
       : _tracks = tracks,
         super._();
 
   @override
   @JsonKey()
   final FetchingState fetchingState;
-  final List<TrackWithMeta> _tracks;
+  final List<TrackWithMetaEntity> _tracks;
   @override
   @JsonKey()
-  List<TrackWithMeta> get tracks {
+  List<TrackWithMetaEntity> get tracks {
     if (_tracks is EqualUnmodifiableListView) return _tracks;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_tracks);
@@ -150,13 +150,13 @@ class _$_PlaylistState extends _PlaylistState {
 abstract class _PlaylistState extends PlaylistState {
   const factory _PlaylistState(
       {final FetchingState fetchingState,
-      final List<TrackWithMeta> tracks}) = _$_PlaylistState;
+      final List<TrackWithMetaEntity> tracks}) = _$_PlaylistState;
   const _PlaylistState._() : super._();
 
   @override
   FetchingState get fetchingState;
   @override
-  List<TrackWithMeta> get tracks;
+  List<TrackWithMetaEntity> get tracks;
   @override
   @JsonKey(ignore: true)
   _$$_PlaylistStateCopyWith<_$_PlaylistState> get copyWith =>

@@ -4,26 +4,28 @@ import 'package:isar/isar.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/adapters/playlist_dto_adapter.dart';
 import 'package:spotify_playlist_helper/core/data/adapters/track_dto_adapter.dart';
+import 'package:spotify_playlist_helper/core/data/models/track/track_with_meta_response.dart';
 import 'package:spotify_playlist_helper/core/data/storage/albums/albums_collection.dart';
 import 'package:spotify_playlist_helper/core/data/storage/artists/artists_collection.dart';
 import 'package:spotify_playlist_helper/core/data/storage/playlists/playlists_collection.dart';
 import 'package:spotify_playlist_helper/core/data/storage/tracks/playlist_tracks_collection.dart';
 import 'package:spotify_playlist_helper/core/data/storage/tracks/saved_tracks_collection.dart';
 import 'package:spotify_playlist_helper/core/data/storage/tracks/tracks_collection.dart';
-import 'package:spotify_playlist_helper/core/utils/hash_function.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
+import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_response.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 
 abstract interface class ITracksDao {
-  Stream<Iterable<TrackWithMeta>> getSavedTracksStream();
+  Stream<Iterable<TrackWithMetaEntity>> getSavedTracksStream();
 
-  Stream<Iterable<TrackWithMeta>> getPlaylistTracksStream(String playlistId);
+  Stream<Iterable<TrackWithMetaEntity>> getPlaylistTracksStream(
+    String playlistId,
+  );
 
-  Future<void> saveSavedTracks(List<TrackWithMeta> items);
+  Future<void> saveSavedTracks(List<TrackWithMetaResponse> items);
 
   Future<void> savePlaylistTracks(
-    SimplifiedPlaylist playlist,
-    List<TrackWithMeta> items,
+    PlaylistItemResponse playlist,
+    List<TrackWithMetaResponse> items,
   );
 }
 
@@ -42,23 +44,23 @@ class TracksDao implements ITracksDao {
   TracksDao(this.logger, this.db);
 
   @override
-  Stream<Iterable<TrackWithMeta>> getSavedTracksStream() {
-    Query<SavedTracks> tracks =
-        db.savedTracks.filter().track((q) => q.isSavedEqualTo(true)).build();
+  Stream<Iterable<TrackWithMetaEntity>> getSavedTracksStream() {
+    Query<SavedTrackDto> tracks =
+        db.savedTracks.filter().track((q) => q.savedIsNotEmpty()).build();
 
     return tracks.watch(fireImmediately: true).map(
           (items) => items.map(
-            (e) => tracksAdapter.fromDto(e.track.value!, e.addedAt),
+            (e) => tracksAdapter.entityFromDto(e.track.value!, e.addedAt),
           ),
         );
   }
 
   @override
-  Future<void> saveSavedTracks(List<TrackWithMeta> items) async {
+  Future<void> saveSavedTracks(List<TrackWithMetaResponse> items) async {
     await db.writeTxn(() async {
       for (var item in items) {
         final (savedTrack, track, artists, (album, albumArtists)) =
-            tracksAdapter.toDto(item, isSaved: true);
+            tracksAdapter.responseToDto(item);
 
         await db.savedTracks.put(savedTrack);
         await db.tracks.put(track);
@@ -76,17 +78,18 @@ class TracksDao implements ITracksDao {
 
   @override
   Future<void> savePlaylistTracks(
-    SimplifiedPlaylist playlist,
-    List<TrackWithMeta> items,
+    PlaylistItemResponse playlist,
+    List<TrackWithMetaResponse> items,
   ) async {
-    final playListDto = playlistAdapter.toDto(playlist);
+    final playListDto = playlistAdapter.responseToDto(playlist);
 
     await db.writeTxn(() async {
       await db.playlists.put(playListDto);
 
       for (var item in items) {
         final (playlistTrack, (track, artists, (album, albumArtists))) =
-            playlistTrackAdapter.toDto(playlist, item);
+            playlistTrackAdapter.responseToDto(playlist, item);
+
 
         await db.playlistTracks.put(playlistTrack);
         await db.tracks.put(track);
@@ -94,8 +97,8 @@ class TracksDao implements ITracksDao {
         await db.artists.putAll(artists.toList());
         await db.artists.putAll(albumArtists.toList());
 
-        await album.artists.save();
         await track.album.save();
+        await album.artists.save();
         await track.artists.save();
         await playlistTrack.track.save();
         await playlistTrack.playlist.save();
@@ -104,15 +107,19 @@ class TracksDao implements ITracksDao {
   }
 
   @override
-  Stream<Iterable<TrackWithMeta>> getPlaylistTracksStream(String playlistId) {
-    Query<PlaylistTracks> playlistTracks = db.playlistTracks
+  Stream<Iterable<TrackWithMetaEntity>> getPlaylistTracksStream(
+    String playlistId,
+  ) {
+
+
+    Query<PlaylistTrackDto> playlistTracks = db.playlistTracks
         .filter()
-        .playlist((q) => q.isarIdEqualTo(fastHash(playlistId)))
+        .playlist((q) => q.spotifyIdEqualTo(playlistId))
         .build();
 
     return playlistTracks.watch(fireImmediately: true).map(
           (items) => items.map(
-            (e) => tracksAdapter.fromDto(e.track.value!, e.addedAt),
+            (e) => tracksAdapter.entityFromDto(e.track.value!, e.addedAt),
           ),
         );
   }

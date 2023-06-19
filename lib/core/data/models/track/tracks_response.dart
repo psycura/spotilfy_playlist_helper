@@ -1,10 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spotify_playlist_helper/core/data/models/track/track_with_meta_response.dart';
 
-import 'track_with_meta.dart';
 
 
 part 'tracks_response.freezed.dart';
-
 part 'tracks_response.g.dart';
 
 @freezed
@@ -14,7 +13,7 @@ class TracksResponse with _$TracksResponse {
     required int limit,
     required int offset,
     required int total,
-    required List<TrackWithMeta> items,
+    required List<TrackWithMetaResponse> items,
     String? next,
     String? previous,
 

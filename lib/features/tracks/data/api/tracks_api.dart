@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:spotify_playlist_helper/const/apis.dart';
+import 'package:spotify_playlist_helper/core/data/models/track/tracks_response.dart';
 import 'package:spotify_playlist_helper/core/infrastructure/http/http_service_interface.dart';
 import 'package:spotify_playlist_helper/core/infrastructure/logs/logger.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist_with_tracks.dart';
-import 'package:spotify_playlist_helper/features/tracks/domain/entities/tracks_response.dart';
+import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_with_tracks_response.dart';
 
 abstract interface class ITracksApi {
   Future<TracksResponse> fetchSavedTracks({
@@ -14,7 +14,7 @@ abstract interface class ITracksApi {
   });
 
 
-  Future<PlaylistWithTracks> getPlaylistWithTracks({
+  Future<PlaylistWithTracksResponse> getPlaylistWithTracks({
     String? playlistId,
     String? playlistUrl,
     int? limit,
@@ -53,7 +53,7 @@ class TracksApi implements ITracksApi {
   }
 
   @override
-  Future<PlaylistWithTracks> getPlaylistWithTracks({
+  Future<PlaylistWithTracksResponse> getPlaylistWithTracks({
     String? playlistId,
     String? playlistUrl,
     int? limit,
@@ -66,13 +66,13 @@ class TracksApi implements ITracksApi {
     if (playlistUrl != null) {
       final res = await client.getRequest(playlistUrl);
 
-      return PlaylistWithTracks.fromJson(res.data);
+      return PlaylistWithTracksResponse.fromJson(res.data);
     } else {
       final res = await client.getRequest(
         '${Apis.baseSpotify}/${Apis.playlists}/$playlistId/${Apis.tracks}?offset=${offset ?? 0}&limit=${limit ?? 50}',
       );
 
-      return PlaylistWithTracks.fromJson(res.data);
+      return PlaylistWithTracksResponse.fromJson(res.data);
     }
   }
 }

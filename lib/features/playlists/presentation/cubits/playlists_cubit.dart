@@ -4,8 +4,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
+import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist_with_state.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/repositories/tracks_repository.dart';
 
@@ -31,7 +31,7 @@ class PlaylistsCubit extends Cubit<PlaylistsState> {
 
   final ITracksRepository _tracksRepo;
 
-  StreamSubscription<Iterable<SimplifiedPlaylist>>? _playlistsSub;
+  StreamSubscription<Iterable<PlaylistEntity>>? _playlistsSub;
 
   PlaylistsCubit({
     required Logger logger,
@@ -60,7 +60,7 @@ class PlaylistsCubit extends Cubit<PlaylistsState> {
     fetchCurrentUserPlaylists();
   }
 
-  void _handlePlaylistsUpdates(Iterable<SimplifiedPlaylist> items) {
+  void _handlePlaylistsUpdates(Iterable<PlaylistEntity> items) {
     final newMap = <String, PlaylistWithState>{};
 
     items.map((e) => PlaylistWithState(playlist: e)).forEach((element) {

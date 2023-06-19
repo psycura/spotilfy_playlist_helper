@@ -1,15 +1,16 @@
-
 import 'package:isar/isar.dart';
 import 'package:spotify_playlist_helper/core/data/storage/artists/artists_collection.dart';
+import 'package:spotify_playlist_helper/core/data/storage/tracks/tracks_collection.dart';
 import 'package:spotify_playlist_helper/core/utils/hash_function.dart';
 
 part 'albums_collection.g.dart';
 
+@Collection(accessor: 'albums')
+class AlbumDto {
+  Id get id => fastHash(spotifyId);
 
-@collection
-class Albums {
-  String? id;
-  Id get isarId => fastHash(id!);
+  @Index(unique: true, replace: true)
+  late String spotifyId;
 
   late String name;
   late String albumType;
@@ -19,8 +20,10 @@ class Albums {
   late String releaseDatePrecision;
   late String uri;
   late List<String> images;
-  DateTime? updatedAt;
 
-  final artists = IsarLinks<Artists>();
+  @Index()
+  final artists = IsarLinks<ArtistDto>();
 
+  @Backlink(to: 'album')
+  final tracks = IsarLinks<TrackDto>();
 }

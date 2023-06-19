@@ -1,25 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tracks_response.dart';
+part of 'playlists_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TracksResponse _$$_TracksResponseFromJson(Map<String, dynamic> json) =>
-    _$_TracksResponse(
+_$_PlaylistsResponse _$$_PlaylistsResponseFromJson(Map<String, dynamic> json) =>
+    _$_PlaylistsResponse(
       href: json['href'] as String,
       limit: json['limit'] as int,
       offset: json['offset'] as int,
       total: json['total'] as int,
       items: (json['items'] as List<dynamic>)
-          .map((e) => TrackWithMeta.fromJson(e as Map<String, dynamic>))
+          .map((e) => PlaylistItemResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       next: json['next'] as String?,
       previous: json['previous'] as String?,
     );
 
-Map<String, dynamic> _$$_TracksResponseToJson(_$_TracksResponse instance) =>
+Map<String, dynamic> _$$_PlaylistsResponseToJson(
+        _$_PlaylistsResponse instance) =>
     <String, dynamic>{
       'href': instance.href,
       'limit': instance.limit,

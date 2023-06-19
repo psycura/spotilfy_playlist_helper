@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/const/apis.dart';
+import 'package:spotify_playlist_helper/core/data/models/playlist/playlists_response.dart';
 import 'package:spotify_playlist_helper/core/infrastructure/http/http_service_interface.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlists_response.dart';
 
 abstract interface class IPlaylistsApi {
   Future<PlaylistsResponse> getCurrentUserPlaylists({

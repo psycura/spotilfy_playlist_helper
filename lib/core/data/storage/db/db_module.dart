@@ -17,12 +17,12 @@ abstract class DbModule {
     final dir = await getApplicationDocumentsDirectory();
     final isar = await Isar.open(
       [
-        AlbumsSchema,
-        ArtistsSchema,
-        PlaylistsSchema,
-        TracksSchema,
-        PlaylistTracksSchema,
-        SavedTracksSchema
+        AlbumDtoSchema,
+        ArtistDtoSchema,
+        PlaylistDtoSchema,
+        TrackDtoSchema,
+        PlaylistTrackDtoSchema,
+        SavedTrackDtoSchema
       ],
       directory: dir.path,
     );

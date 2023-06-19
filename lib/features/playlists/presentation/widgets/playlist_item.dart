@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/features/playlist_content/presentation/screens/playlist_content_screen.dart';
+import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist.dart';
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist_with_state.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/playlists_cubit.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/selected_playlist_cubit.dart';
 
@@ -28,11 +28,11 @@ class PlaylistItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final playlistObject = context.select<PlaylistsCubit, PlaylistWithState>(
-        (bloc) => bloc.state.playlists[playlistId]!);
+      (bloc) => bloc.state.playlists[playlistId]!,
+    );
 
-    SimplifiedPlaylist playlist = playlistObject.playlist;
+    PlaylistEntity playlist = playlistObject.playlist;
 
     IconData trailingIcon = playlistObject.state == FetchingState.failure
         ? Icons.error_outline

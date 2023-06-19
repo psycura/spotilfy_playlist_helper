@@ -15,7 +15,7 @@ class PlaylistState with _$PlaylistState {
 
   const factory PlaylistState({
     @Default(FetchingState.idle) FetchingState fetchingState,
-    @Default(<TrackWithMeta>[]) List<TrackWithMeta> tracks,
+    @Default(<TrackWithMetaEntity>[]) List<TrackWithMetaEntity> tracks,
   }) = _PlaylistState;
 }
 
@@ -26,7 +26,7 @@ class PlaylistCubit extends Cubit<PlaylistState> {
 
   final ITracksRepository _repo;
 
-  StreamSubscription<Iterable<TrackWithMeta>>? _tracksSub;
+  StreamSubscription<Iterable<TrackWithMetaEntity>>? _tracksSub;
 
   PlaylistCubit({
     required Logger logger,
@@ -40,7 +40,7 @@ class PlaylistCubit extends Cubit<PlaylistState> {
         _repo.getPlaylistTracksStream(playlistId).listen(_handleTracksUpdates);
   }
 
-  void _handleTracksUpdates(Iterable<TrackWithMeta> items) {
+  void _handleTracksUpdates(Iterable<TrackWithMetaEntity> items) {
     emit(state.copyWith(tracks: items.toList()));
   }
 

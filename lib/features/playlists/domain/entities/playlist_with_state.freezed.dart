@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PlaylistWithState {
-  SimplifiedPlaylist get playlist => throw _privateConstructorUsedError;
+  PlaylistEntity get playlist => throw _privateConstructorUsedError;
   FetchingState get state => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,9 +30,9 @@ abstract class $PlaylistWithStateCopyWith<$Res> {
           PlaylistWithState value, $Res Function(PlaylistWithState) then) =
       _$PlaylistWithStateCopyWithImpl<$Res, PlaylistWithState>;
   @useResult
-  $Res call({SimplifiedPlaylist playlist, FetchingState state});
+  $Res call({PlaylistEntity playlist, FetchingState state});
 
-  $SimplifiedPlaylistCopyWith<$Res> get playlist;
+  $PlaylistEntityCopyWith<$Res> get playlist;
 }
 
 /// @nodoc
@@ -55,7 +55,7 @@ class _$PlaylistWithStateCopyWithImpl<$Res, $Val extends PlaylistWithState>
       playlist: null == playlist
           ? _value.playlist
           : playlist // ignore: cast_nullable_to_non_nullable
-              as SimplifiedPlaylist,
+              as PlaylistEntity,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -65,8 +65,8 @@ class _$PlaylistWithStateCopyWithImpl<$Res, $Val extends PlaylistWithState>
 
   @override
   @pragma('vm:prefer-inline')
-  $SimplifiedPlaylistCopyWith<$Res> get playlist {
-    return $SimplifiedPlaylistCopyWith<$Res>(_value.playlist, (value) {
+  $PlaylistEntityCopyWith<$Res> get playlist {
+    return $PlaylistEntityCopyWith<$Res>(_value.playlist, (value) {
       return _then(_value.copyWith(playlist: value) as $Val);
     });
   }
@@ -80,10 +80,10 @@ abstract class _$$_PlaylistWithStateCopyWith<$Res>
       __$$_PlaylistWithStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SimplifiedPlaylist playlist, FetchingState state});
+  $Res call({PlaylistEntity playlist, FetchingState state});
 
   @override
-  $SimplifiedPlaylistCopyWith<$Res> get playlist;
+  $PlaylistEntityCopyWith<$Res> get playlist;
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class __$$_PlaylistWithStateCopyWithImpl<$Res>
       playlist: null == playlist
           ? _value.playlist
           : playlist // ignore: cast_nullable_to_non_nullable
-              as SimplifiedPlaylist,
+              as PlaylistEntity,
       state: null == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
@@ -120,7 +120,7 @@ class _$_PlaylistWithState implements _PlaylistWithState {
       {required this.playlist, this.state = FetchingState.idle});
 
   @override
-  final SimplifiedPlaylist playlist;
+  final PlaylistEntity playlist;
   @override
   @JsonKey()
   final FetchingState state;
@@ -153,11 +153,11 @@ class _$_PlaylistWithState implements _PlaylistWithState {
 
 abstract class _PlaylistWithState implements PlaylistWithState {
   factory _PlaylistWithState(
-      {required final SimplifiedPlaylist playlist,
+      {required final PlaylistEntity playlist,
       final FetchingState state}) = _$_PlaylistWithState;
 
   @override
-  SimplifiedPlaylist get playlist;
+  PlaylistEntity get playlist;
   @override
   FetchingState get state;
   @override

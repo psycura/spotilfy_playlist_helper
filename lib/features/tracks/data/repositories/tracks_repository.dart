@@ -3,8 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
+import 'package:spotify_playlist_helper/core/data/models/track/track_with_meta_response.dart';
 import 'package:spotify_playlist_helper/core/data/success/success.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
+import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_response.dart';
+import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist.dart';
 import 'package:spotify_playlist_helper/features/tracks/data/api/tracks_api.dart';
 import 'package:spotify_playlist_helper/features/tracks/data/storage/tracks_dao.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
@@ -26,7 +28,7 @@ class TracksRepository implements ITracksRepository {
   @override
   Future<Either<GeneralFailure, SuccessEmpty>> fetchSavedTracks() async {
     try {
-      final items = <TrackWithMeta>[];
+      final items = <TrackWithMetaResponse>[];
       var allFetched = false;
       String? nextUrls;
 
@@ -54,10 +56,10 @@ class TracksRepository implements ITracksRepository {
 
   @override
   Future<Either<GeneralFailure, SuccessEmpty>> fetchPlaylistTracks(
-    SimplifiedPlaylist playlist,
+    PlaylistEntity playlist,
   ) async {
     try {
-      final items = <TrackWithMeta>[];
+      final items = <TrackWithMetaResponse>[];
       var allFetched = false;
       String? nextUrls;
 
@@ -66,7 +68,6 @@ class TracksRepository implements ITracksRepository {
           playlistUrl: nextUrls,
           playlistId: playlist.id,
         );
-
 
         items.addAll(res.items);
 
@@ -77,8 +78,9 @@ class TracksRepository implements ITracksRepository {
         }
       }
 
-      await dao.savePlaylistTracks(playlist, items);
+      final playlistResponse = PlaylistItemResponse.fromJson(playlist.toJson());
 
+      await dao.savePlaylistTracks(playlistResponse, items);
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
@@ -89,10 +91,12 @@ class TracksRepository implements ITracksRepository {
   }
 
   @override
-  Stream<Iterable<TrackWithMeta>> getSavedTracksStream() =>
+  Stream<Iterable<TrackWithMetaEntity>> getSavedTracksStream() =>
       dao.getSavedTracksStream();
 
   @override
-  Stream<Iterable<TrackWithMeta>> getPlaylistTracksStream(String playlistId) =>
+  Stream<Iterable<TrackWithMetaEntity>> getPlaylistTracksStream(
+    String playlistId,
+  ) =>
       dao.getPlaylistTracksStream(playlistId);
 }

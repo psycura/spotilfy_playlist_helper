@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/simplified_playlist.dart';
+import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_response.dart';
 
 part 'selected_playlist_cubit.freezed.dart';
 

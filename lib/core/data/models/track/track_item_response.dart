@@ -1,13 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 
-part 'track.freezed.dart';
-
-part 'track.g.dart';
+part 'track_item_response.freezed.dart';
+part 'track_item_response.g.dart';
 
 @freezed
-class TrackEntity with _$TrackEntity {
-  factory TrackEntity({
+class TrackItemResponse with _$TrackItemResponse {
+  factory TrackItemResponse({
     required AlbumEntity album,
     required List<ArtistEntity> artists,
     required int duration_ms,
@@ -19,9 +18,8 @@ class TrackEntity with _$TrackEntity {
     required String uri,
     @Default('') String preview_url,
     @Default(true) bool is_playable,
-    @Default(false) bool is_saved,
 
-  }) = _TrackEntity;
+  }) = _TrackItemResponse;
 
-  factory TrackEntity.fromJson(Map<String, dynamic> json) => _$TrackEntityFromJson(json);
+  factory TrackItemResponse.fromJson(Map<String, dynamic> json) => _$TrackItemResponseFromJson(json);
 }

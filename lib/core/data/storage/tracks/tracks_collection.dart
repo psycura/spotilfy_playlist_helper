@@ -1,17 +1,19 @@
 import 'package:isar/isar.dart';
 import 'package:spotify_playlist_helper/core/data/storage/albums/albums_collection.dart';
 import 'package:spotify_playlist_helper/core/data/storage/artists/artists_collection.dart';
-import 'package:spotify_playlist_helper/core/data/storage/playlists/playlists_collection.dart';
-import 'package:spotify_playlist_helper/core/utils/hash_function.dart';
+import 'package:spotify_playlist_helper/core/data/storage/tracks/saved_tracks_collection.dart';
+
+import '../../../utils/hash_function.dart';
+import 'playlist_tracks_collection.dart';
 
 part 'tracks_collection.g.dart';
 
-@collection
-class Tracks {
-  String? id;
+@Collection(accessor: 'tracks')
+class TrackDto {
+  Id get id => fastHash(spotifyId);
 
-  Id get isarId => fastHash(id!);
-  DateTime? updatedAt;
+  @Index(unique: true, replace: true)
+  late String spotifyId;
 
   late int durationMs;
   late String href;
@@ -21,12 +23,17 @@ class Tracks {
   late String uri;
   String? previewUrl = '';
   bool? isPlayable = true;
-  bool? isSaved = false;
 
-  final album = IsarLink<Albums>();
+  @Index()
+  final album = IsarLink<AlbumDto>();
 
-  final artists = IsarLinks<Artists>();
+  @Index()
+  final artists = IsarLinks<ArtistDto>();
 
-  final playlists = IsarLinks<Playlists>();
+  @Backlink(to: 'track')
+  final playlists = IsarLinks<PlaylistTrackDto>();
+
+  @Backlink(to: 'track')
+  final saved = IsarLinks<SavedTrackDto>();
 
 }

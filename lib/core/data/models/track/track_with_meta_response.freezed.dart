@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'track_with_meta.dart';
+part of 'track_with_meta_response.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,36 +14,38 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-TrackWithMetaEntity _$TrackWithMetaEntityFromJson(Map<String, dynamic> json) {
-  return _TrackWithMetaEntity.fromJson(json);
+TrackWithMetaResponse _$TrackWithMetaResponseFromJson(
+    Map<String, dynamic> json) {
+  return _TrackWithMetaResponse.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TrackWithMetaEntity {
+mixin _$TrackWithMetaResponse {
   String get added_at => throw _privateConstructorUsedError;
-  TrackEntity get track => throw _privateConstructorUsedError;
+  TrackItemResponse get track => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TrackWithMetaEntityCopyWith<TrackWithMetaEntity> get copyWith =>
+  $TrackWithMetaResponseCopyWith<TrackWithMetaResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TrackWithMetaEntityCopyWith<$Res> {
-  factory $TrackWithMetaEntityCopyWith(
-          TrackWithMetaEntity value, $Res Function(TrackWithMetaEntity) then) =
-      _$TrackWithMetaEntityCopyWithImpl<$Res, TrackWithMetaEntity>;
+abstract class $TrackWithMetaResponseCopyWith<$Res> {
+  factory $TrackWithMetaResponseCopyWith(TrackWithMetaResponse value,
+          $Res Function(TrackWithMetaResponse) then) =
+      _$TrackWithMetaResponseCopyWithImpl<$Res, TrackWithMetaResponse>;
   @useResult
-  $Res call({String added_at, TrackEntity track});
+  $Res call({String added_at, TrackItemResponse track});
 
-  $TrackEntityCopyWith<$Res> get track;
+  $TrackItemResponseCopyWith<$Res> get track;
 }
 
 /// @nodoc
-class _$TrackWithMetaEntityCopyWithImpl<$Res, $Val extends TrackWithMetaEntity>
-    implements $TrackWithMetaEntityCopyWith<$Res> {
-  _$TrackWithMetaEntityCopyWithImpl(this._value, this._then);
+class _$TrackWithMetaResponseCopyWithImpl<$Res,
+        $Val extends TrackWithMetaResponse>
+    implements $TrackWithMetaResponseCopyWith<$Res> {
+  _$TrackWithMetaResponseCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -64,39 +66,39 @@ class _$TrackWithMetaEntityCopyWithImpl<$Res, $Val extends TrackWithMetaEntity>
       track: null == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
-              as TrackEntity,
+              as TrackItemResponse,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $TrackEntityCopyWith<$Res> get track {
-    return $TrackEntityCopyWith<$Res>(_value.track, (value) {
+  $TrackItemResponseCopyWith<$Res> get track {
+    return $TrackItemResponseCopyWith<$Res>(_value.track, (value) {
       return _then(_value.copyWith(track: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$_TrackWithMetaEntityCopyWith<$Res>
-    implements $TrackWithMetaEntityCopyWith<$Res> {
-  factory _$$_TrackWithMetaEntityCopyWith(_$_TrackWithMetaEntity value,
-          $Res Function(_$_TrackWithMetaEntity) then) =
-      __$$_TrackWithMetaEntityCopyWithImpl<$Res>;
+abstract class _$$_TrackWithMetaResponseCopyWith<$Res>
+    implements $TrackWithMetaResponseCopyWith<$Res> {
+  factory _$$_TrackWithMetaResponseCopyWith(_$_TrackWithMetaResponse value,
+          $Res Function(_$_TrackWithMetaResponse) then) =
+      __$$_TrackWithMetaResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String added_at, TrackEntity track});
+  $Res call({String added_at, TrackItemResponse track});
 
   @override
-  $TrackEntityCopyWith<$Res> get track;
+  $TrackItemResponseCopyWith<$Res> get track;
 }
 
 /// @nodoc
-class __$$_TrackWithMetaEntityCopyWithImpl<$Res>
-    extends _$TrackWithMetaEntityCopyWithImpl<$Res, _$_TrackWithMetaEntity>
-    implements _$$_TrackWithMetaEntityCopyWith<$Res> {
-  __$$_TrackWithMetaEntityCopyWithImpl(_$_TrackWithMetaEntity _value,
-      $Res Function(_$_TrackWithMetaEntity) _then)
+class __$$_TrackWithMetaResponseCopyWithImpl<$Res>
+    extends _$TrackWithMetaResponseCopyWithImpl<$Res, _$_TrackWithMetaResponse>
+    implements _$$_TrackWithMetaResponseCopyWith<$Res> {
+  __$$_TrackWithMetaResponseCopyWithImpl(_$_TrackWithMetaResponse _value,
+      $Res Function(_$_TrackWithMetaResponse) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -105,7 +107,7 @@ class __$$_TrackWithMetaEntityCopyWithImpl<$Res>
     Object? added_at = null,
     Object? track = null,
   }) {
-    return _then(_$_TrackWithMetaEntity(
+    return _then(_$_TrackWithMetaResponse(
       added_at: null == added_at
           ? _value.added_at
           : added_at // ignore: cast_nullable_to_non_nullable
@@ -113,34 +115,34 @@ class __$$_TrackWithMetaEntityCopyWithImpl<$Res>
       track: null == track
           ? _value.track
           : track // ignore: cast_nullable_to_non_nullable
-              as TrackEntity,
+              as TrackItemResponse,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_TrackWithMetaEntity implements _TrackWithMetaEntity {
-  _$_TrackWithMetaEntity({required this.added_at, required this.track});
+class _$_TrackWithMetaResponse implements _TrackWithMetaResponse {
+  _$_TrackWithMetaResponse({required this.added_at, required this.track});
 
-  factory _$_TrackWithMetaEntity.fromJson(Map<String, dynamic> json) =>
-      _$$_TrackWithMetaEntityFromJson(json);
+  factory _$_TrackWithMetaResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_TrackWithMetaResponseFromJson(json);
 
   @override
   final String added_at;
   @override
-  final TrackEntity track;
+  final TrackItemResponse track;
 
   @override
   String toString() {
-    return 'TrackWithMetaEntity(added_at: $added_at, track: $track)';
+    return 'TrackWithMetaResponse(added_at: $added_at, track: $track)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TrackWithMetaEntity &&
+            other is _$_TrackWithMetaResponse &&
             (identical(other.added_at, added_at) ||
                 other.added_at == added_at) &&
             (identical(other.track, track) || other.track == track));
@@ -153,32 +155,32 @@ class _$_TrackWithMetaEntity implements _TrackWithMetaEntity {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TrackWithMetaEntityCopyWith<_$_TrackWithMetaEntity> get copyWith =>
-      __$$_TrackWithMetaEntityCopyWithImpl<_$_TrackWithMetaEntity>(
+  _$$_TrackWithMetaResponseCopyWith<_$_TrackWithMetaResponse> get copyWith =>
+      __$$_TrackWithMetaResponseCopyWithImpl<_$_TrackWithMetaResponse>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TrackWithMetaEntityToJson(
+    return _$$_TrackWithMetaResponseToJson(
       this,
     );
   }
 }
 
-abstract class _TrackWithMetaEntity implements TrackWithMetaEntity {
-  factory _TrackWithMetaEntity(
+abstract class _TrackWithMetaResponse implements TrackWithMetaResponse {
+  factory _TrackWithMetaResponse(
       {required final String added_at,
-      required final TrackEntity track}) = _$_TrackWithMetaEntity;
+      required final TrackItemResponse track}) = _$_TrackWithMetaResponse;
 
-  factory _TrackWithMetaEntity.fromJson(Map<String, dynamic> json) =
-      _$_TrackWithMetaEntity.fromJson;
+  factory _TrackWithMetaResponse.fromJson(Map<String, dynamic> json) =
+      _$_TrackWithMetaResponse.fromJson;
 
   @override
   String get added_at;
   @override
-  TrackEntity get track;
+  TrackItemResponse get track;
   @override
   @JsonKey(ignore: true)
-  _$$_TrackWithMetaEntityCopyWith<_$_TrackWithMetaEntity> get copyWith =>
+  _$$_TrackWithMetaResponseCopyWith<_$_TrackWithMetaResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }

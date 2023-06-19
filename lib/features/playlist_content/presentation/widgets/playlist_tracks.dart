@@ -20,7 +20,7 @@ class PlaylistTracks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tracks = context.select<PlaylistCubit, List<TrackWithMeta>>(
+    final tracks = context.select<PlaylistCubit, List<TrackWithMetaEntity>>(
       (bloc) => bloc.state.tracks,
     );
 

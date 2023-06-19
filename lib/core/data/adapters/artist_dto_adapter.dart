@@ -2,21 +2,20 @@ import 'package:spotify_playlist_helper/core/data/storage/artists/artists_collec
 import 'package:spotify_playlist_helper/core/domain/entities/artist/artist.dart';
 
 class ArtistDtoAdapter {
-  ArtistEntity fromDto(Artists item) {
+  ArtistEntity fromDto(ArtistDto item) {
     return ArtistEntity(
       href: item.href,
-      id: item.id!,
+      id: item.spotifyId,
       name: item.name,
       uri: item.uri,
     );
   }
 
-  Artists toDto(ArtistEntity item) {
-    return Artists()
+  ArtistDto toDto(ArtistEntity item) {
+    return ArtistDto()
       ..href = item.href
-      ..id = item.id
+      ..spotifyId = item.id
       ..name = item.name
-      ..uri = item.uri
-      ..updatedAt = DateTime.now();
+      ..uri = item.uri;
   }
 }
