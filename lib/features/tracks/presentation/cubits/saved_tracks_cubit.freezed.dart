@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SavedTracksState {
   FetchingState get fetchingState => throw _privateConstructorUsedError;
   List<TrackWithMetaEntity> get tracks => throw _privateConstructorUsedError;
+  SortBy get sortBy => throw _privateConstructorUsedError;
+  SortOrder get order => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SavedTracksStateCopyWith<SavedTracksState> get copyWith =>
@@ -30,7 +32,11 @@ abstract class $SavedTracksStateCopyWith<$Res> {
           SavedTracksState value, $Res Function(SavedTracksState) then) =
       _$SavedTracksStateCopyWithImpl<$Res, SavedTracksState>;
   @useResult
-  $Res call({FetchingState fetchingState, List<TrackWithMetaEntity> tracks});
+  $Res call(
+      {FetchingState fetchingState,
+      List<TrackWithMetaEntity> tracks,
+      SortBy sortBy,
+      SortOrder order});
 }
 
 /// @nodoc
@@ -48,6 +54,8 @@ class _$SavedTracksStateCopyWithImpl<$Res, $Val extends SavedTracksState>
   $Res call({
     Object? fetchingState = null,
     Object? tracks = null,
+    Object? sortBy = null,
+    Object? order = null,
   }) {
     return _then(_value.copyWith(
       fetchingState: null == fetchingState
@@ -58,6 +66,14 @@ class _$SavedTracksStateCopyWithImpl<$Res, $Val extends SavedTracksState>
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
               as List<TrackWithMetaEntity>,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortBy,
+      order: null == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as SortOrder,
     ) as $Val);
   }
 }
@@ -70,7 +86,11 @@ abstract class _$$_SavedTracksStateCopyWith<$Res>
       __$$_SavedTracksStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FetchingState fetchingState, List<TrackWithMetaEntity> tracks});
+  $Res call(
+      {FetchingState fetchingState,
+      List<TrackWithMetaEntity> tracks,
+      SortBy sortBy,
+      SortOrder order});
 }
 
 /// @nodoc
@@ -86,6 +106,8 @@ class __$$_SavedTracksStateCopyWithImpl<$Res>
   $Res call({
     Object? fetchingState = null,
     Object? tracks = null,
+    Object? sortBy = null,
+    Object? order = null,
   }) {
     return _then(_$_SavedTracksState(
       fetchingState: null == fetchingState
@@ -96,6 +118,14 @@ class __$$_SavedTracksStateCopyWithImpl<$Res>
           ? _value._tracks
           : tracks // ignore: cast_nullable_to_non_nullable
               as List<TrackWithMetaEntity>,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortBy,
+      order: null == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as SortOrder,
     ));
   }
 }
@@ -105,7 +135,9 @@ class __$$_SavedTracksStateCopyWithImpl<$Res>
 class _$_SavedTracksState extends _SavedTracksState {
   const _$_SavedTracksState(
       {this.fetchingState = FetchingState.idle,
-      final List<TrackWithMetaEntity> tracks = const <TrackWithMetaEntity>[]})
+      final List<TrackWithMetaEntity> tracks = const <TrackWithMetaEntity>[],
+      this.sortBy = SortBy.name,
+      this.order = SortOrder.asc})
       : _tracks = tracks,
         super._();
 
@@ -122,8 +154,15 @@ class _$_SavedTracksState extends _SavedTracksState {
   }
 
   @override
+  @JsonKey()
+  final SortBy sortBy;
+  @override
+  @JsonKey()
+  final SortOrder order;
+
+  @override
   String toString() {
-    return 'SavedTracksState(fetchingState: $fetchingState, tracks: $tracks)';
+    return 'SavedTracksState(fetchingState: $fetchingState, tracks: $tracks, sortBy: $sortBy, order: $order)';
   }
 
   @override
@@ -133,12 +172,14 @@ class _$_SavedTracksState extends _SavedTracksState {
             other is _$_SavedTracksState &&
             (identical(other.fetchingState, fetchingState) ||
                 other.fetchingState == fetchingState) &&
-            const DeepCollectionEquality().equals(other._tracks, _tracks));
+            const DeepCollectionEquality().equals(other._tracks, _tracks) &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
+            (identical(other.order, order) || other.order == order));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, fetchingState, const DeepCollectionEquality().hash(_tracks));
+  int get hashCode => Object.hash(runtimeType, fetchingState,
+      const DeepCollectionEquality().hash(_tracks), sortBy, order);
 
   @JsonKey(ignore: true)
   @override
@@ -150,13 +191,19 @@ class _$_SavedTracksState extends _SavedTracksState {
 abstract class _SavedTracksState extends SavedTracksState {
   const factory _SavedTracksState(
       {final FetchingState fetchingState,
-      final List<TrackWithMetaEntity> tracks}) = _$_SavedTracksState;
+      final List<TrackWithMetaEntity> tracks,
+      final SortBy sortBy,
+      final SortOrder order}) = _$_SavedTracksState;
   const _SavedTracksState._() : super._();
 
   @override
   FetchingState get fetchingState;
   @override
   List<TrackWithMetaEntity> get tracks;
+  @override
+  SortBy get sortBy;
+  @override
+  SortOrder get order;
   @override
   @JsonKey(ignore: true)
   _$$_SavedTracksStateCopyWith<_$_SavedTracksState> get copyWith =>

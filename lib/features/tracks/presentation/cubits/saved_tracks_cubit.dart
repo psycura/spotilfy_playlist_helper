@@ -1,9 +1,12 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
+import 'package:spotify_playlist_helper/core/enums/sorting.dart';
+import 'package:spotify_playlist_helper/core/utils/track_utils.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/repositories/tracks_repository.dart';
 
@@ -16,6 +19,8 @@ class SavedTracksState with _$SavedTracksState {
   const factory SavedTracksState({
     @Default(FetchingState.idle) FetchingState fetchingState,
     @Default(<TrackWithMetaEntity>[]) List<TrackWithMetaEntity> tracks,
+    @Default(SortBy.name) SortBy sortBy,
+    @Default(SortOrder.asc) SortOrder order,
   }) = _SavedTracksState;
 }
 
@@ -46,11 +51,34 @@ class SavedTracksCubit extends Cubit<SavedTracksState> {
   // }
 
   void init() {
-    _tracksSub = _repo.getSavedTracksStream().listen(_handleTracksUpdates);
+    _tracksSub = _repo
+        .getSavedTracksStream()
+        .listen(_handleTracksUpdates);
   }
 
   void _handleTracksUpdates(Iterable<TrackWithMetaEntity> items) {
     emit(state.copyWith(tracks: items.toList()));
+  }
+
+  void changeSortBy(SortBy sortBy) {
+    SortOrder order = state.order;
+    order = state.sortBy == sortBy
+        ? order == SortOrder.asc
+            ? SortOrder.desc
+            : SortOrder.asc
+        : SortOrder.asc;
+
+    emit(
+      state.copyWith(
+        order: order,
+        sortBy: sortBy,
+        tracks: TrackUtils.getSortedTracks(
+          state.tracks,
+          sortBy: sortBy,
+          sortOrder: order,
+        ),
+      ),
+    );
   }
 
   Future<void> fetchSavedTracks() async {

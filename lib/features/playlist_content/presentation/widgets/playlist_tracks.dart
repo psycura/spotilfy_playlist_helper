@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
+import 'package:spotify_playlist_helper/core/enums/sorting.dart';
 import 'package:spotify_playlist_helper/core/presentation/widgets/empty_list.dart';
 import 'package:spotify_playlist_helper/features/playlist_content/presentation/cubits/playlist_cubit.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/playlists_cubit.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 import 'package:spotify_playlist_helper/features/tracks/presentation/widgets/track_item.dart';
+import 'package:spotify_playlist_helper/features/tracks/presentation/widgets/tracks_header.dart';
 
 class PlaylistTracks extends StatelessWidget {
   static const String tag = 'PlaylistTracks';
@@ -16,6 +18,10 @@ class PlaylistTracks extends StatelessWidget {
 
   void _onRefreshPress(BuildContext context) {
     context.read<PlaylistsCubit>().fetchPlaylistTracks(playlistId);
+  }
+
+  void _onPressHandler(BuildContext context, SortBy sortBy) {
+    context.read<PlaylistCubit>().changeSortBy(sortBy);
   }
 
   @override
@@ -33,13 +39,20 @@ class PlaylistTracks extends StatelessWidget {
             onPress: () => _onRefreshPress(context),
             fetchingState: fetchState,
           )
-        : ListView.builder(
-            itemCount: tracks.length,
-            itemBuilder: (ctx, index) {
-              final track = tracks[index].track;
+        : Column(
+            children: [
+              TracksHeader(onPress: _onPressHandler),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: tracks.length,
+                  itemBuilder: (ctx, index) {
+                    final track = tracks[index].track;
 
-              return TrackItem(track, index);
-            },
+                    return TrackItem(track, index);
+                  },
+                ),
+              ),
+            ],
           );
   }
 }

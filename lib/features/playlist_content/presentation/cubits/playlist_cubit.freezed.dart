@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PlaylistState {
   FetchingState get fetchingState => throw _privateConstructorUsedError;
   List<TrackWithMetaEntity> get tracks => throw _privateConstructorUsedError;
+  SortBy get sortBy => throw _privateConstructorUsedError;
+  SortOrder get order => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PlaylistStateCopyWith<PlaylistState> get copyWith =>
@@ -30,7 +32,11 @@ abstract class $PlaylistStateCopyWith<$Res> {
           PlaylistState value, $Res Function(PlaylistState) then) =
       _$PlaylistStateCopyWithImpl<$Res, PlaylistState>;
   @useResult
-  $Res call({FetchingState fetchingState, List<TrackWithMetaEntity> tracks});
+  $Res call(
+      {FetchingState fetchingState,
+      List<TrackWithMetaEntity> tracks,
+      SortBy sortBy,
+      SortOrder order});
 }
 
 /// @nodoc
@@ -48,6 +54,8 @@ class _$PlaylistStateCopyWithImpl<$Res, $Val extends PlaylistState>
   $Res call({
     Object? fetchingState = null,
     Object? tracks = null,
+    Object? sortBy = null,
+    Object? order = null,
   }) {
     return _then(_value.copyWith(
       fetchingState: null == fetchingState
@@ -58,6 +66,14 @@ class _$PlaylistStateCopyWithImpl<$Res, $Val extends PlaylistState>
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
               as List<TrackWithMetaEntity>,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortBy,
+      order: null == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as SortOrder,
     ) as $Val);
   }
 }
@@ -70,7 +86,11 @@ abstract class _$$_PlaylistStateCopyWith<$Res>
       __$$_PlaylistStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({FetchingState fetchingState, List<TrackWithMetaEntity> tracks});
+  $Res call(
+      {FetchingState fetchingState,
+      List<TrackWithMetaEntity> tracks,
+      SortBy sortBy,
+      SortOrder order});
 }
 
 /// @nodoc
@@ -86,6 +106,8 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
   $Res call({
     Object? fetchingState = null,
     Object? tracks = null,
+    Object? sortBy = null,
+    Object? order = null,
   }) {
     return _then(_$_PlaylistState(
       fetchingState: null == fetchingState
@@ -96,6 +118,14 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
           ? _value._tracks
           : tracks // ignore: cast_nullable_to_non_nullable
               as List<TrackWithMetaEntity>,
+      sortBy: null == sortBy
+          ? _value.sortBy
+          : sortBy // ignore: cast_nullable_to_non_nullable
+              as SortBy,
+      order: null == order
+          ? _value.order
+          : order // ignore: cast_nullable_to_non_nullable
+              as SortOrder,
     ));
   }
 }
@@ -105,7 +135,9 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
 class _$_PlaylistState extends _PlaylistState {
   const _$_PlaylistState(
       {this.fetchingState = FetchingState.idle,
-      final List<TrackWithMetaEntity> tracks = const <TrackWithMetaEntity>[]})
+      final List<TrackWithMetaEntity> tracks = const <TrackWithMetaEntity>[],
+      this.sortBy = SortBy.name,
+      this.order = SortOrder.asc})
       : _tracks = tracks,
         super._();
 
@@ -122,8 +154,15 @@ class _$_PlaylistState extends _PlaylistState {
   }
 
   @override
+  @JsonKey()
+  final SortBy sortBy;
+  @override
+  @JsonKey()
+  final SortOrder order;
+
+  @override
   String toString() {
-    return 'PlaylistState(fetchingState: $fetchingState, tracks: $tracks)';
+    return 'PlaylistState(fetchingState: $fetchingState, tracks: $tracks, sortBy: $sortBy, order: $order)';
   }
 
   @override
@@ -133,12 +172,14 @@ class _$_PlaylistState extends _PlaylistState {
             other is _$_PlaylistState &&
             (identical(other.fetchingState, fetchingState) ||
                 other.fetchingState == fetchingState) &&
-            const DeepCollectionEquality().equals(other._tracks, _tracks));
+            const DeepCollectionEquality().equals(other._tracks, _tracks) &&
+            (identical(other.sortBy, sortBy) || other.sortBy == sortBy) &&
+            (identical(other.order, order) || other.order == order));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, fetchingState, const DeepCollectionEquality().hash(_tracks));
+  int get hashCode => Object.hash(runtimeType, fetchingState,
+      const DeepCollectionEquality().hash(_tracks), sortBy, order);
 
   @JsonKey(ignore: true)
   @override
@@ -150,13 +191,19 @@ class _$_PlaylistState extends _PlaylistState {
 abstract class _PlaylistState extends PlaylistState {
   const factory _PlaylistState(
       {final FetchingState fetchingState,
-      final List<TrackWithMetaEntity> tracks}) = _$_PlaylistState;
+      final List<TrackWithMetaEntity> tracks,
+      final SortBy sortBy,
+      final SortOrder order}) = _$_PlaylistState;
   const _PlaylistState._() : super._();
 
   @override
   FetchingState get fetchingState;
   @override
   List<TrackWithMetaEntity> get tracks;
+  @override
+  SortBy get sortBy;
+  @override
+  SortOrder get order;
   @override
   @JsonKey(ignore: true)
   _$$_PlaylistStateCopyWith<_$_PlaylistState> get copyWith =>

@@ -9,6 +9,6 @@ class SavedTrackDto {
 
   late String addedAt;
 
-  @Index()
+  @Index(unique: true, replace: true)
   final track = IsarLink<TrackDto>();
 }
