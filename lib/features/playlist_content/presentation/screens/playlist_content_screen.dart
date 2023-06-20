@@ -38,10 +38,7 @@ class PlaylistContentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PlaylistCubit>(
-      create: (_) => PlaylistCubit(
-        logger: di.get(),
-        repo: di.get(),
-      )..init(playlistId),
+      create: (_) => PlaylistCubit(repo: di.get())..init(playlistId),
       child: Center(
         child: PlaylistTracks(playlistId: playlistId),
       ),
