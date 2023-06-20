@@ -21,6 +21,8 @@ class TrackDto {
   late int popularity;
   late int trackNumber;
   late String uri;
+  late DateTime updatedAt;
+
   String? previewUrl = '';
   bool? isPlayable = true;
 

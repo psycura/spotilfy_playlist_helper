@@ -40,6 +40,7 @@ class AlbumDtoAdapter {
       ..totalTracks = item.total_tracks
       ..releaseDate = item.release_date
       ..releaseDatePrecision = item.release_date_precision
+      ..updatedAt = DateTime.now()
       ..artists.addAll(artists);
 
     return (album, artists);

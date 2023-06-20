@@ -45,15 +45,11 @@ class TracksDao implements ITracksDao {
 
   @override
   Stream<Iterable<TrackWithMetaEntity>> getSavedTracksStream() {
-    Query<SavedTrackDto> tracks = db.savedTracks
-        .filter()
-        .track((q) => (q.savedIsNotEmpty()))
-        .track((q) => q.nameIsNotEmpty())
-        .build();
+    Query<TrackDto> tracks = db.tracks.filter().savedIsNotEmpty().build();
 
     return tracks.watch(fireImmediately: true).map(
           (items) => items.map(
-            (e) => tracksAdapter.entityFromDto(e.track.value!, e.addedAt),
+            (e) => tracksAdapter.entityFromDto(e, e.saved.first.addedAt),
           ),
         );
   }
@@ -61,9 +57,18 @@ class TracksDao implements ITracksDao {
   @override
   Future<void> saveSavedTracks(List<TrackWithMetaResponse> items) async {
     await db.writeTxn(() async {
+      await db.tracks.filter().savedIsNotEmpty().deleteAll();
+
       await db.savedTracks
           .filter()
-          .track((p) => p.spotifyIdIsNotEmpty())
+          .group(
+            (q) => q
+                .track(
+                  (p) => p.spotifyIdIsNotEmpty(),
+                )
+                .or()
+                .trackIsNull(),
+          )
           .deleteAll();
 
       for (var item in items) {
@@ -94,6 +99,11 @@ class TracksDao implements ITracksDao {
     await db.writeTxn(() async {
       await db.playlists.put(playListDto);
 
+      await db.tracks
+          .filter()
+          .playlists((q) => q.playlist((p) => p.spotifyIdEqualTo(playlist.id)))
+          .deleteAll();
+
       await db.playlistTracks
           .filter()
           .playlist((p) => p.spotifyIdEqualTo(playlist.id))
@@ -102,6 +112,8 @@ class TracksDao implements ITracksDao {
       for (var item in items) {
         final (playlistTrack, (track, artists, (album, albumArtists))) =
             playlistTrackAdapter.responseToDto(playlist, item);
+
+        // 2023-06-20t10:54:02.153
 
         await db.playlistTracks.put(playlistTrack);
         await db.tracks.put(track);

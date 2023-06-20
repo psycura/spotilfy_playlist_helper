@@ -8,6 +8,7 @@ part 'playlist_tracks_collection.g.dart';
 class PlaylistTrackDto {
   Id id = Isar.autoIncrement;
   late String addedAt;
+  late DateTime updatedAt;
 
   @Index()
   final track = IsarLink<TrackDto>();

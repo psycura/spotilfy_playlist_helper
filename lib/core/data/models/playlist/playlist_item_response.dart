@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
+import 'package:spotify_playlist_helper/core/domain/entities/owner/owner.dart';
+import 'package:spotify_playlist_helper/features/user_profile/domain/entities/user_profile.dart';
 
 import 'playlist_tracks_response.dart';
 
@@ -15,6 +17,7 @@ class PlaylistItemResponse with _$PlaylistItemResponse {
     required String name,
     required String uri,
     PlaylistTracksResponse? tracks,
+    Owner? owner,
     String? description,
   }) = _PlaylistItemResponse;
 

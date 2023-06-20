@@ -32,6 +32,7 @@ class PlaylistsDao implements IPlaylistsDao {
     final playlists =
         items.map((e) => playlistAdapter.responseToDto(e)).toList();
     await db.writeTxn(() async {
+      await db.playlists.filter().spotifyIdIsNotEmpty().deleteAll();
       await db.playlists.putAll(playlists);
     });
   }

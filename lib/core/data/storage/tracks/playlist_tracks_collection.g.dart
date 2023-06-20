@@ -21,6 +21,11 @@ const PlaylistTrackDtoSchema = CollectionSchema(
       id: 0,
       name: r'addedAt',
       type: IsarType.string,
+    ),
+    r'updatedAt': PropertySchema(
+      id: 1,
+      name: r'updatedAt',
+      type: IsarType.dateTime,
     )
   },
   estimateSize: _playlistTrackDtoEstimateSize,
@@ -67,6 +72,7 @@ void _playlistTrackDtoSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.addedAt);
+  writer.writeDateTime(offsets[1], object.updatedAt);
 }
 
 PlaylistTrackDto _playlistTrackDtoDeserialize(
@@ -78,6 +84,7 @@ PlaylistTrackDto _playlistTrackDtoDeserialize(
   final object = PlaylistTrackDto();
   object.addedAt = reader.readString(offsets[0]);
   object.id = id;
+  object.updatedAt = reader.readDateTime(offsets[1]);
   return object;
 }
 
@@ -90,6 +97,8 @@ P _playlistTrackDtoDeserializeProp<P>(
   switch (propertyId) {
     case 0:
       return (reader.readString(offset)) as P;
+    case 1:
+      return (reader.readDateTime(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -383,6 +392,62 @@ extension PlaylistTrackDtoQueryFilter
       ));
     });
   }
+
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
+      updatedAtEqualTo(DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
+      updatedAtGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
+      updatedAtLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterFilterCondition>
+      updatedAtBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'updatedAt',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
 }
 
 extension PlaylistTrackDtoQueryObject
@@ -434,6 +499,20 @@ extension PlaylistTrackDtoQuerySortBy
       return query.addSortBy(r'addedAt', Sort.desc);
     });
   }
+
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy>
+      sortByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy>
+      sortByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
 }
 
 extension PlaylistTrackDtoQuerySortThenBy
@@ -464,6 +543,20 @@ extension PlaylistTrackDtoQuerySortThenBy
       return query.addSortBy(r'id', Sort.desc);
     });
   }
+
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy>
+      thenByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QAfterSortBy>
+      thenByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
 }
 
 extension PlaylistTrackDtoQueryWhereDistinct
@@ -472,6 +565,13 @@ extension PlaylistTrackDtoQueryWhereDistinct
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'addedAt', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<PlaylistTrackDto, PlaylistTrackDto, QDistinct>
+      distinctByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'updatedAt');
     });
   }
 }
@@ -487,6 +587,13 @@ extension PlaylistTrackDtoQueryProperty
   QueryBuilder<PlaylistTrackDto, String, QQueryOperations> addedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'addedAt');
+    });
+  }
+
+  QueryBuilder<PlaylistTrackDto, DateTime, QQueryOperations>
+      updatedAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'updatedAt');
     });
   }
 }

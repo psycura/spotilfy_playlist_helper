@@ -43,6 +43,7 @@ class PlaylistDtoAdapter {
       ..images = images
       ..href = item.href
       ..spotifyId = item.id
+      ..updatedAt = DateTime.now()
       ..name = item.name
       ..uri = item.uri;
   }
@@ -53,6 +54,7 @@ class PlaylistDtoAdapter {
     return PlaylistDto()
       ..images = images
       ..href = item.href
+      ..updatedAt = DateTime.now()
       ..spotifyId = item.id
       ..name = item.name
       ..uri = item.uri;
@@ -95,6 +97,7 @@ class PlaylistTrackAdapter {
     final playlistTrack = PlaylistTrackDto()
       ..addedAt = trackWithMeta.added_at
       ..track.value = track
+      ..updatedAt = DateTime.now()
       ..playlist.value = playlistDto;
 
     return (playlistTrack, (track, artists, albumRecord));

@@ -11,7 +11,7 @@ class LocalCacheStore {
 
     return CacheOptions(
       store: cacheStore,
-      policy: CachePolicy.request,
+      policy: CachePolicy.refresh,
       hitCacheOnErrorExcept: [],
       allowPostMethod: false, // for offline behaviour
     );

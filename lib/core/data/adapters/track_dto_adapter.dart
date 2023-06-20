@@ -40,6 +40,7 @@ class TrackWithMetaDtoAdapter {
 
     final savedTrack = SavedTrackDto()
       ..addedAt = item.added_at
+      ..updatedAt = DateTime.now()
       ..track.value = track;
 
     return (savedTrack, track, artists, (album, albumArtists));
@@ -105,6 +106,7 @@ class TrackDtoAdapter {
       ..album.value = album
       ..uri = item.uri
       ..href = item.href
+      ..updatedAt = DateTime.now()
       ..name = item.name
       ..spotifyId = item.id
       ..durationMs = item.duration_ms
@@ -125,6 +127,7 @@ class TrackDtoAdapter {
       ..artists.addAll(artists)
       ..album.value = album
       ..uri = item.uri
+      ..updatedAt = DateTime.now()
       ..href = item.href
       ..name = item.name
       ..spotifyId = item.id

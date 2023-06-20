@@ -20,6 +20,7 @@ class AlbumDto {
   late String releaseDatePrecision;
   late String uri;
   late List<String> images;
+  late DateTime updatedAt;
 
   @Index()
   final artists = IsarLinks<ArtistDto>();

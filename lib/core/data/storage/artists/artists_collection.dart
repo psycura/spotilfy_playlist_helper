@@ -15,6 +15,7 @@ class ArtistDto {
   late String href;
   late String name;
   late String uri;
+  late DateTime updatedAt;
 
 
   @Backlink(to: 'artists')

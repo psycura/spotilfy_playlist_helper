@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/const/apis.dart';
-import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 import 'package:spotify_playlist_helper/core/infrastructure/http/http_service_interface.dart';
 
 import 'package:spotify_playlist_helper/features/user_profile/domain/entities/user_profile.dart';
@@ -27,16 +26,10 @@ class UserProfileApi implements IUserProfileApi {
       final res =
           await client.getRequest('${Apis.baseSpotify}/${Apis.currentUser}');
 
-      final images = (res.data['images'] as List<dynamic>)
-          .map((i) => ImageEntity.fromJson(i));
+      // final images = (res.data['images'] as List<dynamic>)
+      //     .map((i) => ImageEntity.fromJson(i));
 
-      final resp = UserProfile(
-        displayName: res.data['display_name'],
-        email: res.data['email'],
-        id: res.data['id'],
-        images: [...images],
-        uri: res.data['uri'],
-      );
+      final resp = UserProfile.fromJson(res.data);
 
       return resp;
     } catch (e) {

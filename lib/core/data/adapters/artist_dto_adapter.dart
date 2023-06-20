@@ -16,6 +16,7 @@ class ArtistDtoAdapter {
       ..href = item.href
       ..spotifyId = item.id
       ..name = item.name
+      ..updatedAt = DateTime.now()
       ..uri = item.uri;
   }
 }

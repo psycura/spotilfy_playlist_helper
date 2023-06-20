@@ -33,7 +33,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
       while (!allFetched) {
         final res = await api.getCurrentUserPlaylists(nextUrl: nextUrls);
 
-        items.addAll(res.items);
+        items.addAll(res.items.where((p) => p.owner?.id != 'spotify'));
 
         if (res.next == null) {
           allFetched = true;

@@ -20,6 +20,9 @@ _$_PlaylistItemResponse _$$_PlaylistItemResponseFromJson(
           ? null
           : PlaylistTracksResponse.fromJson(
               json['tracks'] as Map<String, dynamic>),
+      owner: json['owner'] == null
+          ? null
+          : Owner.fromJson(json['owner'] as Map<String, dynamic>),
       description: json['description'] as String?,
     );
 
@@ -32,5 +35,6 @@ Map<String, dynamic> _$$_PlaylistItemResponseToJson(
       'name': instance.name,
       'uri': instance.uri,
       'tracks': instance.tracks?.toJson(),
+      'owner': instance.owner?.toJson(),
       'description': instance.description,
     };

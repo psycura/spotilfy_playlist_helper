@@ -57,8 +57,13 @@ const TrackDtoSchema = CollectionSchema(
       name: r'trackNumber',
       type: IsarType.long,
     ),
-    r'uri': PropertySchema(
+    r'updatedAt': PropertySchema(
       id: 8,
+      name: r'updatedAt',
+      type: IsarType.dateTime,
+    ),
+    r'uri': PropertySchema(
+      id: 9,
       name: r'uri',
       type: IsarType.string,
     )
@@ -151,7 +156,8 @@ void _trackDtoSerialize(
   writer.writeString(offsets[5], object.previewUrl);
   writer.writeString(offsets[6], object.spotifyId);
   writer.writeLong(offsets[7], object.trackNumber);
-  writer.writeString(offsets[8], object.uri);
+  writer.writeDateTime(offsets[8], object.updatedAt);
+  writer.writeString(offsets[9], object.uri);
 }
 
 TrackDto _trackDtoDeserialize(
@@ -169,7 +175,8 @@ TrackDto _trackDtoDeserialize(
   object.previewUrl = reader.readStringOrNull(offsets[5]);
   object.spotifyId = reader.readString(offsets[6]);
   object.trackNumber = reader.readLong(offsets[7]);
-  object.uri = reader.readString(offsets[8]);
+  object.updatedAt = reader.readDateTime(offsets[8]);
+  object.uri = reader.readString(offsets[9]);
   return object;
 }
 
@@ -197,6 +204,8 @@ P _trackDtoDeserializeProp<P>(
     case 7:
       return (reader.readLong(offset)) as P;
     case 8:
+      return (reader.readDateTime(offset)) as P;
+    case 9:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1174,6 +1183,59 @@ extension TrackDtoQueryFilter
     });
   }
 
+  QueryBuilder<TrackDto, TrackDto, QAfterFilterCondition> updatedAtEqualTo(
+      DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<TrackDto, TrackDto, QAfterFilterCondition> updatedAtGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<TrackDto, TrackDto, QAfterFilterCondition> updatedAtLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<TrackDto, TrackDto, QAfterFilterCondition> updatedAtBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'updatedAt',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<TrackDto, TrackDto, QAfterFilterCondition> uriEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -1595,6 +1657,18 @@ extension TrackDtoQuerySortBy on QueryBuilder<TrackDto, TrackDto, QSortBy> {
     });
   }
 
+  QueryBuilder<TrackDto, TrackDto, QAfterSortBy> sortByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<TrackDto, TrackDto, QAfterSortBy> sortByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
+
   QueryBuilder<TrackDto, TrackDto, QAfterSortBy> sortByUri() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'uri', Sort.asc);
@@ -1718,6 +1792,18 @@ extension TrackDtoQuerySortThenBy
     });
   }
 
+  QueryBuilder<TrackDto, TrackDto, QAfterSortBy> thenByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<TrackDto, TrackDto, QAfterSortBy> thenByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
+
   QueryBuilder<TrackDto, TrackDto, QAfterSortBy> thenByUri() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'uri', Sort.asc);
@@ -1785,6 +1871,12 @@ extension TrackDtoQueryWhereDistinct
     });
   }
 
+  QueryBuilder<TrackDto, TrackDto, QDistinct> distinctByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'updatedAt');
+    });
+  }
+
   QueryBuilder<TrackDto, TrackDto, QDistinct> distinctByUri(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1846,6 +1938,12 @@ extension TrackDtoQueryProperty
   QueryBuilder<TrackDto, int, QQueryOperations> trackNumberProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'trackNumber');
+    });
+  }
+
+  QueryBuilder<TrackDto, DateTime, QQueryOperations> updatedAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'updatedAt');
     });
   }
 

@@ -21,6 +21,11 @@ const SavedTrackDtoSchema = CollectionSchema(
       id: 0,
       name: r'addedAt',
       type: IsarType.string,
+    ),
+    r'updatedAt': PropertySchema(
+      id: 1,
+      name: r'updatedAt',
+      type: IsarType.dateTime,
     )
   },
   estimateSize: _savedTrackDtoEstimateSize,
@@ -61,6 +66,7 @@ void _savedTrackDtoSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.addedAt);
+  writer.writeDateTime(offsets[1], object.updatedAt);
 }
 
 SavedTrackDto _savedTrackDtoDeserialize(
@@ -72,6 +78,7 @@ SavedTrackDto _savedTrackDtoDeserialize(
   final object = SavedTrackDto();
   object.addedAt = reader.readString(offsets[0]);
   object.id = id;
+  object.updatedAt = reader.readDateTime(offsets[1]);
   return object;
 }
 
@@ -84,6 +91,8 @@ P _savedTrackDtoDeserializeProp<P>(
   switch (propertyId) {
     case 0:
       return (reader.readString(offset)) as P;
+    case 1:
+      return (reader.readDateTime(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -375,6 +384,62 @@ extension SavedTrackDtoQueryFilter
       ));
     });
   }
+
+  QueryBuilder<SavedTrackDto, SavedTrackDto, QAfterFilterCondition>
+      updatedAtEqualTo(DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<SavedTrackDto, SavedTrackDto, QAfterFilterCondition>
+      updatedAtGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<SavedTrackDto, SavedTrackDto, QAfterFilterCondition>
+      updatedAtLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<SavedTrackDto, SavedTrackDto, QAfterFilterCondition>
+      updatedAtBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'updatedAt',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
 }
 
 extension SavedTrackDtoQueryObject
@@ -410,6 +475,19 @@ extension SavedTrackDtoQuerySortBy
       return query.addSortBy(r'addedAt', Sort.desc);
     });
   }
+
+  QueryBuilder<SavedTrackDto, SavedTrackDto, QAfterSortBy> sortByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<SavedTrackDto, SavedTrackDto, QAfterSortBy>
+      sortByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
 }
 
 extension SavedTrackDtoQuerySortThenBy
@@ -437,6 +515,19 @@ extension SavedTrackDtoQuerySortThenBy
       return query.addSortBy(r'id', Sort.desc);
     });
   }
+
+  QueryBuilder<SavedTrackDto, SavedTrackDto, QAfterSortBy> thenByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<SavedTrackDto, SavedTrackDto, QAfterSortBy>
+      thenByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
 }
 
 extension SavedTrackDtoQueryWhereDistinct
@@ -445,6 +536,12 @@ extension SavedTrackDtoQueryWhereDistinct
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'addedAt', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<SavedTrackDto, SavedTrackDto, QDistinct> distinctByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'updatedAt');
     });
   }
 }
@@ -460,6 +557,12 @@ extension SavedTrackDtoQueryProperty
   QueryBuilder<SavedTrackDto, String, QQueryOperations> addedAtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'addedAt');
+    });
+  }
+
+  QueryBuilder<SavedTrackDto, DateTime, QQueryOperations> updatedAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'updatedAt');
     });
   }
 }

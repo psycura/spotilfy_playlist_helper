@@ -26,6 +26,7 @@ mixin _$PlaylistItemResponse {
   String get name => throw _privateConstructorUsedError;
   String get uri => throw _privateConstructorUsedError;
   PlaylistTracksResponse? get tracks => throw _privateConstructorUsedError;
+  Owner? get owner => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,9 +48,11 @@ abstract class $PlaylistItemResponseCopyWith<$Res> {
       String name,
       String uri,
       PlaylistTracksResponse? tracks,
+      Owner? owner,
       String? description});
 
   $PlaylistTracksResponseCopyWith<$Res>? get tracks;
+  $OwnerCopyWith<$Res>? get owner;
 }
 
 /// @nodoc
@@ -72,6 +75,7 @@ class _$PlaylistItemResponseCopyWithImpl<$Res,
     Object? name = null,
     Object? uri = null,
     Object? tracks = freezed,
+    Object? owner = freezed,
     Object? description = freezed,
   }) {
     return _then(_value.copyWith(
@@ -99,6 +103,10 @@ class _$PlaylistItemResponseCopyWithImpl<$Res,
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
               as PlaylistTracksResponse?,
+      owner: freezed == owner
+          ? _value.owner
+          : owner // ignore: cast_nullable_to_non_nullable
+              as Owner?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -115,6 +123,18 @@ class _$PlaylistItemResponseCopyWithImpl<$Res,
 
     return $PlaylistTracksResponseCopyWith<$Res>(_value.tracks!, (value) {
       return _then(_value.copyWith(tracks: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OwnerCopyWith<$Res>? get owner {
+    if (_value.owner == null) {
+      return null;
+    }
+
+    return $OwnerCopyWith<$Res>(_value.owner!, (value) {
+      return _then(_value.copyWith(owner: value) as $Val);
     });
   }
 }
@@ -134,10 +154,13 @@ abstract class _$$_PlaylistItemResponseCopyWith<$Res>
       String name,
       String uri,
       PlaylistTracksResponse? tracks,
+      Owner? owner,
       String? description});
 
   @override
   $PlaylistTracksResponseCopyWith<$Res>? get tracks;
+  @override
+  $OwnerCopyWith<$Res>? get owner;
 }
 
 /// @nodoc
@@ -157,6 +180,7 @@ class __$$_PlaylistItemResponseCopyWithImpl<$Res>
     Object? name = null,
     Object? uri = null,
     Object? tracks = freezed,
+    Object? owner = freezed,
     Object? description = freezed,
   }) {
     return _then(_$_PlaylistItemResponse(
@@ -184,6 +208,10 @@ class __$$_PlaylistItemResponseCopyWithImpl<$Res>
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
               as PlaylistTracksResponse?,
+      owner: freezed == owner
+          ? _value.owner
+          : owner // ignore: cast_nullable_to_non_nullable
+              as Owner?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
@@ -202,6 +230,7 @@ class _$_PlaylistItemResponse implements _PlaylistItemResponse {
       required this.name,
       required this.uri,
       this.tracks,
+      this.owner,
       this.description})
       : _images = images;
 
@@ -227,11 +256,13 @@ class _$_PlaylistItemResponse implements _PlaylistItemResponse {
   @override
   final PlaylistTracksResponse? tracks;
   @override
+  final Owner? owner;
+  @override
   final String? description;
 
   @override
   String toString() {
-    return 'PlaylistItemResponse(href: $href, id: $id, images: $images, name: $name, uri: $uri, tracks: $tracks, description: $description)';
+    return 'PlaylistItemResponse(href: $href, id: $id, images: $images, name: $name, uri: $uri, tracks: $tracks, owner: $owner, description: $description)';
   }
 
   @override
@@ -245,6 +276,7 @@ class _$_PlaylistItemResponse implements _PlaylistItemResponse {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.uri, uri) || other.uri == uri) &&
             (identical(other.tracks, tracks) || other.tracks == tracks) &&
+            (identical(other.owner, owner) || other.owner == owner) &&
             (identical(other.description, description) ||
                 other.description == description));
   }
@@ -259,6 +291,7 @@ class _$_PlaylistItemResponse implements _PlaylistItemResponse {
       name,
       uri,
       tracks,
+      owner,
       description);
 
   @JsonKey(ignore: true)
@@ -284,6 +317,7 @@ abstract class _PlaylistItemResponse implements PlaylistItemResponse {
       required final String name,
       required final String uri,
       final PlaylistTracksResponse? tracks,
+      final Owner? owner,
       final String? description}) = _$_PlaylistItemResponse;
 
   factory _PlaylistItemResponse.fromJson(Map<String, dynamic> json) =
@@ -301,6 +335,8 @@ abstract class _PlaylistItemResponse implements PlaylistItemResponse {
   String get uri;
   @override
   PlaylistTracksResponse? get tracks;
+  @override
+  Owner? get owner;
   @override
   String? get description;
   @override

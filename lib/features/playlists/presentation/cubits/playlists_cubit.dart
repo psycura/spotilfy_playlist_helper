@@ -42,15 +42,15 @@ class PlaylistsCubit extends Cubit<PlaylistsState> {
         _tracksRepo = tracksRepo,
         super(const PlaylistsState());
 
-  @override
-  void onChange(change) {
-    _logger.d(
-      '$tag onChange'
-      '\n [NEXT STATE]:\n'
-      '${change.nextState.playlists.values.map((e) => '${e.playlist.name}:${e.state}\n')}',
-    );
-    super.onChange(change);
-  }
+  // @override
+  // void onChange(change) {
+  //   _logger.d(
+  //     '$tag onChange'
+  //     '\n [NEXT STATE]:\n'
+  //     '${change.nextState.playlists.values.map((e) => '${e.playlist.name}:${e.state}\n')}',
+  //   );
+  //   super.onChange(change);
+  // }
 
   void init() {
     _playlistsSub = _playlistsRepo

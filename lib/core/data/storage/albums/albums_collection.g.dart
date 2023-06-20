@@ -57,8 +57,13 @@ const AlbumDtoSchema = CollectionSchema(
       name: r'totalTracks',
       type: IsarType.long,
     ),
-    r'uri': PropertySchema(
+    r'updatedAt': PropertySchema(
       id: 8,
+      name: r'updatedAt',
+      type: IsarType.dateTime,
+    ),
+    r'uri': PropertySchema(
+      id: 9,
       name: r'uri',
       type: IsarType.string,
     )
@@ -142,7 +147,8 @@ void _albumDtoSerialize(
   writer.writeString(offsets[5], object.releaseDatePrecision);
   writer.writeString(offsets[6], object.spotifyId);
   writer.writeLong(offsets[7], object.totalTracks);
-  writer.writeString(offsets[8], object.uri);
+  writer.writeDateTime(offsets[8], object.updatedAt);
+  writer.writeString(offsets[9], object.uri);
 }
 
 AlbumDto _albumDtoDeserialize(
@@ -160,7 +166,8 @@ AlbumDto _albumDtoDeserialize(
   object.releaseDatePrecision = reader.readString(offsets[5]);
   object.spotifyId = reader.readString(offsets[6]);
   object.totalTracks = reader.readLong(offsets[7]);
-  object.uri = reader.readString(offsets[8]);
+  object.updatedAt = reader.readDateTime(offsets[8]);
+  object.uri = reader.readString(offsets[9]);
   return object;
 }
 
@@ -188,6 +195,8 @@ P _albumDtoDeserializeProp<P>(
     case 7:
       return (reader.readLong(offset)) as P;
     case 8:
+      return (reader.readDateTime(offset)) as P;
+    case 9:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1499,6 +1508,59 @@ extension AlbumDtoQueryFilter
     });
   }
 
+  QueryBuilder<AlbumDto, AlbumDto, QAfterFilterCondition> updatedAtEqualTo(
+      DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AlbumDto, AlbumDto, QAfterFilterCondition> updatedAtGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AlbumDto, AlbumDto, QAfterFilterCondition> updatedAtLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<AlbumDto, AlbumDto, QAfterFilterCondition> updatedAtBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'updatedAt',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<AlbumDto, AlbumDto, QAfterFilterCondition> uriEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -1836,6 +1898,18 @@ extension AlbumDtoQuerySortBy on QueryBuilder<AlbumDto, AlbumDto, QSortBy> {
     });
   }
 
+  QueryBuilder<AlbumDto, AlbumDto, QAfterSortBy> sortByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AlbumDto, AlbumDto, QAfterSortBy> sortByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
+
   QueryBuilder<AlbumDto, AlbumDto, QAfterSortBy> sortByUri() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'uri', Sort.asc);
@@ -1948,6 +2022,18 @@ extension AlbumDtoQuerySortThenBy
     });
   }
 
+  QueryBuilder<AlbumDto, AlbumDto, QAfterSortBy> thenByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AlbumDto, AlbumDto, QAfterSortBy> thenByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
+
   QueryBuilder<AlbumDto, AlbumDto, QAfterSortBy> thenByUri() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'uri', Sort.asc);
@@ -2018,6 +2104,12 @@ extension AlbumDtoQueryWhereDistinct
     });
   }
 
+  QueryBuilder<AlbumDto, AlbumDto, QDistinct> distinctByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'updatedAt');
+    });
+  }
+
   QueryBuilder<AlbumDto, AlbumDto, QDistinct> distinctByUri(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2080,6 +2172,12 @@ extension AlbumDtoQueryProperty
   QueryBuilder<AlbumDto, int, QQueryOperations> totalTracksProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'totalTracks');
+    });
+  }
+
+  QueryBuilder<AlbumDto, DateTime, QQueryOperations> updatedAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'updatedAt');
     });
   }
 

@@ -8,7 +8,7 @@ part 'user_profile.g.dart';
 @freezed
 class UserProfile with _$UserProfile {
   factory UserProfile({
-    required String displayName,
+    required String display_name,
     required String email,
     required String id,
     required List<ImageEntity> images,

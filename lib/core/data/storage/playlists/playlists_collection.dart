@@ -18,9 +18,10 @@ class PlaylistDto {
   late String name;
   late String uri;
   late List<String> images;
+  late DateTime updatedAt;
   String? description;
 
   @Backlink(to: 'playlist')
-  final playlists = IsarLinks<PlaylistTrackDto>();
+  final tracks = IsarLinks<PlaylistTrackDto>();
 
 }
