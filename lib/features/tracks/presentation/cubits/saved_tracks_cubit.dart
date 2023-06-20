@@ -26,28 +26,14 @@ class SavedTracksState with _$SavedTracksState {
 class SavedTracksCubit extends Cubit<SavedTracksState> {
   static const String tag = 'SavedTracksCubit';
 
-  final Logger _logger;
-
   final ITracksRepository _repo;
 
   StreamSubscription<Iterable<TrackEntity>>? _tracksSub;
 
   SavedTracksCubit({
-    required Logger logger,
     required ITracksRepository repo,
-  })  : _logger = logger,
-        _repo = repo,
+  })  : _repo = repo,
         super(const SavedTracksState());
-
-  // @override
-  // void onChange(change) {
-  //   _logger.d(
-  //     '$tag onChange'
-  //     '\n [CURRENT STATE]: ${change.currentState}'
-  //     '\n [NEXT STATE]: ${change.nextState}',
-  //   );
-  //   super.onChange(change);
-  // }
 
   void init() {
     _tracksSub = _repo.getSavedTracksStream().listen(_handleTracksUpdates);

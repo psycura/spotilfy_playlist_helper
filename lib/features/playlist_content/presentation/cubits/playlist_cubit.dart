@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/enums/sorting.dart';
 import 'package:spotify_playlist_helper/core/utils/track_utils.dart';
@@ -26,17 +25,13 @@ class PlaylistState with _$PlaylistState {
 class PlaylistCubit extends Cubit<PlaylistState> {
   static const String tag = 'PlaylistCubit';
 
-  final Logger _logger;
-
   final ITracksRepository _repo;
 
   StreamSubscription<Iterable<TrackEntity>>? _tracksSub;
 
   PlaylistCubit({
-    required Logger logger,
     required ITracksRepository repo,
-  })  : _logger = logger,
-        _repo = repo,
+  })  : _repo = repo,
         super(const PlaylistState());
 
   void init(String playlistId) {
@@ -80,16 +75,6 @@ class PlaylistCubit extends Cubit<PlaylistState> {
       ),
     );
   }
-
-  // @override
-  // void onChange(change) {
-  //   _logger.d(
-  //     '$tag onChange'
-  //     '\n [CURRENT STATE]: ${change.currentState}'
-  //     '\n [NEXT STATE]: ${change.nextState}',
-  //   );
-  //   super.onChange(change);
-  // }
 
   void reset() => emit(const PlaylistState());
 
