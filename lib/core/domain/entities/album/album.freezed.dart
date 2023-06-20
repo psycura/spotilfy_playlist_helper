@@ -20,16 +20,10 @@ AlbumEntity _$AlbumEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AlbumEntity {
-  String get album_type => throw _privateConstructorUsedError;
-  int get total_tracks => throw _privateConstructorUsedError;
   String get href => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get release_date => throw _privateConstructorUsedError;
-  String get release_date_precision => throw _privateConstructorUsedError;
-  String get uri => throw _privateConstructorUsedError;
   List<ImageEntity> get images => throw _privateConstructorUsedError;
-  List<ArtistEntity> get artists => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,17 +37,7 @@ abstract class $AlbumEntityCopyWith<$Res> {
           AlbumEntity value, $Res Function(AlbumEntity) then) =
       _$AlbumEntityCopyWithImpl<$Res, AlbumEntity>;
   @useResult
-  $Res call(
-      {String album_type,
-      int total_tracks,
-      String href,
-      String id,
-      String name,
-      String release_date,
-      String release_date_precision,
-      String uri,
-      List<ImageEntity> images,
-      List<ArtistEntity> artists});
+  $Res call({String href, String id, String name, List<ImageEntity> images});
 }
 
 /// @nodoc
@@ -69,26 +53,12 @@ class _$AlbumEntityCopyWithImpl<$Res, $Val extends AlbumEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? album_type = null,
-    Object? total_tracks = null,
     Object? href = null,
     Object? id = null,
     Object? name = null,
-    Object? release_date = null,
-    Object? release_date_precision = null,
-    Object? uri = null,
     Object? images = null,
-    Object? artists = null,
   }) {
     return _then(_value.copyWith(
-      album_type: null == album_type
-          ? _value.album_type
-          : album_type // ignore: cast_nullable_to_non_nullable
-              as String,
-      total_tracks: null == total_tracks
-          ? _value.total_tracks
-          : total_tracks // ignore: cast_nullable_to_non_nullable
-              as int,
       href: null == href
           ? _value.href
           : href // ignore: cast_nullable_to_non_nullable
@@ -101,26 +71,10 @@ class _$AlbumEntityCopyWithImpl<$Res, $Val extends AlbumEntity>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      release_date: null == release_date
-          ? _value.release_date
-          : release_date // ignore: cast_nullable_to_non_nullable
-              as String,
-      release_date_precision: null == release_date_precision
-          ? _value.release_date_precision
-          : release_date_precision // ignore: cast_nullable_to_non_nullable
-              as String,
-      uri: null == uri
-          ? _value.uri
-          : uri // ignore: cast_nullable_to_non_nullable
-              as String,
       images: null == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<ImageEntity>,
-      artists: null == artists
-          ? _value.artists
-          : artists // ignore: cast_nullable_to_non_nullable
-              as List<ArtistEntity>,
     ) as $Val);
   }
 }
@@ -133,17 +87,7 @@ abstract class _$$_AlbumEntityCopyWith<$Res>
       __$$_AlbumEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String album_type,
-      int total_tracks,
-      String href,
-      String id,
-      String name,
-      String release_date,
-      String release_date_precision,
-      String uri,
-      List<ImageEntity> images,
-      List<ArtistEntity> artists});
+  $Res call({String href, String id, String name, List<ImageEntity> images});
 }
 
 /// @nodoc
@@ -157,26 +101,12 @@ class __$$_AlbumEntityCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? album_type = null,
-    Object? total_tracks = null,
     Object? href = null,
     Object? id = null,
     Object? name = null,
-    Object? release_date = null,
-    Object? release_date_precision = null,
-    Object? uri = null,
     Object? images = null,
-    Object? artists = null,
   }) {
     return _then(_$_AlbumEntity(
-      album_type: null == album_type
-          ? _value.album_type
-          : album_type // ignore: cast_nullable_to_non_nullable
-              as String,
-      total_tracks: null == total_tracks
-          ? _value.total_tracks
-          : total_tracks // ignore: cast_nullable_to_non_nullable
-              as int,
       href: null == href
           ? _value.href
           : href // ignore: cast_nullable_to_non_nullable
@@ -189,26 +119,10 @@ class __$$_AlbumEntityCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      release_date: null == release_date
-          ? _value.release_date
-          : release_date // ignore: cast_nullable_to_non_nullable
-              as String,
-      release_date_precision: null == release_date_precision
-          ? _value.release_date_precision
-          : release_date_precision // ignore: cast_nullable_to_non_nullable
-              as String,
-      uri: null == uri
-          ? _value.uri
-          : uri // ignore: cast_nullable_to_non_nullable
-              as String,
       images: null == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
               as List<ImageEntity>,
-      artists: null == artists
-          ? _value._artists
-          : artists // ignore: cast_nullable_to_non_nullable
-              as List<ArtistEntity>,
     ));
   }
 }
@@ -217,38 +131,21 @@ class __$$_AlbumEntityCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AlbumEntity implements _AlbumEntity {
   _$_AlbumEntity(
-      {required this.album_type,
-      required this.total_tracks,
-      required this.href,
+      {required this.href,
       required this.id,
       required this.name,
-      required this.release_date,
-      required this.release_date_precision,
-      required this.uri,
-      required final List<ImageEntity> images,
-      required final List<ArtistEntity> artists})
-      : _images = images,
-        _artists = artists;
+      required final List<ImageEntity> images})
+      : _images = images;
 
   factory _$_AlbumEntity.fromJson(Map<String, dynamic> json) =>
       _$$_AlbumEntityFromJson(json);
 
-  @override
-  final String album_type;
-  @override
-  final int total_tracks;
   @override
   final String href;
   @override
   final String id;
   @override
   final String name;
-  @override
-  final String release_date;
-  @override
-  final String release_date_precision;
-  @override
-  final String uri;
   final List<ImageEntity> _images;
   @override
   List<ImageEntity> get images {
@@ -257,17 +154,9 @@ class _$_AlbumEntity implements _AlbumEntity {
     return EqualUnmodifiableListView(_images);
   }
 
-  final List<ArtistEntity> _artists;
-  @override
-  List<ArtistEntity> get artists {
-    if (_artists is EqualUnmodifiableListView) return _artists;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_artists);
-  }
-
   @override
   String toString() {
-    return 'AlbumEntity(album_type: $album_type, total_tracks: $total_tracks, href: $href, id: $id, name: $name, release_date: $release_date, release_date_precision: $release_date_precision, uri: $uri, images: $images, artists: $artists)';
+    return 'AlbumEntity(href: $href, id: $id, name: $name, images: $images)';
   }
 
   @override
@@ -275,36 +164,16 @@ class _$_AlbumEntity implements _AlbumEntity {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AlbumEntity &&
-            (identical(other.album_type, album_type) ||
-                other.album_type == album_type) &&
-            (identical(other.total_tracks, total_tracks) ||
-                other.total_tracks == total_tracks) &&
             (identical(other.href, href) || other.href == href) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.release_date, release_date) ||
-                other.release_date == release_date) &&
-            (identical(other.release_date_precision, release_date_precision) ||
-                other.release_date_precision == release_date_precision) &&
-            (identical(other.uri, uri) || other.uri == uri) &&
-            const DeepCollectionEquality().equals(other._images, _images) &&
-            const DeepCollectionEquality().equals(other._artists, _artists));
+            const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      album_type,
-      total_tracks,
-      href,
-      id,
-      name,
-      release_date,
-      release_date_precision,
-      uri,
-      const DeepCollectionEquality().hash(_images),
-      const DeepCollectionEquality().hash(_artists));
+  int get hashCode => Object.hash(runtimeType, href, id, name,
+      const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
   @override
@@ -322,24 +191,14 @@ class _$_AlbumEntity implements _AlbumEntity {
 
 abstract class _AlbumEntity implements AlbumEntity {
   factory _AlbumEntity(
-      {required final String album_type,
-      required final int total_tracks,
-      required final String href,
+      {required final String href,
       required final String id,
       required final String name,
-      required final String release_date,
-      required final String release_date_precision,
-      required final String uri,
-      required final List<ImageEntity> images,
-      required final List<ArtistEntity> artists}) = _$_AlbumEntity;
+      required final List<ImageEntity> images}) = _$_AlbumEntity;
 
   factory _AlbumEntity.fromJson(Map<String, dynamic> json) =
       _$_AlbumEntity.fromJson;
 
-  @override
-  String get album_type;
-  @override
-  int get total_tracks;
   @override
   String get href;
   @override
@@ -347,15 +206,7 @@ abstract class _AlbumEntity implements AlbumEntity {
   @override
   String get name;
   @override
-  String get release_date;
-  @override
-  String get release_date_precision;
-  @override
-  String get uri;
-  @override
   List<ImageEntity> get images;
-  @override
-  List<ArtistEntity> get artists;
   @override
   @JsonKey(ignore: true)
   _$$_AlbumEntityCopyWith<_$_AlbumEntity> get copyWith =>

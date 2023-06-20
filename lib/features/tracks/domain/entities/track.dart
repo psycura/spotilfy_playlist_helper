@@ -21,7 +21,7 @@ class TrackEntity with _$TrackEntity {
     @Default('') String preview_url,
     @Default(true) bool is_playable,
     @Default(false) bool is_saved,
-    @Default(<PlaylistEntity>[]) List<PlaylistEntity> playlists,
+    @Default(<String>[]) List<String> playlists,
   }) = _TrackEntity;
 
   factory TrackEntity.fromJson(Map<String, dynamic> json) =>

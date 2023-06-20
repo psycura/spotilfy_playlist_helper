@@ -11,7 +11,6 @@ _$_ArtistEntity _$$_ArtistEntityFromJson(Map<String, dynamic> json) =>
       href: json['href'] as String,
       id: json['id'] as String,
       name: json['name'] as String,
-      uri: json['uri'] as String,
     );
 
 Map<String, dynamic> _$$_ArtistEntityToJson(_$_ArtistEntity instance) =>
@@ -19,5 +18,4 @@ Map<String, dynamic> _$$_ArtistEntityToJson(_$_ArtistEntity instance) =>
       'href': instance.href,
       'id': instance.id,
       'name': instance.name,
-      'uri': instance.uri,
     };

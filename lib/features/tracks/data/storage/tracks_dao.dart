@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
@@ -5,19 +6,16 @@ import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/adapters/playlist_dto_adapter.dart';
 import 'package:spotify_playlist_helper/core/data/adapters/track_dto_adapter.dart';
 import 'package:spotify_playlist_helper/core/data/models/track/track_with_meta_response.dart';
-import 'package:spotify_playlist_helper/core/data/storage/albums/albums_collection.dart';
-import 'package:spotify_playlist_helper/core/data/storage/artists/artists_collection.dart';
 import 'package:spotify_playlist_helper/core/data/storage/playlists/playlists_collection.dart';
-import 'package:spotify_playlist_helper/core/data/storage/tracks/playlist_tracks_collection.dart';
-import 'package:spotify_playlist_helper/core/data/storage/tracks/saved_tracks_collection.dart';
 import 'package:spotify_playlist_helper/core/data/storage/tracks/tracks_collection.dart';
 import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_response.dart';
-import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
+import 'package:spotify_playlist_helper/core/utils/hash_function.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
 
 abstract interface class ITracksDao {
-  Stream<Iterable<TrackWithMetaEntity>> getSavedTracksStream();
+  Stream<Iterable<TrackEntity>> getSavedTracksStream();
 
-  Stream<Iterable<TrackWithMetaEntity>> getPlaylistTracksStream(
+  Stream<Iterable<TrackEntity>> getPlaylistTracksStream(
     String playlistId,
   );
 
@@ -27,6 +25,10 @@ abstract interface class ITracksDao {
     PlaylistItemResponse playlist,
     List<TrackWithMetaResponse> items,
   );
+
+  Future<void> addTrackToSaved(TrackEntity track);
+
+  Future<void> removeTrackFromSaved(String id);
 }
 
 @Singleton(as: ITracksDao)
@@ -37,54 +39,39 @@ class TracksDao implements ITracksDao {
   @protected
   Logger logger;
 
-  final tracksAdapter = TrackWithMetaDtoAdapter();
-  final playlistTrackAdapter = PlaylistTrackAdapter();
+  final tracksAdapter = TrackDtoAdapter();
   final playlistAdapter = PlaylistDtoAdapter();
 
   TracksDao(this.logger, this.db);
 
   @override
-  Stream<Iterable<TrackWithMetaEntity>> getSavedTracksStream() {
-    Query<TrackDto> tracks = db.tracks.filter().savedIsNotEmpty().build();
+  Stream<Iterable<TrackEntity>> getSavedTracksStream() {
+    Query<TrackDto> tracks = db.tracks.filter().isSavedEqualTo(true).build();
 
     return tracks.watch(fireImmediately: true).map(
-          (items) => items.map(
-            (e) => tracksAdapter.entityFromDto(e, e.saved.first.addedAt),
-          ),
+          (items) => items.map(tracksAdapter.entityFromDto),
         );
   }
 
   @override
   Future<void> saveSavedTracks(List<TrackWithMetaResponse> items) async {
     await db.writeTxn(() async {
-      await db.tracks.filter().savedIsNotEmpty().deleteAll();
+      final tempTracks =
+          await db.tracks.filter().isSavedEqualTo(true).findAll();
 
-      await db.savedTracks
-          .filter()
-          .group(
-            (q) => q
-                .track(
-                  (p) => p.spotifyIdIsNotEmpty(),
-                )
-                .or()
-                .trackIsNull(),
-          )
-          .deleteAll();
+      await db.tracks.filter().isSavedEqualTo(true).deleteAll();
 
       for (var item in items) {
-        final (savedTrack, track, artists, (album, albumArtists)) =
-            tracksAdapter.responseToDto(item);
+        var tempTrack =
+            tempTracks.firstWhereOrNull((e) => e.spotifyId == item.track.id);
+        if (tempTrack != null) {
+          tempTrack.isSaved = true;
 
-        await db.savedTracks.put(savedTrack);
-        await db.tracks.put(track);
-        await db.albums.put(album);
-        await db.artists.putAll(artists.toList());
-        await db.artists.putAll(albumArtists.toList());
-
-        await album.artists.save();
-        await track.album.save();
-        await track.artists.save();
-        await savedTrack.track.save();
+          await db.tracks.put(tempTrack);
+        } else {
+          await db.tracks
+              .put(tracksAdapter.responseToDto(item.track, isSaved: true));
+        }
       }
     });
   }
@@ -96,54 +83,94 @@ class TracksDao implements ITracksDao {
   ) async {
     final playListDto = playlistAdapter.responseToDto(playlist);
 
+
     await db.writeTxn(() async {
       await db.playlists.put(playListDto);
 
+      var tempTracks = await db.tracks
+          .filter()
+          .playlistsIdsElementContains(playlist.id)
+          .findAll();
+
+
       await db.tracks
           .filter()
-          .playlists((q) => q.playlist((p) => p.spotifyIdEqualTo(playlist.id)))
+          .playlistsIdsElementContains(playlist.id)
           .deleteAll();
 
-      await db.playlistTracks
-          .filter()
-          .playlist((p) => p.spotifyIdEqualTo(playlist.id))
-          .deleteAll();
 
       for (var item in items) {
-        final (playlistTrack, (track, artists, (album, albumArtists))) =
-            playlistTrackAdapter.responseToDto(playlist, item);
+        final track = tracksAdapter.responseToDto(item.track);
 
-        // 2023-06-20t10:54:02.153
+        var tempTrack =
+            tempTracks.firstWhereOrNull((e) => e.spotifyId == track.spotifyId);
 
-        await db.playlistTracks.put(playlistTrack);
-        await db.tracks.put(track);
-        await db.albums.put(album);
-        await db.artists.putAll(artists.toList());
-        await db.artists.putAll(albumArtists.toList());
+        if (tempTrack != null) {
+          await db.tracks.put(tempTrack);
+        } else {
+          tempTrack = await db.tracks.get(fastHash(track.spotifyId));
 
-        await track.album.save();
-        await album.artists.save();
-        await track.artists.save();
-        await playlistTrack.track.save();
-        await playlistTrack.playlist.save();
+          if (tempTrack == null ||
+              tempTrack.playlistsIds.contains(playlist.id)) {
+            await db.tracks.put(track);
+
+          } else {
+            var playlists = <String>[...tempTrack.playlistsIds];
+            playlists.add(playlist.id);
+
+            tempTrack.playlistsIds = playlists;
+
+            await db.tracks.put(tempTrack);
+
+          }
+        }
+      }
+
+
+    });
+  }
+
+  @override
+  Stream<Iterable<TrackEntity>> getPlaylistTracksStream(
+    String playlistId,
+  ) {
+    Query<TrackDto> playlistTracks =
+        db.tracks.filter().playlistsIdsElementContains(playlistId).build();
+
+    return playlistTracks.watch(fireImmediately: true).map(
+          (items) => items.map(tracksAdapter.entityFromDto),
+        );
+  }
+
+  @override
+  Future<void> addTrackToSaved(TrackEntity track) async {
+    await db.writeTxn(() async {
+      final trackToUpdate = await db.tracks.get(fastHash(track.id));
+
+      if (trackToUpdate != null) {
+        trackToUpdate.isSaved = true;
+        await db.tracks.put(trackToUpdate);
+      } else {
+        await db.tracks
+            .put(tracksAdapter.entityToDto(track.copyWith(is_saved: true)));
       }
     });
   }
 
   @override
-  Stream<Iterable<TrackWithMetaEntity>> getPlaylistTracksStream(
-    String playlistId,
-  ) {
-    Query<PlaylistTrackDto> playlistTracks = db.playlistTracks
-        .filter()
-        .playlist((q) => q.spotifyIdEqualTo(playlistId))
-        .track((q) => q.nameIsNotEmpty())
-        .build();
+  Future<void> removeTrackFromSaved(String id) async {
+    await db.writeTxn(() async {
+      final trackId = fastHash(id);
+      final track = await db.tracks.get(trackId);
 
-    return playlistTracks.watch(fireImmediately: true).map(
-          (items) => items.map(
-            (e) => tracksAdapter.entityFromDto(e.track.value!, e.addedAt),
-          ),
-        );
+      if (track != null) {
+        if (track.playlistsIds.isEmpty) {
+          await db.tracks.delete(trackId);
+        } else {
+          track.isSaved = false;
+          await db.tracks.put(track);
+        }
+      }
+    });
   }
 }

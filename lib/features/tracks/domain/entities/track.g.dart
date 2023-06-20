@@ -23,9 +23,9 @@ _$_TrackEntity _$$_TrackEntityFromJson(Map<String, dynamic> json) =>
       is_playable: json['is_playable'] as bool? ?? true,
       is_saved: json['is_saved'] as bool? ?? false,
       playlists: (json['playlists'] as List<dynamic>?)
-              ?.map((e) => PlaylistEntity.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => e as String)
               .toList() ??
-          const <PlaylistEntity>[],
+          const <String>[],
     );
 
 Map<String, dynamic> _$$_TrackEntityToJson(_$_TrackEntity instance) =>
@@ -42,5 +42,5 @@ Map<String, dynamic> _$$_TrackEntityToJson(_$_TrackEntity instance) =>
       'preview_url': instance.preview_url,
       'is_playable': instance.is_playable,
       'is_saved': instance.is_saved,
-      'playlists': instance.playlists.map((e) => e.toJson()).toList(),
+      'playlists': instance.playlists,
     };

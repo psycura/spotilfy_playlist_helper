@@ -73,15 +73,7 @@ const PlaylistDtoSchema = CollectionSchema(
       ],
     )
   },
-  links: {
-    r'tracks': LinkSchema(
-      id: 2603714951577267036,
-      name: r'tracks',
-      target: r'PlaylistTrackDto',
-      single: false,
-      linkName: r'playlist',
-    )
-  },
+  links: {},
   embeddedSchemas: {},
   getId: _playlistDtoGetId,
   getLinks: _playlistDtoGetLinks,
@@ -178,14 +170,11 @@ Id _playlistDtoGetId(PlaylistDto object) {
 }
 
 List<IsarLinkBase<dynamic>> _playlistDtoGetLinks(PlaylistDto object) {
-  return [object.tracks];
+  return [];
 }
 
 void _playlistDtoAttach(
-    IsarCollection<dynamic> col, Id id, PlaylistDto object) {
-  object.tracks
-      .attach(col, col.isar.collection<PlaylistTrackDto>(), r'tracks', id);
-}
+    IsarCollection<dynamic> col, Id id, PlaylistDto object) {}
 
 extension PlaylistDtoByIndex on IsarCollection<PlaylistDto> {
   Future<PlaylistDto?> getBySpotifyId(String spotifyId) {
@@ -1389,68 +1378,7 @@ extension PlaylistDtoQueryObject
     on QueryBuilder<PlaylistDto, PlaylistDto, QFilterCondition> {}
 
 extension PlaylistDtoQueryLinks
-    on QueryBuilder<PlaylistDto, PlaylistDto, QFilterCondition> {
-  QueryBuilder<PlaylistDto, PlaylistDto, QAfterFilterCondition> tracks(
-      FilterQuery<PlaylistTrackDto> q) {
-    return QueryBuilder.apply(this, (query) {
-      return query.link(q, r'tracks');
-    });
-  }
-
-  QueryBuilder<PlaylistDto, PlaylistDto, QAfterFilterCondition>
-      tracksLengthEqualTo(int length) {
-    return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tracks', length, true, length, true);
-    });
-  }
-
-  QueryBuilder<PlaylistDto, PlaylistDto, QAfterFilterCondition>
-      tracksIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tracks', 0, true, 0, true);
-    });
-  }
-
-  QueryBuilder<PlaylistDto, PlaylistDto, QAfterFilterCondition>
-      tracksIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tracks', 0, false, 999999, true);
-    });
-  }
-
-  QueryBuilder<PlaylistDto, PlaylistDto, QAfterFilterCondition>
-      tracksLengthLessThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tracks', 0, true, length, include);
-    });
-  }
-
-  QueryBuilder<PlaylistDto, PlaylistDto, QAfterFilterCondition>
-      tracksLengthGreaterThan(
-    int length, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'tracks', length, include, 999999, true);
-    });
-  }
-
-  QueryBuilder<PlaylistDto, PlaylistDto, QAfterFilterCondition>
-      tracksLengthBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.linkLength(
-          r'tracks', lower, includeLower, upper, includeUpper);
-    });
-  }
-}
+    on QueryBuilder<PlaylistDto, PlaylistDto, QFilterCondition> {}
 
 extension PlaylistDtoQuerySortBy
     on QueryBuilder<PlaylistDto, PlaylistDto, QSortBy> {

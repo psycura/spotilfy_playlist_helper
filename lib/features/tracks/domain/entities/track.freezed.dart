@@ -32,7 +32,7 @@ mixin _$TrackEntity {
   String get preview_url => throw _privateConstructorUsedError;
   bool get is_playable => throw _privateConstructorUsedError;
   bool get is_saved => throw _privateConstructorUsedError;
-  List<PlaylistEntity> get playlists => throw _privateConstructorUsedError;
+  List<String> get playlists => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +59,7 @@ abstract class $TrackEntityCopyWith<$Res> {
       String preview_url,
       bool is_playable,
       bool is_saved,
-      List<PlaylistEntity> playlists});
+      List<String> playlists});
 
   $AlbumEntityCopyWith<$Res> get album;
 }
@@ -143,7 +143,7 @@ class _$TrackEntityCopyWithImpl<$Res, $Val extends TrackEntity>
       playlists: null == playlists
           ? _value.playlists
           : playlists // ignore: cast_nullable_to_non_nullable
-              as List<PlaylistEntity>,
+              as List<String>,
     ) as $Val);
   }
 
@@ -177,7 +177,7 @@ abstract class _$$_TrackEntityCopyWith<$Res>
       String preview_url,
       bool is_playable,
       bool is_saved,
-      List<PlaylistEntity> playlists});
+      List<String> playlists});
 
   @override
   $AlbumEntityCopyWith<$Res> get album;
@@ -260,7 +260,7 @@ class __$$_TrackEntityCopyWithImpl<$Res>
       playlists: null == playlists
           ? _value._playlists
           : playlists // ignore: cast_nullable_to_non_nullable
-              as List<PlaylistEntity>,
+              as List<String>,
     ));
   }
 }
@@ -281,7 +281,7 @@ class _$_TrackEntity implements _TrackEntity {
       this.preview_url = '',
       this.is_playable = true,
       this.is_saved = false,
-      final List<PlaylistEntity> playlists = const <PlaylistEntity>[]})
+      final List<String> playlists = const <String>[]})
       : _artists = artists,
         _playlists = playlists;
 
@@ -321,10 +321,10 @@ class _$_TrackEntity implements _TrackEntity {
   @override
   @JsonKey()
   final bool is_saved;
-  final List<PlaylistEntity> _playlists;
+  final List<String> _playlists;
   @override
   @JsonKey()
-  List<PlaylistEntity> get playlists {
+  List<String> get playlists {
     if (_playlists is EqualUnmodifiableListView) return _playlists;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_playlists);
@@ -408,7 +408,7 @@ abstract class _TrackEntity implements TrackEntity {
       final String preview_url,
       final bool is_playable,
       final bool is_saved,
-      final List<PlaylistEntity> playlists}) = _$_TrackEntity;
+      final List<String> playlists}) = _$_TrackEntity;
 
   factory _TrackEntity.fromJson(Map<String, dynamic> json) =
       _$_TrackEntity.fromJson;
@@ -438,7 +438,7 @@ abstract class _TrackEntity implements TrackEntity {
   @override
   bool get is_saved;
   @override
-  List<PlaylistEntity> get playlists;
+  List<String> get playlists;
   @override
   @JsonKey(ignore: true)
   _$$_TrackEntityCopyWith<_$_TrackEntity> get copyWith =>

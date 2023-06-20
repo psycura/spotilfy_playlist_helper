@@ -1,37 +1,30 @@
 import 'package:collection/collection.dart';
 import 'package:spotify_playlist_helper/core/enums/sorting.dart';
-import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
 
 abstract class TrackUtils {
-  static List<TrackWithMetaEntity> getSortedTracks(
-    Iterable<TrackWithMetaEntity> tracks, {
+  static List<TrackEntity> getSortedTracks(
+    Iterable<TrackEntity> tracks, {
     SortBy sortBy = SortBy.name,
     SortOrder sortOrder = SortOrder.asc,
   }) {
-
-    List<TrackWithMetaEntity> res;
+    List<TrackEntity> res;
     switch (sortBy) {
-      case SortBy.album:
-        res = tracks.sortedBy((element) => element.track.album.name);
       case SortBy.saved:
         res = tracks.sorted(
-          (a, b) => (a.track.is_saved == b.track.is_saved
-              ? 0
-              : (a.track.is_saved ? 1 : -1)),
+          (a, b) => (a.is_saved == b.is_saved ? 0 : (a.is_saved ? 1 : -1)),
         );
-      case SortBy.addedAt:
-        res = tracks.sortedBy((element) => element.added_at);
       case SortBy.artist:
-        res = tracks.sortedBy((element) => element.track.artists.first.name);
+        res = tracks.sortedBy((element) => element.artists.first.name);
       case SortBy.playlistsCount:
         res = tracks.sorted(
-          (a, b) => (a.track.playlists.length == b.track.playlists.length
+          (a, b) => (a.playlists.length == b.playlists.length
               ? 0
-              : (a.track.playlists.length > b.track.playlists.length ? 1 : -1)),
+              : (a.playlists.length > b.playlists.length ? 1 : -1)),
         );
       case SortBy.name:
       default:
-        res = tracks.sortedBy((element) => element.track.name);
+        res = tracks.sortedBy((element) => element.name);
     }
 
     return sortOrder == SortOrder.asc ? res : res.reversed.toList();
@@ -42,9 +35,7 @@ abstract class TrackUtils {
     required SortOrder currentOrder,
   }) {
     if (currentSortBy == SortBy.name) {
-
       if (currentOrder == SortOrder.asc) {
-
         return (SortBy.name, SortOrder.desc);
       }
 
@@ -52,7 +43,6 @@ abstract class TrackUtils {
     }
 
     if (currentOrder == SortOrder.asc) {
-
       return (SortBy.artist, SortOrder.desc);
     }
 
@@ -67,11 +57,8 @@ abstract class TrackUtils {
     SortOrder order = currentOrder;
     SortBy sortBy = currentSortBy;
 
-
     if (newSortBy == currentSortBy) {
-
       if (newSortBy == SortBy.name) {
-
         final (newSortBy, sortOrder) = getSortByNameValue(
           currentSortBy: currentSortBy,
           currentOrder: order,
@@ -80,11 +67,9 @@ abstract class TrackUtils {
         order = sortOrder;
         sortBy = newSortBy;
       } else {
-
         order = order == SortOrder.asc ? SortOrder.desc : SortOrder.asc;
       }
-    } else  if (newSortBy == SortBy.name) {
-
+    } else if (newSortBy == SortBy.name) {
       final (newSortBy, sortOrder) = getSortByNameValue(
         currentSortBy: currentSortBy,
         currentOrder: order,
@@ -96,8 +81,6 @@ abstract class TrackUtils {
       sortBy = newSortBy;
       order = SortOrder.asc;
     }
-
-
 
     return (sortBy, order);
   }

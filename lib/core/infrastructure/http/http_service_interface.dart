@@ -6,6 +6,8 @@ import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 abstract interface class IHttpService {
   Future<Response> postRequest(ApiRequest request);
 
+  Future<Response> putRequest(ApiRequest request);
+
   /// Send GET request to [url]
   Future<Response> getRequest(
     String url, {

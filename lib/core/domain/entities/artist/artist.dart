@@ -10,7 +10,6 @@ class ArtistEntity with _$ArtistEntity {
     required String href,
     required String id,
     required String name,
-    required String uri,
 }) = _ArtistEntity;
 
   factory ArtistEntity.fromJson(Map<String, dynamic> json) => _$ArtistEntityFromJson(json);

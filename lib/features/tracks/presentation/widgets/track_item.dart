@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify_playlist_helper/core/utils/extensions/duration_extension.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
+import 'package:spotify_playlist_helper/features/tracks/presentation/widgets/saved_button.dart';
 
 class TrackItem extends StatelessWidget {
   static const String tag = 'TrackItem';
@@ -11,7 +12,7 @@ class TrackItem extends StatelessWidget {
 
   const TrackItem(this.track, this.index);
 
-  void _onTrackPress(BuildContext context){
+  void _onTrackPress(BuildContext context) {
     print('[alitz]: $track');
   }
 
@@ -22,7 +23,7 @@ class TrackItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
-        onTap: ()=>_onTrackPress(context),
+        onTap: () => _onTrackPress(context),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,14 +36,19 @@ class TrackItem extends StatelessWidget {
             Flexible(
               flex: 1,
               fit: FlexFit.tight,
-              child:track.album.images.isNotEmpty? CachedNetworkImage(
-                imageUrl: track.album.images.first.url,
-                height: 50,
-                placeholder: (_, __) => const SizedBox(
-                  height: 50,
-                  width: 50,
-                ),
-              ): const Icon(Icons.image_outlined, size: 50,),
+              child: track.album.images.isNotEmpty
+                  ? CachedNetworkImage(
+                      imageUrl: track.album.images.first.url,
+                      height: 50,
+                      placeholder: (_, __) => const SizedBox(
+                        height: 50,
+                        width: 50,
+                      ),
+                    )
+                  : const Icon(
+                      Icons.image_outlined,
+                      size: 50,
+                    ),
             ),
             Flexible(
               flex: 10,
@@ -75,19 +81,10 @@ class TrackItem extends StatelessWidget {
             ),
             Flexible(
               flex: 2,
-              child:
-                  Text(Duration(milliseconds: track.duration_ms).toElapsedTime()),
+              child: Text(
+                  Duration(milliseconds: track.duration_ms).toElapsedTime()),
             ),
-            Flexible(
-              flex: 1,
-              child: InkWell(
-                onTap: () {},
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                child: track.is_saved
-                    ? const Icon(Icons.favorite)
-                    : const Icon(Icons.favorite_outline),
-              ),
-            ),
+            Flexible(flex: 1, child: SavedButton(track)),
             Flexible(
               flex: 1,
               child: InkWell(

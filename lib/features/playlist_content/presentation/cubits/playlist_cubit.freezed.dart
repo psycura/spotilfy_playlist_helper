@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PlaylistState {
   FetchingState get fetchingState => throw _privateConstructorUsedError;
-  List<TrackWithMetaEntity> get tracks => throw _privateConstructorUsedError;
+  List<TrackEntity> get tracks => throw _privateConstructorUsedError;
   SortBy get sortBy => throw _privateConstructorUsedError;
   SortOrder get order => throw _privateConstructorUsedError;
 
@@ -34,7 +34,7 @@ abstract class $PlaylistStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FetchingState fetchingState,
-      List<TrackWithMetaEntity> tracks,
+      List<TrackEntity> tracks,
       SortBy sortBy,
       SortOrder order});
 }
@@ -65,7 +65,7 @@ class _$PlaylistStateCopyWithImpl<$Res, $Val extends PlaylistState>
       tracks: null == tracks
           ? _value.tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as List<TrackWithMetaEntity>,
+              as List<TrackEntity>,
       sortBy: null == sortBy
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
@@ -88,7 +88,7 @@ abstract class _$$_PlaylistStateCopyWith<$Res>
   @useResult
   $Res call(
       {FetchingState fetchingState,
-      List<TrackWithMetaEntity> tracks,
+      List<TrackEntity> tracks,
       SortBy sortBy,
       SortOrder order});
 }
@@ -117,7 +117,7 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
       tracks: null == tracks
           ? _value._tracks
           : tracks // ignore: cast_nullable_to_non_nullable
-              as List<TrackWithMetaEntity>,
+              as List<TrackEntity>,
       sortBy: null == sortBy
           ? _value.sortBy
           : sortBy // ignore: cast_nullable_to_non_nullable
@@ -135,7 +135,7 @@ class __$$_PlaylistStateCopyWithImpl<$Res>
 class _$_PlaylistState extends _PlaylistState {
   const _$_PlaylistState(
       {this.fetchingState = FetchingState.idle,
-      final List<TrackWithMetaEntity> tracks = const <TrackWithMetaEntity>[],
+      final List<TrackEntity> tracks = const <TrackEntity>[],
       this.sortBy = SortBy.name,
       this.order = SortOrder.asc})
       : _tracks = tracks,
@@ -144,10 +144,10 @@ class _$_PlaylistState extends _PlaylistState {
   @override
   @JsonKey()
   final FetchingState fetchingState;
-  final List<TrackWithMetaEntity> _tracks;
+  final List<TrackEntity> _tracks;
   @override
   @JsonKey()
-  List<TrackWithMetaEntity> get tracks {
+  List<TrackEntity> get tracks {
     if (_tracks is EqualUnmodifiableListView) return _tracks;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_tracks);
@@ -191,7 +191,7 @@ class _$_PlaylistState extends _PlaylistState {
 abstract class _PlaylistState extends PlaylistState {
   const factory _PlaylistState(
       {final FetchingState fetchingState,
-      final List<TrackWithMetaEntity> tracks,
+      final List<TrackEntity> tracks,
       final SortBy sortBy,
       final SortOrder order}) = _$_PlaylistState;
   const _PlaylistState._() : super._();
@@ -199,7 +199,7 @@ abstract class _PlaylistState extends PlaylistState {
   @override
   FetchingState get fetchingState;
   @override
-  List<TrackWithMetaEntity> get tracks;
+  List<TrackEntity> get tracks;
   @override
   SortBy get sortBy;
   @override

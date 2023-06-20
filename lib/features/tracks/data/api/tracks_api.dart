@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:spotify_playlist_helper/const/apis.dart';
 import 'package:spotify_playlist_helper/core/data/models/track/tracks_response.dart';
+import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 import 'package:spotify_playlist_helper/core/infrastructure/http/http_service_interface.dart';
 import 'package:spotify_playlist_helper/core/infrastructure/logs/logger.dart';
 import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_with_tracks_response.dart';
@@ -13,7 +14,6 @@ abstract interface class ITracksApi {
     String? nextUrl,
   });
 
-
   Future<PlaylistWithTracksResponse> getPlaylistWithTracks({
     String? playlistId,
     String? playlistUrl,
@@ -21,11 +21,11 @@ abstract interface class ITracksApi {
     int? offset,
   });
 
+  Future<void> addTrackToSaved(String id);
 }
 
 @LazySingleton(as: ITracksApi)
 class TracksApi implements ITracksApi {
-
   @protected
   final IHttpService client;
 
@@ -73,6 +73,22 @@ class TracksApi implements ITracksApi {
       );
 
       return PlaylistWithTracksResponse.fromJson(res.data);
+    }
+  }
+
+  @override
+  Future<void> addTrackToSaved(String id) async {
+    final request = ApiRequest(
+      url: '${Apis.baseSpotify}/${Apis.currentUser}/${Apis.tracks}',
+      data: {
+        'ids': [id]
+      },
+    );
+
+    try {
+      await client.putRequest(request);
+    } catch (e) {
+      rethrow;
     }
   }
 }

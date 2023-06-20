@@ -34,7 +34,7 @@ class SavedTracks extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: state.tracks.length,
                   itemBuilder: (ctx, index) {
-                    final track = state.tracks[index].track;
+                    final track = state.tracks[index];
 
                     return TrackItem(track, index);
                   },

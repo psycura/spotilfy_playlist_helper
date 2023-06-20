@@ -160,6 +160,31 @@ class HttpService implements IHttpService {
   }
 
   @override
+  Future<Response> putRequest(ApiRequest request) async {
+    Response response;
+
+    try {
+      response = await dioClient.put(
+        request.url,
+        data: request.data,
+        options: request.options,
+      );
+    } on DioException catch (e) {
+      final statusCode = e.response?.statusCode ?? hcpErrorStatus;
+      response = Response(
+        statusCode: statusCode,
+        statusMessage: e.toString(),
+        requestOptions: RequestOptions(path: request.url, method: 'post'),
+      );
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+
+    return response;
+  }
+
+  @override
   Future<void> refreshToken() async {
     final token = authStorage.getTokenInfo();
 

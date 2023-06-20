@@ -7,6 +7,7 @@ import 'package:spotify_playlist_helper/features/main_navigation/presentation/wi
 import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/playlists_cubit.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/widgets/playlists_navigation.dart';
 import 'package:spotify_playlist_helper/features/tracks/presentation/cubits/saved_tracks_cubit.dart';
+import 'package:spotify_playlist_helper/features/tracks/presentation/cubits/tracks_management_cubit.dart';
 
 import '../widgets/main_content.dart';
 
@@ -41,6 +42,9 @@ class MainScreen extends StatelessWidget {
         BlocProvider<SavedTracksCubit>(
           create: (_) =>
               SavedTracksCubit(logger: di.get(), repo: di.get())..init(),
+        ),
+        BlocProvider<TracksCubit>(
+          create: (_) => TracksCubit(logger: di.get(), tracksRepo: di.get()),
         ),
       ],
       child: MainScreenTemplate(

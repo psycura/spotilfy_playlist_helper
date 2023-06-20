@@ -6,6 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/enums/sorting.dart';
 import 'package:spotify_playlist_helper/core/utils/track_utils.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/repositories/tracks_repository.dart';
 
@@ -17,7 +18,7 @@ class PlaylistState with _$PlaylistState {
 
   const factory PlaylistState({
     @Default(FetchingState.idle) FetchingState fetchingState,
-    @Default(<TrackWithMetaEntity>[]) List<TrackWithMetaEntity> tracks,
+    @Default(<TrackEntity>[]) List<TrackEntity> tracks,
     @Default(SortBy.name) SortBy sortBy,
     @Default(SortOrder.asc) SortOrder order,
   }) = _PlaylistState;
@@ -30,7 +31,7 @@ class PlaylistCubit extends Cubit<PlaylistState> {
 
   final ITracksRepository _repo;
 
-  StreamSubscription<Iterable<TrackWithMetaEntity>>? _tracksSub;
+  StreamSubscription<Iterable<TrackEntity>>? _tracksSub;
 
   PlaylistCubit({
     required Logger logger,
@@ -46,7 +47,7 @@ class PlaylistCubit extends Cubit<PlaylistState> {
         .listen(_handleTracksUpdates);
   }
 
-  void _handleTracksUpdates(Iterable<TrackWithMetaEntity> items) {
+  void _handleTracksUpdates(Iterable<TrackEntity> items) {
     emit(state.copyWith(tracks: items.toList()));
   }
 

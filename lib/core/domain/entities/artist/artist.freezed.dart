@@ -23,7 +23,6 @@ mixin _$ArtistEntity {
   String get href => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get uri => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +36,7 @@ abstract class $ArtistEntityCopyWith<$Res> {
           ArtistEntity value, $Res Function(ArtistEntity) then) =
       _$ArtistEntityCopyWithImpl<$Res, ArtistEntity>;
   @useResult
-  $Res call({String href, String id, String name, String uri});
+  $Res call({String href, String id, String name});
 }
 
 /// @nodoc
@@ -56,7 +55,6 @@ class _$ArtistEntityCopyWithImpl<$Res, $Val extends ArtistEntity>
     Object? href = null,
     Object? id = null,
     Object? name = null,
-    Object? uri = null,
   }) {
     return _then(_value.copyWith(
       href: null == href
@@ -71,10 +69,6 @@ class _$ArtistEntityCopyWithImpl<$Res, $Val extends ArtistEntity>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      uri: null == uri
-          ? _value.uri
-          : uri // ignore: cast_nullable_to_non_nullable
-              as String,
     ) as $Val);
   }
 }
@@ -87,7 +81,7 @@ abstract class _$$_ArtistEntityCopyWith<$Res>
       __$$_ArtistEntityCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String href, String id, String name, String uri});
+  $Res call({String href, String id, String name});
 }
 
 /// @nodoc
@@ -104,7 +98,6 @@ class __$$_ArtistEntityCopyWithImpl<$Res>
     Object? href = null,
     Object? id = null,
     Object? name = null,
-    Object? uri = null,
   }) {
     return _then(_$_ArtistEntity(
       href: null == href
@@ -119,10 +112,6 @@ class __$$_ArtistEntityCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      uri: null == uri
-          ? _value.uri
-          : uri // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -130,11 +119,7 @@ class __$$_ArtistEntityCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ArtistEntity implements _ArtistEntity {
-  _$_ArtistEntity(
-      {required this.href,
-      required this.id,
-      required this.name,
-      required this.uri});
+  _$_ArtistEntity({required this.href, required this.id, required this.name});
 
   factory _$_ArtistEntity.fromJson(Map<String, dynamic> json) =>
       _$$_ArtistEntityFromJson(json);
@@ -145,12 +130,10 @@ class _$_ArtistEntity implements _ArtistEntity {
   final String id;
   @override
   final String name;
-  @override
-  final String uri;
 
   @override
   String toString() {
-    return 'ArtistEntity(href: $href, id: $id, name: $name, uri: $uri)';
+    return 'ArtistEntity(href: $href, id: $id, name: $name)';
   }
 
   @override
@@ -160,13 +143,12 @@ class _$_ArtistEntity implements _ArtistEntity {
             other is _$_ArtistEntity &&
             (identical(other.href, href) || other.href == href) &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.uri, uri) || other.uri == uri));
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, href, id, name, uri);
+  int get hashCode => Object.hash(runtimeType, href, id, name);
 
   @JsonKey(ignore: true)
   @override
@@ -186,8 +168,7 @@ abstract class _ArtistEntity implements ArtistEntity {
   factory _ArtistEntity(
       {required final String href,
       required final String id,
-      required final String name,
-      required final String uri}) = _$_ArtistEntity;
+      required final String name}) = _$_ArtistEntity;
 
   factory _ArtistEntity.fromJson(Map<String, dynamic> json) =
       _$_ArtistEntity.fromJson;
@@ -198,8 +179,6 @@ abstract class _ArtistEntity implements ArtistEntity {
   String get id;
   @override
   String get name;
-  @override
-  String get uri;
   @override
   @JsonKey(ignore: true)
   _$$_ArtistEntityCopyWith<_$_ArtistEntity> get copyWith =>

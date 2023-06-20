@@ -1,7 +1,6 @@
 import 'package:isar/isar.dart';
 
 import '../../../utils/hash_function.dart';
-import '../tracks/playlist_tracks_collection.dart';
 
 
 part 'playlists_collection.g.dart';
@@ -20,8 +19,5 @@ class PlaylistDto {
   late List<String> images;
   late DateTime updatedAt;
   String? description;
-
-  @Backlink(to: 'playlist')
-  final tracks = IsarLinks<PlaylistTrackDto>();
 
 }

@@ -9,6 +9,7 @@ import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_
 import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist.dart';
 import 'package:spotify_playlist_helper/features/tracks/data/api/tracks_api.dart';
 import 'package:spotify_playlist_helper/features/tracks/data/storage/tracks_dao.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/repositories/tracks_repository.dart';
 
@@ -91,12 +92,38 @@ class TracksRepository implements ITracksRepository {
   }
 
   @override
-  Stream<Iterable<TrackWithMetaEntity>> getSavedTracksStream() =>
+  Stream<Iterable<TrackEntity>> getSavedTracksStream() =>
       dao.getSavedTracksStream();
 
   @override
-  Stream<Iterable<TrackWithMetaEntity>> getPlaylistTracksStream(
+  Stream<Iterable<TrackEntity>> getPlaylistTracksStream(
     String playlistId,
   ) =>
       dao.getPlaylistTracksStream(playlistId);
+
+  @override
+  Future<Either<GeneralFailure, SuccessEmpty>> removeSavedTrack(
+    TrackEntity track,
+  ) async {
+    // TODO: implement removeSavedTrack
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<GeneralFailure, SuccessEmpty>> saveTrack(
+    TrackEntity track,
+  ) async {
+    try {
+      await dao.addTrackToSaved(track);
+      await api.addTrackToSaved(track.id);
+
+      return const Right(SuccessEmpty());
+    } catch (e, s) {
+      logger.e(e, e, s);
+
+      await dao.removeTrackFromSaved(track.id);
+
+      return const Left(GeneralFailure());
+    }
+  }
 }

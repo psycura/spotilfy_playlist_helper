@@ -5,7 +5,7 @@ import 'package:spotify_playlist_helper/core/enums/sorting.dart';
 import 'package:spotify_playlist_helper/core/presentation/widgets/empty_list.dart';
 import 'package:spotify_playlist_helper/features/playlist_content/presentation/cubits/playlist_cubit.dart';
 import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/playlists_cubit.dart';
-import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
+import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
 import 'package:spotify_playlist_helper/features/tracks/presentation/widgets/track_item.dart';
 import 'package:spotify_playlist_helper/features/tracks/presentation/widgets/tracks_header.dart';
 
@@ -26,7 +26,7 @@ class PlaylistTracks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tracks = context.select<PlaylistCubit, List<TrackWithMetaEntity>>(
+    final tracks = context.select<PlaylistCubit, List<TrackEntity>>(
       (bloc) => bloc.state.tracks,
     );
 
@@ -46,7 +46,7 @@ class PlaylistTracks extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: tracks.length,
                   itemBuilder: (ctx, index) {
-                    final track = tracks[index].track;
+                    final track = tracks[index];
 
                     return TrackItem(track, index);
                   },
