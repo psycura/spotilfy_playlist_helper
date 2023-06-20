@@ -51,6 +51,7 @@ class PlaylistItem extends StatelessWidget {
         playlist.name,
         style: TextStyle(
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          color: isSelected ? Colors.green : Colors.white,
         ),
       ),
       trailing: playlistObject.state == FetchingState.fetching

@@ -42,12 +42,17 @@ class PlaylistCubit extends Cubit<PlaylistState> {
   void init(String playlistId) {
     _tracksSub = _repo
         .getPlaylistTracksStream(playlistId)
-        // .map(_getSortedTracks)
         .listen(_handleTracksUpdates);
   }
 
   void _handleTracksUpdates(Iterable<TrackEntity> items) {
-    emit(state.copyWith(tracks: items.toList()));
+    final tracks = TrackUtils.getSortedTracks(
+      items,
+      sortBy: state.sortBy,
+      sortOrder: state.order,
+    );
+
+    emit(state.copyWith(tracks: tracks));
   }
 
   void changeSortBy(SortBy sortBy) {

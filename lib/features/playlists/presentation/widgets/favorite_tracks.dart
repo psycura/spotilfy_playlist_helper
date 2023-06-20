@@ -41,6 +41,8 @@ class FavoriteTracks extends StatelessWidget {
         "Favorites",
         style: TextStyle(
           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          color: isSelected ? Colors.green : Colors.white,
+
         ),
       ),
       trailing: fetchState == FetchingState.fetching

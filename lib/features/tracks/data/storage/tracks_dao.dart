@@ -46,7 +46,8 @@ class TracksDao implements ITracksDao {
 
   @override
   Stream<Iterable<TrackEntity>> getSavedTracksStream() {
-    Query<TrackDto> tracks = db.tracks.filter().isSavedEqualTo(true).build();
+    Query<TrackDto> tracks =
+        db.tracks.filter().isSavedEqualTo(true).nameIsNotEmpty().build();
 
     return tracks.watch(fireImmediately: true).map(
           (items) => items.map(tracksAdapter.entityFromDto),
@@ -83,7 +84,6 @@ class TracksDao implements ITracksDao {
   ) async {
     final playListDto = playlistAdapter.responseToDto(playlist);
 
-
     await db.writeTxn(() async {
       await db.playlists.put(playListDto);
 
@@ -92,12 +92,10 @@ class TracksDao implements ITracksDao {
           .playlistsIdsElementContains(playlist.id)
           .findAll();
 
-
       await db.tracks
           .filter()
           .playlistsIdsElementContains(playlist.id)
           .deleteAll();
-
 
       for (var item in items) {
         final track = tracksAdapter.responseToDto(item.track);
@@ -113,7 +111,6 @@ class TracksDao implements ITracksDao {
           if (tempTrack == null ||
               tempTrack.playlistsIds.contains(playlist.id)) {
             await db.tracks.put(track);
-
           } else {
             var playlists = <String>[...tempTrack.playlistsIds];
             playlists.add(playlist.id);
@@ -121,12 +118,9 @@ class TracksDao implements ITracksDao {
             tempTrack.playlistsIds = playlists;
 
             await db.tracks.put(tempTrack);
-
           }
         }
       }
-
-
     });
   }
 

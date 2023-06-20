@@ -50,27 +50,27 @@ class SavedTracksCubit extends Cubit<SavedTracksState> {
   // }
 
   void init() {
-    _tracksSub = _repo
-        .getSavedTracksStream()
-        .listen(_handleTracksUpdates);
+    _tracksSub = _repo.getSavedTracksStream().listen(_handleTracksUpdates);
   }
 
   void _handleTracksUpdates(Iterable<TrackEntity> items) {
-    emit(state.copyWith(tracks: items.toList()));
+    final tracks = TrackUtils.getSortedTracks(
+      items,
+      sortBy: state.sortBy,
+      sortOrder: state.order,
+    );
+    emit(state.copyWith(tracks: tracks));
   }
 
   void changeSortBy(SortBy sortBy) {
     SortOrder order = state.order;
     SortBy currentSortBy = state.sortBy;
 
-
     final (newSortBy, sortOrder) = TrackUtils.getSortByAndOrder(
       currentSortBy: currentSortBy,
       newSortBy: sortBy,
       currentOrder: order,
     );
-
-
 
     emit(
       state.copyWith(
