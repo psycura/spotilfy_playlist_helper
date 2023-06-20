@@ -62,20 +62,25 @@ class SavedTracksCubit extends Cubit<SavedTracksState> {
 
   void changeSortBy(SortBy sortBy) {
     SortOrder order = state.order;
-    order = state.sortBy == sortBy
-        ? order == SortOrder.asc
-            ? SortOrder.desc
-            : SortOrder.asc
-        : SortOrder.asc;
+    SortBy currentSortBy = state.sortBy;
+
+
+    final (newSortBy, sortOrder) = TrackUtils.getSortByAndOrder(
+      currentSortBy: currentSortBy,
+      newSortBy: sortBy,
+      currentOrder: order,
+    );
+
+
 
     emit(
       state.copyWith(
-        order: order,
-        sortBy: sortBy,
+        order: sortOrder,
+        sortBy: newSortBy,
         tracks: TrackUtils.getSortedTracks(
           state.tracks,
-          sortBy: sortBy,
-          sortOrder: order,
+          sortBy: newSortBy,
+          sortOrder: sortOrder,
         ),
       ),
     );

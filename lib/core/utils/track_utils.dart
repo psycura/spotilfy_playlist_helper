@@ -8,6 +8,7 @@ abstract class TrackUtils {
     SortBy sortBy = SortBy.name,
     SortOrder sortOrder = SortOrder.asc,
   }) {
+
     List<TrackWithMetaEntity> res;
     switch (sortBy) {
       case SortBy.album:
@@ -34,5 +35,70 @@ abstract class TrackUtils {
     }
 
     return sortOrder == SortOrder.asc ? res : res.reversed.toList();
+  }
+
+  static (SortBy sortBy, SortOrder order) getSortByNameValue({
+    required SortBy currentSortBy,
+    required SortOrder currentOrder,
+  }) {
+    if (currentSortBy == SortBy.name) {
+
+      if (currentOrder == SortOrder.asc) {
+
+        return (SortBy.name, SortOrder.desc);
+      }
+
+      return (SortBy.artist, SortOrder.asc);
+    }
+
+    if (currentOrder == SortOrder.asc) {
+
+      return (SortBy.artist, SortOrder.desc);
+    }
+
+    return (SortBy.name, SortOrder.asc);
+  }
+
+  static (SortBy sortBy, SortOrder order) getSortByAndOrder({
+    required SortBy currentSortBy,
+    required SortBy newSortBy,
+    required SortOrder currentOrder,
+  }) {
+    SortOrder order = currentOrder;
+    SortBy sortBy = currentSortBy;
+
+
+    if (newSortBy == currentSortBy) {
+
+      if (newSortBy == SortBy.name) {
+
+        final (newSortBy, sortOrder) = getSortByNameValue(
+          currentSortBy: currentSortBy,
+          currentOrder: order,
+        );
+
+        order = sortOrder;
+        sortBy = newSortBy;
+      } else {
+
+        order = order == SortOrder.asc ? SortOrder.desc : SortOrder.asc;
+      }
+    } else  if (newSortBy == SortBy.name) {
+
+      final (newSortBy, sortOrder) = getSortByNameValue(
+        currentSortBy: currentSortBy,
+        currentOrder: order,
+      );
+
+      order = sortOrder;
+      sortBy = newSortBy;
+    } else {
+      sortBy = newSortBy;
+      order = SortOrder.asc;
+    }
+
+
+
+    return (sortBy, order);
   }
 }
