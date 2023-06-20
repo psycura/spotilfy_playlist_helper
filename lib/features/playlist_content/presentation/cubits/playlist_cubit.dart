@@ -7,7 +7,6 @@ import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/enums/sorting.dart';
 import 'package:spotify_playlist_helper/core/utils/track_utils.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
-import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/repositories/tracks_repository.dart';
 
 part 'playlist_cubit.freezed.dart';

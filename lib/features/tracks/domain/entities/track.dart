@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist.dart';
 
 part 'track.freezed.dart';
 

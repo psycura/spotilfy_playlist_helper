@@ -8,6 +8,8 @@ abstract interface class IHttpService {
 
   Future<Response> putRequest(ApiRequest request);
 
+  Future<Response> deleteRequest(ApiRequest request);
+
   /// Send GET request to [url]
   Future<Response> getRequest(
     String url, {

@@ -174,7 +174,32 @@ class HttpService implements IHttpService {
       response = Response(
         statusCode: statusCode,
         statusMessage: e.toString(),
-        requestOptions: RequestOptions(path: request.url, method: 'post'),
+        requestOptions: RequestOptions(path: request.url, method: 'put'),
+      );
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+
+    return response;
+  }
+
+  @override
+  Future<Response> deleteRequest(ApiRequest request) async {
+    Response response;
+
+    try {
+      response = await dioClient.delete(
+        request.url,
+        data: request.data,
+        options: request.options,
+      );
+    } on DioException catch (e) {
+      final statusCode = e.response?.statusCode ?? hcpErrorStatus;
+      response = Response(
+        statusCode: statusCode,
+        statusMessage: e.toString(),
+        requestOptions: RequestOptions(path: request.url, method: 'delete'),
       );
       rethrow;
     } catch (e) {

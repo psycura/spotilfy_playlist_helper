@@ -22,6 +22,8 @@ abstract interface class ITracksApi {
   });
 
   Future<void> addTrackToSaved(String id);
+
+  Future<void> removeTrackFromSaved(String id);
 }
 
 @LazySingleton(as: ITracksApi)
@@ -87,6 +89,22 @@ class TracksApi implements ITracksApi {
 
     try {
       await client.putRequest(request);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> removeTrackFromSaved(String id) async {
+    final request = ApiRequest(
+      url: '${Apis.baseSpotify}/${Apis.currentUser}/${Apis.tracks}',
+      data: {
+        'ids': [id]
+      },
+    );
+
+    try {
+      await client.deleteRequest(request);
     } catch (e) {
       rethrow;
     }

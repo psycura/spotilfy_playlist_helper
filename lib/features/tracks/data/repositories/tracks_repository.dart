@@ -10,7 +10,6 @@ import 'package:spotify_playlist_helper/features/playlists/domain/entities/playl
 import 'package:spotify_playlist_helper/features/tracks/data/api/tracks_api.dart';
 import 'package:spotify_playlist_helper/features/tracks/data/storage/tracks_dao.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
-import 'package:spotify_playlist_helper/features/tracks/domain/entities/track_with_meta.dart';
 import 'package:spotify_playlist_helper/features/tracks/domain/repositories/tracks_repository.dart';
 
 @Singleton(as: ITracksRepository)
@@ -105,8 +104,18 @@ class TracksRepository implements ITracksRepository {
   Future<Either<GeneralFailure, SuccessEmpty>> removeSavedTrack(
     TrackEntity track,
   ) async {
-    // TODO: implement removeSavedTrack
-    throw UnimplementedError();
+    try {
+      await dao.removeTrackFromSaved(track.id);
+      await api.removeTrackFromSaved(track.id);
+
+      return const Right(SuccessEmpty());
+    } catch (e, s) {
+      logger.e(e, e, s);
+
+      await dao.addTrackToSaved(track);
+
+      return const Left(GeneralFailure());
+    }
   }
 
   @override
