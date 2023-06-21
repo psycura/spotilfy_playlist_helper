@@ -1,7 +1,7 @@
-import 'package:spotify_playlist_helper/core/data/storage/playlists/playlists_collection.dart';
+import 'package:spotify_playlist_helper/core/data/storage/collections/playlists/playlists_collection.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_response.dart';
-import 'package:spotify_playlist_helper/features/playlists/domain/entities/playlist.dart';
+import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
 
 
 class PlaylistDtoAdapter {

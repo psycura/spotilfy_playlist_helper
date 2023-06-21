@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/di.dart';
-import 'package:spotify_playlist_helper/features/playlists/presentation/cubits/selected_playlist_cubit.dart';
+import 'package:spotify_playlist_helper/presentation/playlists/cubits/selected_playlist_cubit.dart';
 
 
 class GlobalBlocsProvider extends StatelessWidget {

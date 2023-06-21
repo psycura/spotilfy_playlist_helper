@@ -111,27 +111,15 @@ class HttpService implements IHttpService {
 
   @override
   Future<Response> postRequest(ApiRequest request) async {
-    Response response;
-
     try {
-      response = await dioClient.post(
+      return await dioClient.post(
         request.url,
         data: request.data,
         options: request.options,
       );
-    } on DioException catch (e) {
-      final statusCode = e.response?.statusCode ?? hcpErrorStatus;
-      response = Response(
-        statusCode: statusCode,
-        statusMessage: e.toString(),
-        requestOptions: RequestOptions(path: request.url, method: 'post'),
-      );
-      rethrow;
     } catch (e) {
       rethrow;
     }
-
-    return response;
   }
 
   @override
@@ -140,73 +128,41 @@ class HttpService implements IHttpService {
     Options? options,
     Map<String, dynamic>? queryParameters,
   }) async {
-    Response response;
     try {
-      response = await dioClient.get(
+      return await dioClient.get(
         url,
         options: options,
         queryParameters: queryParameters,
       );
-    } on DioException catch (e) {
-      final statusCode = e.response?.statusCode ?? hcpErrorStatus;
-      response = Response(
-        statusCode: statusCode,
-        statusMessage: e.toString(),
-        requestOptions: RequestOptions(path: url, method: 'get'),
-      );
+    } catch (e) {
+      rethrow;
     }
-
-    return response;
   }
 
   @override
   Future<Response> putRequest(ApiRequest request) async {
-    Response response;
-
     try {
-      response = await dioClient.put(
+      return await dioClient.put(
         request.url,
         data: request.data,
         options: request.options,
       );
-    } on DioException catch (e) {
-      final statusCode = e.response?.statusCode ?? hcpErrorStatus;
-      response = Response(
-        statusCode: statusCode,
-        statusMessage: e.toString(),
-        requestOptions: RequestOptions(path: request.url, method: 'put'),
-      );
-      rethrow;
     } catch (e) {
       rethrow;
     }
-
-    return response;
   }
 
   @override
   Future<Response> deleteRequest(ApiRequest request) async {
-    Response response;
-
     try {
-      response = await dioClient.delete(
+      return await dioClient.delete(
         request.url,
         data: request.data,
         options: request.options,
       );
-    } on DioException catch (e) {
-      final statusCode = e.response?.statusCode ?? hcpErrorStatus;
-      response = Response(
-        statusCode: statusCode,
-        statusMessage: e.toString(),
-        requestOptions: RequestOptions(path: request.url, method: 'delete'),
-      );
-      rethrow;
     } catch (e) {
       rethrow;
     }
-
-    return response;
   }
 
   @override
@@ -237,15 +193,19 @@ class HttpService implements IHttpService {
       options: options,
     );
 
-    final response = await postRequest(request);
+    try {
+      final response = await postRequest(request);
 
-    if (response.statusCode == 200) {
-      final newToken = RefreshTokenResponse.fromJson(response.data);
+      if (response.statusCode == 200) {
+        final newToken = RefreshTokenResponse.fromJson(response.data);
 
-      final adapter = FromRefreshResponseAdapter();
+        final adapter = FromRefreshResponseAdapter();
 
-      await authStorage
-          .saveTokenInfo(adapter(newToken, refreshToken: token.refreshToken));
+        await authStorage
+            .saveTokenInfo(adapter(newToken, refreshToken: token.refreshToken));
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 

@@ -1,9 +1,9 @@
 import 'package:spotify_playlist_helper/core/data/adapters/album_dto_adapter.dart';
 import 'package:spotify_playlist_helper/core/data/adapters/playlist_dto_adapter.dart';
+import 'package:spotify_playlist_helper/core/data/storage/collections/tracks/tracks_collection.dart';
 
-import 'package:spotify_playlist_helper/core/data/storage/tracks/tracks_collection.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
-import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
+import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 
 import 'artist_dto_adapter.dart';
 

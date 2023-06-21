@@ -15,10 +15,21 @@ import 'package:isar/isar.dart' as _i3;
 import 'package:logger/logger.dart' as _i4;
 
 import '../core/data/api/authorization_client.dart' as _i22;
+import '../core/data/api/playlists_api.dart' as _i13;
+import '../core/data/api/tracks_api.dart' as _i16;
+import '../core/data/api/user_profile_api.dart' as _i19;
 import '../core/data/repositories/auth_repository.dart' as _i24;
+import '../core/data/repositories/playlists_repository.dart' as _i15;
+import '../core/data/repositories/tracks_repository.dart' as _i18;
+import '../core/data/repositories/user_profile_repository.dart' as _i21;
 import '../core/data/storage/auth_storage.dart' as _i10;
+import '../core/data/storage/dao/playlists_dao.dart' as _i8;
+import '../core/data/storage/dao/tracks_dao.dart' as _i9;
 import '../core/data/storage/db/db_module.dart' as _i29;
 import '../core/domain/repositories/auth_repository.dart' as _i23;
+import '../core/domain/repositories/playlists_repository.dart' as _i14;
+import '../core/domain/repositories/tracks_repository.dart' as _i17;
+import '../core/domain/repositories/user_profile_repository.dart' as _i20;
 import '../core/infrastructure/http/http_module.dart' as _i27;
 import '../core/infrastructure/http/http_service_interface.dart' as _i12;
 import '../core/infrastructure/logs/easy_logger_wrapper.dart' as _i7;
@@ -27,22 +38,7 @@ import '../core/infrastructure/logs/logger_bloc_observer.dart' as _i5;
 import '../core/infrastructure/storage/storage_module.dart' as _i26;
 import '../core/infrastructure/storage/storage_service.dart' as _i6;
 import '../core/modules/logs_module.dart' as _i28;
-import '../features/playlists/data/api/playlists_api.dart' as _i13;
-import '../features/playlists/data/repositories/playlists_repository.dart'
-    as _i15;
-import '../features/playlists/data/storage/playlists_dao.dart' as _i8;
-import '../features/playlists/domain/repositories/playlists_repository.dart'
-    as _i14;
-import '../features/splash/presentation/cubits/splash_cubit.dart' as _i25;
-import '../features/tracks/data/api/tracks_api.dart' as _i16;
-import '../features/tracks/data/repositories/tracks_repository.dart' as _i18;
-import '../features/tracks/data/storage/tracks_dao.dart' as _i9;
-import '../features/tracks/domain/repositories/tracks_repository.dart' as _i17;
-import '../features/user_profile/data/api/user_profile_api.dart' as _i19;
-import '../features/user_profile/data/repositories/user_profile_repository.dart'
-    as _i21;
-import '../features/user_profile/domain/repositories/user_profile_repository.dart'
-    as _i20;
+import '../presentation/splash/cubits/splash_cubit.dart' as _i25;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars

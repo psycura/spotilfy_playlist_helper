@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:spotify_playlist_helper/core/enums/sorting.dart';
-import 'package:spotify_playlist_helper/features/tracks/domain/entities/track.dart';
+import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 
 abstract class TrackUtils {
   static List<TrackEntity> getSortedTracks(

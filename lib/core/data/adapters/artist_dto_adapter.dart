@@ -1,4 +1,4 @@
-import 'package:spotify_playlist_helper/core/data/storage/tracks/tracks_collection.dart';
+import 'package:spotify_playlist_helper/core/data/storage/collections/tracks/tracks_collection.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/artist/artist.dart';
 
 class ArtistDtoAdapter {
