@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/user_profile/user_profile.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/user_profile_repository.dart';
