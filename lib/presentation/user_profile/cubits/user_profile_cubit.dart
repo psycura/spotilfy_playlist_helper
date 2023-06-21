@@ -25,25 +25,13 @@ class UserProfileState with _$UserProfileState {
 class UserProfileCubit extends Cubit<UserProfileState> with HydratedMixin {
   static const String tag = 'UserProfileCubit';
 
-  final Logger _logger;
   final IUserProfileRepository _repo;
 
   UserProfileCubit({
-    required Logger logger,
     required IUserProfileRepository repo,
-  })  : _logger = logger,
-        _repo = repo,
+  })  : _repo = repo,
         super(const UserProfileState());
 
-  // @override
-  // void onChange(change) {
-  //   _logger.d(
-  //     '$tag onChange'
-  //     '\n [CURRENT STATE]: ${change.currentState}'
-  //     '\n [NEXT STATE]: ${change.nextState}',
-  //   );
-  //   super.onChange(change);
-  // }
 
   Future<void> getCurrentUserProfile() async {
     emit(state.copyWith(fetchingState: FetchingState.fetching));

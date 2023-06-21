@@ -12,7 +12,6 @@ class UserProfile extends StatelessWidget {
   Widget build(BuildContext _) {
     return BlocProvider<UserProfileCubit>(
       create: (_) => UserProfileCubit(
-        logger: di.get(),
         repo: di.get(),
       )..getCurrentUserProfile(),
       child: BlocBuilder<UserProfileCubit, UserProfileState>(
