@@ -9,6 +9,8 @@ abstract interface class ITracksRepository {
 
   Stream<Iterable<TrackEntity>> getSavedTracksStream();
 
+  Stream<TrackEntity> getTrackStream(String trackId);
+
   Stream<Iterable<TrackEntity>> getPlaylistTracksStream(
     String playlistId,
   );

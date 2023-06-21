@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_playlist_helper/core/utils/extensions/duration_extension.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 
+import 'playlist_button.dart';
 import 'saved_button.dart';
 
 class TrackItem extends StatelessWidget {
@@ -72,18 +73,12 @@ class TrackItem extends StatelessWidget {
                 ),
               ),
             ),
-            Flexible(
-              flex: 3,
-              child: Text(
-                track.playlists.isNotEmpty
-                    ? track.playlists.length.toString()
-                    : '',
-              ),
-            ),
+            Flexible(flex: 3, child: PlaylistButton(track)),
             Flexible(
               flex: 2,
               child: Text(
-                  Duration(milliseconds: track.duration_ms).toElapsedTime()),
+                Duration(milliseconds: track.duration_ms).toElapsedTime(),
+              ),
             ),
             Flexible(flex: 1, child: SavedButton(track)),
             Flexible(

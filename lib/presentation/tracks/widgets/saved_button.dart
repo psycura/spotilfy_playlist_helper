@@ -20,9 +20,12 @@ class SavedButton extends StatelessWidget {
     return InkWell(
       onTap: () => _onPress(context),
       borderRadius: const BorderRadius.all(Radius.circular(16)),
-      child: track.is_saved
-          ? const Icon(Icons.favorite)
-          : const Icon(Icons.favorite_outline),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: track.is_saved
+            ? const Icon(Icons.favorite)
+            : const Icon(Icons.favorite_outline),
+      ),
     );
   }
 }

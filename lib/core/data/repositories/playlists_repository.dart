@@ -7,6 +7,7 @@ import 'package:spotify_playlist_helper/core/data/api/playlists_api.dart';
 import 'package:spotify_playlist_helper/core/data/storage/dao/playlists_dao.dart';
 import 'package:spotify_playlist_helper/core/data/success/success.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
+import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_response.dart';
 
@@ -46,7 +47,6 @@ class PlaylistsRepository implements IPlaylistsRepository {
 
       await dao.savePlaylists(items);
 
-
       return const Right(SuccessEmpty());
     } catch (e, s) {
       logger.e('$tag:${e.toString()}', e, s);
@@ -58,4 +58,61 @@ class PlaylistsRepository implements IPlaylistsRepository {
   @override
   Stream<Iterable<PlaylistEntity>> getCurrentPlaylistsStream() =>
       dao.getPlaylistsStream();
+
+  @override
+  Future<Either<GeneralFailure, SuccessEmpty>> addTracksToPlaylist(
+    List<TrackEntity> tracks,
+    String playlistId,
+  ) async {
+    try {
+      await dao.addTracksToPlaylist(
+        tracks.map((e) => e.id).toList(),
+        playlistId,
+      );
+      await api.addTracksToPlaylist(
+        tracks.map((e) => e.uri).toList(),
+        playlistId,
+      );
+
+      return const Right(SuccessEmpty());
+    } catch (e, s) {
+      logger.e('$tag:${e.toString()}', e, s);
+
+      await dao.removeTracksFromPlaylist(
+        tracks.map((e) => e.id).toList(),
+        playlistId,
+      );
+
+      return const Left(GeneralFailure());
+    }
+  }
+
+  @override
+  Future<Either<GeneralFailure, SuccessEmpty>> removeTracksFromPlaylist(
+    List<TrackEntity> tracks,
+    String playlistId,
+  ) async {
+    try {
+      await dao.removeTracksFromPlaylist(
+        tracks.map((e) => e.id).toList(),
+        playlistId,
+      );
+
+      await api.removeTracksFromPlaylist(
+        tracks.map((e) => e.uri).toList(),
+        playlistId,
+      );
+
+      return const Right(SuccessEmpty());
+    } catch (e, s) {
+      logger.e('$tag:${e.toString()}', e, s);
+
+      await dao.addTracksToPlaylist(
+        tracks.map((e) => e.id).toList(),
+        playlistId,
+      );
+
+      return const Left(GeneralFailure());
+    }
+  }
 }

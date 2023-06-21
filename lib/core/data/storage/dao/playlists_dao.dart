@@ -7,12 +7,24 @@ import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/adapters/playlist_dto_adapter.dart';
 import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_response.dart';
 import 'package:spotify_playlist_helper/core/data/storage/collections/playlists/playlists_collection.dart';
+import 'package:spotify_playlist_helper/core/data/storage/collections/tracks/tracks_collection.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
+import 'package:spotify_playlist_helper/core/utils/hash_function.dart';
 
 abstract interface class IPlaylistsDao {
   Future<void> savePlaylists(List<PlaylistItemResponse> items);
 
   Stream<Iterable<PlaylistEntity>> getPlaylistsStream();
+
+  Future<void> addTracksToPlaylist(
+    List<String> tracks,
+    String playlistId,
+  );
+
+  Future<void> removeTracksFromPlaylist(
+    List<String> tracks,
+    String playlistId,
+  );
 }
 
 @Singleton(as: IPlaylistsDao)
@@ -45,5 +57,45 @@ class PlaylistsDao implements IPlaylistsDao {
     return playlists
         .watch(fireImmediately: true)
         .map((items) => items.map(playlistAdapter.entityFromDto));
+  }
+
+  @override
+  Future<void> addTracksToPlaylist(
+    List<String> tracks,
+    String playlistId,
+  ) async {
+    await db.writeTxn(() async {
+      final tracksToUpdate =
+          await db.tracks.getAll(tracks.map(fastHash).toList());
+
+      for (var track in tracksToUpdate) {
+        if (!track!.playlistsIds.contains(playlistId)) {
+          track.playlistsIds = [...track.playlistsIds, playlistId];
+          await db.tracks.put(track);
+        }
+      }
+    });
+  }
+
+  @override
+  Future<void> removeTracksFromPlaylist(
+    List<String> tracks,
+    String playlistId,
+  ) async {
+
+    await db.writeTxn(() async {
+      final tracksToUpdate =
+      await db.tracks.getAll(tracks.map(fastHash).toList());
+
+      for (var track in tracksToUpdate) {
+        if (track!.playlistsIds.contains(playlistId)) {
+          final playlists = [...track.playlistsIds];
+          playlists.removeWhere((p) => p == playlistId);
+          track.playlistsIds = [...playlists];
+          await db.tracks.put(track);
+        }
+      }
+    });
+
   }
 }

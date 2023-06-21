@@ -20,7 +20,7 @@ class TracksHeader extends StatelessWidget {
           child: Center(child: Text('')),
         ),
         const Flexible(
-          flex: 2,
+          flex: 1,
           fit: FlexFit.tight,
           child: Center(child: Text('')),
         ),

@@ -1,4 +1,3 @@
-
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
@@ -19,6 +18,8 @@ abstract interface class ITracksDao {
   Stream<Iterable<TrackEntity>> getPlaylistTracksStream(
     String playlistId,
   );
+
+  Stream<TrackEntity> getTrackStream(String trackId);
 
   Future<void> saveSavedTracks(List<TrackWithMetaResponse> items);
 
@@ -167,5 +168,15 @@ class TracksDao implements ITracksDao {
         }
       }
     });
+  }
+
+  @override
+  Stream<TrackEntity> getTrackStream(String trackId) {
+
+
+
+    return db.tracks
+        .watchObject(fastHash(trackId), fireImmediately: true)
+        .map((e) => tracksAdapter.entityFromDto(e!));
   }
 }

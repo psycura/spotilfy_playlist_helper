@@ -16,7 +16,6 @@ import 'package:spotify_playlist_helper/core/domain/repositories/tracks_reposito
 class TracksRepository implements ITracksRepository {
   static const tag = '[TracksRepository]';
 
-
   @protected
   final Logger logger;
 
@@ -138,4 +137,8 @@ class TracksRepository implements ITracksRepository {
       return const Left(GeneralFailure());
     }
   }
+
+  @override
+  Stream<TrackEntity> getTrackStream(String trackId) =>
+      dao.getTrackStream(trackId);
 }
