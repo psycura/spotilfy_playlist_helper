@@ -11,6 +11,9 @@ class IncompatibleDataException implements Exception {
 /// Exception for errors related to data retrieval
 class CacheException implements Exception {}
 
+/// Exception for errors related to data retrieval
+class NoInternetException implements Exception {}
+
 /// Exceptions for errors related to [Channel]
 class ChannelNotReadyException implements Exception {}
 

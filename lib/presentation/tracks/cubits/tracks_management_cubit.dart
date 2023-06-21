@@ -50,7 +50,6 @@ class TracksCubit extends Cubit<TracksState> {
     emit(const TracksState.processing());
     Either<GeneralFailure, SuccessEmpty> res;
 
-    print('[alitz] toggleSaved:$track');
 
     res = !track.is_saved
         ? await _tracksRepo.saveTrack(track)

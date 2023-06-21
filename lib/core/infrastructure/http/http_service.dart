@@ -7,6 +7,7 @@ import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:spotify_playlist_helper/const/apis.dart';
 import 'package:spotify_playlist_helper/const/credentials.dart';
+import 'package:spotify_playlist_helper/core/data/errors/exceptions.dart';
 import 'package:spotify_playlist_helper/core/data/storage/auth_storage.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 import 'package:spotify_playlist_helper/core/utils/http_utils.dart';
@@ -52,7 +53,7 @@ class HttpService implements IHttpService {
       requestBody: true,
       responseBody: false,
       responseHeader: false,
-      error: true,
+      error: false,
       compact: true,
       maxWidth: 90,
     );
@@ -62,20 +63,30 @@ class HttpService implements IHttpService {
       InterceptorsWrapper(
         onRequest:
             (RequestOptions options, RequestInterceptorHandler handler) async {
-          if (!options.path.contains('accounts.spotify.com')) {
-            if (_checkIfTokenNeedToRefresh()) {
-              await refreshToken();
+          try {
+            if (!options.path.contains('accounts.spotify.com')) {
+              if (_checkIfTokenNeedToRefresh()) {
+                await refreshToken().onError((error, stackTrace) {});
+              }
+              options.headers["Authorization"] =
+                  "Bearer ${authStorage.getTokenInfo()!.accessToken}";
             }
-            options.headers["Authorization"] =
-                "Bearer ${authStorage.getTokenInfo()!.accessToken}";
-          }
 
-          return handler.next(options);
+            return handler.next(options);
+          } catch (e) {
+            rethrow;
+          }
         },
         onResponse: (Response response, ResponseInterceptorHandler handler) {
           return handler.next(response);
         },
         onError: (DioException e, ErrorInterceptorHandler handler) async {
+          if (e.response == null) {
+            handler.resolve(
+              Response(requestOptions: e.requestOptions, statusCode: 999),
+            );
+          }
+
           if (e.response != null &&
               (!e.response!.requestOptions.path
                   .contains('accounts.spotify.com')) &&
@@ -98,8 +109,6 @@ class HttpService implements IHttpService {
 
             return handler.resolve(cloneReq);
           }
-
-          return handler.next(e);
         },
       ),
     ]);
@@ -112,11 +121,17 @@ class HttpService implements IHttpService {
   @override
   Future<Response> postRequest(ApiRequest request) async {
     try {
-      return await dioClient.post(
+      final res = await dioClient.post(
         request.url,
         data: request.data,
         options: request.options,
       );
+
+      if (res.statusCode == 999) {
+        throw NoInternetException();
+      }
+
+      return res;
     } catch (e) {
       rethrow;
     }
@@ -129,11 +144,17 @@ class HttpService implements IHttpService {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      return await dioClient.get(
+      final res = await dioClient.get(
         url,
         options: options,
         queryParameters: queryParameters,
       );
+
+      if (res.statusCode == 999) {
+        throw NoInternetException();
+      }
+
+      return res;
     } catch (e) {
       rethrow;
     }
@@ -142,11 +163,17 @@ class HttpService implements IHttpService {
   @override
   Future<Response> putRequest(ApiRequest request) async {
     try {
-      return await dioClient.put(
+      final res = await dioClient.put(
         request.url,
         data: request.data,
         options: request.options,
       );
+
+      if (res.statusCode == 999) {
+        throw NoInternetException();
+      }
+
+      return res;
     } catch (e) {
       rethrow;
     }
@@ -155,11 +182,17 @@ class HttpService implements IHttpService {
   @override
   Future<Response> deleteRequest(ApiRequest request) async {
     try {
-      return await dioClient.delete(
+      final res = await dioClient.delete(
         request.url,
         data: request.data,
         options: request.options,
       );
+
+      if (res.statusCode == 999) {
+        throw NoInternetException();
+      }
+
+      return res;
     } catch (e) {
       rethrow;
     }
@@ -194,7 +227,9 @@ class HttpService implements IHttpService {
     );
 
     try {
-      final response = await postRequest(request);
+      final response = await postRequest(request).onError((error, stackTrace) {
+        return Response(requestOptions: RequestOptions(), statusCode: 999);
+      });
 
       if (response.statusCode == 200) {
         final newToken = RefreshTokenResponse.fromJson(response.data);
@@ -203,6 +238,10 @@ class HttpService implements IHttpService {
 
         await authStorage
             .saveTokenInfo(adapter(newToken, refreshToken: token.refreshToken));
+      }
+
+      if (response.statusCode == 999) {
+        throw NoInternetException();
       }
     } catch (e) {
       rethrow;

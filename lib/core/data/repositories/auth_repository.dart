@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:spotify_playlist_helper/core/data/api/authorization_client.dart';
+import 'package:spotify_playlist_helper/core/data/api/authorization_api.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
 import 'package:spotify_playlist_helper/core/data/storage/auth_storage.dart';
 import 'package:spotify_playlist_helper/core/data/success/success.dart';
@@ -11,6 +11,8 @@ import 'package:spotify_playlist_helper/core/enums/authorization_state.dart';
 
 @Singleton(as: IAuthRepository)
 class AuthRepository implements IAuthRepository {
+  static const tag = '[AuthRepository]';
+
   @protected
   final Logger logger;
 
@@ -29,7 +31,6 @@ class AuthRepository implements IAuthRepository {
     return token == null
         ? AuthorizationState.unauthorized
         : AuthorizationState.authorized;
-
   }
 
   @override
@@ -41,7 +42,8 @@ class AuthRepository implements IAuthRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e(e.toString(), e, s);
+
+      logger.e('$tag:${e.toString()}', e, s);
 
       return const Left(GeneralFailure());
     }
@@ -54,10 +56,9 @@ class AuthRepository implements IAuthRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e(e.toString(), e, s);
+      logger.e('$tag:${e.toString()}', e, s);
 
       return const Left(GeneralFailure());
     }
   }
-
 }

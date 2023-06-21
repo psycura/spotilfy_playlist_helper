@@ -31,6 +31,7 @@ class PlaylistsApi implements IPlaylistsApi {
     String? nextUrl,
   }) async {
     try {
+
       final res = await client.getRequest(
         nextUrl ??
             '${Apis.baseSpotify}/${Apis.currentUser}/${Apis.playlists}?offset=${offset ?? 0}&limit=${limit ?? 20}',

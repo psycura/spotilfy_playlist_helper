@@ -9,6 +9,8 @@ import 'package:spotify_playlist_helper/core/domain/repositories/user_profile_re
 
 @LazySingleton(as: IUserProfileRepository)
 class UserProfileRepository implements IUserProfileRepository {
+  static const tag = '[UserProfileRepository]';
+
   @protected
   final Logger logger;
 
@@ -24,7 +26,7 @@ class UserProfileRepository implements IUserProfileRepository {
 
       return Right(res);
     } catch (e, s) {
-      logger.e(e, e, s);
+      logger.e('$tag:${e.toString()}', e, s);
 
       return const Left(GeneralFailure());
     }

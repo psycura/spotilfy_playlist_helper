@@ -14,7 +14,7 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'package:isar/isar.dart' as _i3;
 import 'package:logger/logger.dart' as _i4;
 
-import '../core/data/api/authorization_client.dart' as _i22;
+import '../core/data/api/authorization_api.dart' as _i22;
 import '../core/data/api/playlists_api.dart' as _i13;
 import '../core/data/api/tracks_api.dart' as _i16;
 import '../core/data/api/user_profile_api.dart' as _i19;

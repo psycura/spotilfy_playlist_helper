@@ -40,6 +40,7 @@ class AuthStorage implements IAuthStorage {
     try {
       await db.set<String>(_authKey, jsonEncode(data.toJson()));
     } catch (e, s) {
+
       logger.e(e, e, s);
 
       rethrow;

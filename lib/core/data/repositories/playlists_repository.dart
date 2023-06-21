@@ -12,6 +12,8 @@ import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_
 
 @LazySingleton(as: IPlaylistsRepository)
 class PlaylistsRepository implements IPlaylistsRepository {
+  static const tag = '[PlaylistsRepository]';
+
   @protected
   final Logger logger;
 
@@ -44,9 +46,10 @@ class PlaylistsRepository implements IPlaylistsRepository {
 
       await dao.savePlaylists(items);
 
+
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e(e, e, s);
+      logger.e('$tag:${e.toString()}', e, s);
 
       return const Left(GeneralFailure());
     }

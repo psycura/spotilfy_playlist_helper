@@ -14,6 +14,9 @@ import 'package:spotify_playlist_helper/core/domain/repositories/tracks_reposito
 
 @Singleton(as: ITracksRepository)
 class TracksRepository implements ITracksRepository {
+  static const tag = '[TracksRepository]';
+
+
   @protected
   final Logger logger;
 
@@ -48,7 +51,7 @@ class TracksRepository implements ITracksRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e(e, e, s);
+      logger.e('$tag:${e.toString()}', e, s);
 
       return const Left(GeneralFailure());
     }
@@ -84,7 +87,7 @@ class TracksRepository implements ITracksRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e(e, e, s);
+      logger.e('$tag:${e.toString()}', e, s);
 
       return const Left(GeneralFailure());
     }
@@ -110,7 +113,7 @@ class TracksRepository implements ITracksRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e(e, e, s);
+      logger.e('$tag:${e.toString()}', e, s);
 
       await dao.addTrackToSaved(track);
 
@@ -128,7 +131,7 @@ class TracksRepository implements ITracksRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e(e, e, s);
+      logger.e('$tag:${e.toString()}', e, s);
 
       await dao.removeTrackFromSaved(track.id);
 
