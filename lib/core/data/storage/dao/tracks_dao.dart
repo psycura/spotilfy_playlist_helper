@@ -23,6 +23,8 @@ abstract interface class ITracksDao {
 
   Future<void> saveSavedTracks(List<TrackWithMetaResponse> items);
 
+  Future<void> wipeAllData();
+
   Future<void> savePlaylistTracks(
     PlaylistItemResponse playlist,
     List<TrackWithMetaResponse> items,
@@ -172,11 +174,16 @@ class TracksDao implements ITracksDao {
 
   @override
   Stream<TrackEntity> getTrackStream(String trackId) {
-
-
-
     return db.tracks
         .watchObject(fastHash(trackId), fireImmediately: true)
         .map((e) => tracksAdapter.entityFromDto(e!));
+  }
+
+  @override
+  Future<void> wipeAllData() async {
+    await db.writeTxn(() async {
+      await db.tracks.clear();
+      await db.playlists.clear();
+    });
   }
 }

@@ -61,4 +61,19 @@ class AuthRepository implements IAuthRepository {
       return const Left(GeneralFailure());
     }
   }
+
+  @override
+  Future<Either<GeneralFailure, SuccessEmpty>> logout() async{
+    try{
+      await storage.clearTokenInfo();
+
+      return const Right(SuccessEmpty());
+
+    } catch (e,s){
+      logger.e('$tag:${e.toString()}', e, s);
+
+      return const Left(GeneralFailure());
+
+    }
+  }
 }

@@ -31,4 +31,5 @@ class UserProfileRepository implements IUserProfileRepository {
       return const Left(GeneralFailure());
     }
   }
+
 }

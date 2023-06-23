@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:spotify_playlist_helper/core/domain/repositories/auth_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/user_profile/user_profile.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/user_profile_repository.dart';
@@ -24,18 +25,21 @@ class UserProfileState with _$UserProfileState {
 class UserProfileCubit extends Cubit<UserProfileState> with HydratedMixin {
   static const String tag = 'UserProfileCubit';
 
-  final IUserProfileRepository _repo;
+  final IUserProfileRepository _userRepo;
+
+  final IAuthRepository _authRepo;
 
   UserProfileCubit({
-    required IUserProfileRepository repo,
-  })  : _repo = repo,
+    required IUserProfileRepository userRepo,
+    required IAuthRepository authRepo,
+  })  : _userRepo = userRepo,
+        _authRepo = authRepo,
         super(const UserProfileState());
-
 
   Future<void> getCurrentUserProfile() async {
     emit(state.copyWith(fetchingState: FetchingState.fetching));
 
-    final res = await _repo.getCurrentUserProfile();
+    final res = await _userRepo.getCurrentUserProfile();
 
     res.fold(
       (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
@@ -45,6 +49,11 @@ class UserProfileCubit extends Cubit<UserProfileState> with HydratedMixin {
     );
 
     emit(state.copyWith(fetchingState: FetchingState.idle));
+  }
+
+  Future<void> logout() async {
+    await _authRepo.logout();
+    reset();
   }
 
   void reset() => emit(const UserProfileState());

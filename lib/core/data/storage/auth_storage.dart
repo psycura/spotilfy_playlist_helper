@@ -10,6 +10,9 @@ abstract interface class IAuthStorage {
   TokenInfo? getTokenInfo();
 
   Future<void> saveTokenInfo(TokenInfo data);
+
+  Future<void> clearTokenInfo();
+
 }
 
 @LazySingleton(as: IAuthStorage)
@@ -39,6 +42,19 @@ class AuthStorage implements IAuthStorage {
   Future<void> saveTokenInfo(TokenInfo data) async {
     try {
       await db.set<String>(_authKey, jsonEncode(data.toJson()));
+    } catch (e, s) {
+
+      logger.e(e, e, s);
+
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> clearTokenInfo()async  {
+    try {
+      await db.delete(_authKey);
+
     } catch (e, s) {
 
       logger.e(e, e, s);

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/user_profile/user_profile.dart';
+import 'package:spotify_playlist_helper/presentation/screens/login_screen.dart';
+import 'package:spotify_playlist_helper/presentation/tracks/cubits/tracks_management_cubit.dart';
+import 'package:spotify_playlist_helper/presentation/user_profile/cubits/user_profile_cubit.dart';
 
 class UserAvatar extends StatelessWidget {
   static const String tag = 'UserAvatar';
@@ -7,6 +11,12 @@ class UserAvatar extends StatelessWidget {
   final UserProfile? profile;
 
   const UserAvatar([this.profile]);
+
+  void _onLogoutTap(BuildContext context) {
+    context.read<UserProfileCubit>().logout();
+    context.read<TracksCubit>().wipeAllData();
+    LoginScreen.open(context, replace: true);
+  }
 
   void _onProfileTap(BuildContext context) {
     showMenu(
@@ -16,9 +26,10 @@ class UserAvatar extends StatelessWidget {
         const Size(200, 200),
       ),
       items: [
-        const PopupMenuItem(
-          child: Text('Logout'),
-        ),
+        PopupMenuItem(
+          child: const Text('Logout'),
+          onTap: () => _onLogoutTap(context),
+        )
       ],
     );
   }

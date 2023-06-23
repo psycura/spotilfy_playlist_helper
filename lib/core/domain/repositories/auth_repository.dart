@@ -9,5 +9,8 @@ abstract interface class IAuthRepository {
 
   Future<Either<GeneralFailure, SuccessEmpty>> refreshToken();
 
+  Future<Either<GeneralFailure, SuccessEmpty>> logout();
+
   Future<AuthorizationState> checkAuthorization();
+
 }

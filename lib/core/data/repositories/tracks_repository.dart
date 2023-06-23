@@ -141,4 +141,7 @@ class TracksRepository implements ITracksRepository {
   @override
   Stream<TrackEntity> getTrackStream(String trackId) =>
       dao.getTrackStream(trackId);
+
+  @override
+  Future<void> wipeAllData() => dao.wipeAllData();
 }

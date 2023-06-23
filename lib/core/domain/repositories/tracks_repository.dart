@@ -7,6 +7,8 @@ import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 abstract interface class ITracksRepository {
   Future<Either<GeneralFailure, SuccessEmpty>> fetchSavedTracks();
 
+  Future<void> wipeAllData();
+
   Stream<Iterable<TrackEntity>> getSavedTracksStream();
 
   Stream<TrackEntity> getTrackStream(String trackId);

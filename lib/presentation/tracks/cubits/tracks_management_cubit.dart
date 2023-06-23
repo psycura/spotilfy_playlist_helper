@@ -63,5 +63,10 @@ class TracksCubit extends Cubit<TracksState> {
     emit(const TracksState.initial());
   }
 
+  Future<void> wipeAllData()async {
+    await _tracksRepo.wipeAllData();
+  }
+
+
   void reset() => emit(const TracksState.initial());
 }

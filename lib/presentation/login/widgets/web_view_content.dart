@@ -34,6 +34,8 @@ class WebViewContentState extends State<WebViewContent> {
     useShouldInterceptAjaxRequest: true,
     useShouldInterceptFetchRequest: true,
     mediaPlaybackRequiresUserGesture: false,
+    clearCache: true,
+    cacheEnabled: false,
     allowsInlineMediaPlayback: true,
     iframeAllow: "camera; microphone",
     iframeAllowFullscreen: true,
