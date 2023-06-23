@@ -12,6 +12,11 @@ abstract interface class IPlaylistsRepository {
     String playlistId,
   );
 
+  Future<Either<GeneralFailure, PlaylistEntity>> createPlaylist(String name);
+
+  Future<Either<GeneralFailure, SuccessEmpty>>
+      moveAllUnlinkedTracksToPlaylist();
+
   Future<Either<GeneralFailure, SuccessEmpty>> removeTracksFromPlaylist(
     List<TrackEntity> tracks,
     String playlistId,

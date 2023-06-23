@@ -38,8 +38,10 @@ class MainScreen extends StatelessWidget {
           )..init(),
         ),
         BlocProvider<SavedTracksCubit>(
-          create: (_) =>
-              SavedTracksCubit(repo: di.get())..init(),
+          create: (_) => SavedTracksCubit(
+            tracksRepo: di.get(),
+            playlistRepo: di.get(),
+          )..init(),
         ),
         BlocProvider<TracksCubit>(
           create: (_) => TracksCubit(logger: di.get(), tracksRepo: di.get()),

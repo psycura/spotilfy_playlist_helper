@@ -53,6 +53,7 @@ class UserProfileCubit extends Cubit<UserProfileState> with HydratedMixin {
 
   Future<void> logout() async {
     await _authRepo.logout();
+    await _userRepo.clearUserProfile();
     reset();
   }
 

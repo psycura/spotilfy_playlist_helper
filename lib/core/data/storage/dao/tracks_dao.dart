@@ -23,6 +23,8 @@ abstract interface class ITracksDao {
 
   Future<void> saveSavedTracks(List<TrackWithMetaResponse> items);
 
+  Future<Iterable<TrackEntity>> getUnlinkedTracks();
+
   Future<void> wipeAllData();
 
   Future<void> savePlaylistTracks(
@@ -185,5 +187,11 @@ class TracksDao implements ITracksDao {
       await db.tracks.clear();
       await db.playlists.clear();
     });
+  }
+
+  @override
+  Future<Iterable<TrackEntity>> getUnlinkedTracks() async {
+    return (await db.tracks.filter().playlistsIdsIsEmpty().findAll())
+        .map((e) => tracksAdapter.entityFromDto(e));
   }
 }

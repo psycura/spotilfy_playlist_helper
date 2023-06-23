@@ -14,6 +14,8 @@ import 'package:spotify_playlist_helper/core/utils/hash_function.dart';
 abstract interface class IPlaylistsDao {
   Future<void> savePlaylists(List<PlaylistItemResponse> items);
 
+  Future<PlaylistEntity> savePlaylist(PlaylistItemResponse item);
+
   Stream<Iterable<PlaylistEntity>> getPlaylistsStream();
 
   Future<void> addTracksToPlaylist(
@@ -82,10 +84,9 @@ class PlaylistsDao implements IPlaylistsDao {
     List<String> tracks,
     String playlistId,
   ) async {
-
     await db.writeTxn(() async {
       final tracksToUpdate =
-      await db.tracks.getAll(tracks.map(fastHash).toList());
+          await db.tracks.getAll(tracks.map(fastHash).toList());
 
       for (var track in tracksToUpdate) {
         if (track!.playlistsIds.contains(playlistId)) {
@@ -96,6 +97,18 @@ class PlaylistsDao implements IPlaylistsDao {
         }
       }
     });
+  }
 
+  @override
+  Future<PlaylistEntity> savePlaylist(PlaylistItemResponse item) async {
+    int? playlistId;
+
+    await db.writeTxn(() async {
+      playlistId = await db.playlists.put(playlistAdapter.responseToDto(item));
+    });
+
+    final res = await db.playlists.get(playlistId!);
+
+    return playlistAdapter.entityFromDto(res!);
   }
 }

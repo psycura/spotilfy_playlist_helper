@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/enums/sorting.dart';
 import 'package:spotify_playlist_helper/core/utils/track_utils.dart';
@@ -25,17 +26,21 @@ class SavedTracksState with _$SavedTracksState {
 class SavedTracksCubit extends Cubit<SavedTracksState> {
   static const String tag = 'SavedTracksCubit';
 
-  final ITracksRepository _repo;
+  final ITracksRepository _tracksRepo;
+  final IPlaylistsRepository _playlistsRepo;
 
   StreamSubscription<Iterable<TrackEntity>>? _tracksSub;
 
   SavedTracksCubit({
-    required ITracksRepository repo,
-  })  : _repo = repo,
+    required ITracksRepository tracksRepo,
+    required IPlaylistsRepository playlistRepo,
+  })  : _tracksRepo = tracksRepo,
+        _playlistsRepo = playlistRepo,
         super(const SavedTracksState());
 
   void init() {
-    _tracksSub = _repo.getSavedTracksStream().listen(_handleTracksUpdates);
+    _tracksSub =
+        _tracksRepo.getSavedTracksStream().listen(_handleTracksUpdates);
   }
 
   void _handleTracksUpdates(Iterable<TrackEntity> items) {
@@ -70,10 +75,23 @@ class SavedTracksCubit extends Cubit<SavedTracksState> {
     );
   }
 
+  Future<void> addUnlinkedTracksToPlaylist() async {
+    emit(state.copyWith(fetchingState: FetchingState.fetching));
+
+    final res = await _playlistsRepo.moveAllUnlinkedTracksToPlaylist();
+
+    res.fold(
+          (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
+          (success) => emit(state.copyWith(fetchingState: FetchingState.done)),
+    );
+
+    emit(state.copyWith(fetchingState: FetchingState.idle));
+  }
+
   Future<void> fetchSavedTracks() async {
     emit(state.copyWith(fetchingState: FetchingState.fetching));
 
-    final res = await _repo.fetchSavedTracks();
+    final res = await _tracksRepo.fetchSavedTracks();
 
     res.fold(
       (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),

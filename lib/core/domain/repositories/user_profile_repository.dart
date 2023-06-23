@@ -5,4 +5,6 @@ import 'package:spotify_playlist_helper/core/domain/entities/user_profile/user_p
 abstract interface class IUserProfileRepository {
   Future<Either<GeneralFailure, UserProfile>> getCurrentUserProfile();
 
+  Future<void> clearUserProfile();
+
 }

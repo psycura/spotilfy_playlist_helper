@@ -1,10 +1,14 @@
+import 'package:collection/collection.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
+import 'package:spotify_playlist_helper/core/data/errors/exceptions.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
 import 'package:spotify_playlist_helper/core/data/api/playlists_api.dart';
 import 'package:spotify_playlist_helper/core/data/storage/dao/playlists_dao.dart';
+import 'package:spotify_playlist_helper/core/data/storage/dao/tracks_dao.dart';
+import 'package:spotify_playlist_helper/core/data/storage/user_storage.dart';
 import 'package:spotify_playlist_helper/core/data/success/success.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
@@ -22,9 +26,21 @@ class PlaylistsRepository implements IPlaylistsRepository {
   final IPlaylistsApi api;
 
   @protected
-  final IPlaylistsDao dao;
+  final IPlaylistsDao playlistsDao;
 
-  PlaylistsRepository(this.logger, this.api, this.dao);
+  @protected
+  final ITracksDao tracksDao;
+
+  @protected
+  final IUSerStorage userStorage;
+
+  PlaylistsRepository(
+    this.logger,
+    this.api,
+    this.playlistsDao,
+    this.userStorage,
+    this.tracksDao,
+  );
 
   @override
   Future<Either<GeneralFailure, SuccessEmpty>> getCurrentUserPlaylists() async {
@@ -45,7 +61,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
         }
       }
 
-      await dao.savePlaylists(items);
+      await playlistsDao.savePlaylists(items);
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
@@ -57,7 +73,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
 
   @override
   Stream<Iterable<PlaylistEntity>> getCurrentPlaylistsStream() =>
-      dao.getPlaylistsStream();
+      playlistsDao.getPlaylistsStream();
 
   @override
   Future<Either<GeneralFailure, SuccessEmpty>> addTracksToPlaylist(
@@ -65,23 +81,11 @@ class PlaylistsRepository implements IPlaylistsRepository {
     String playlistId,
   ) async {
     try {
-      await dao.addTracksToPlaylist(
-        tracks.map((e) => e.id).toList(),
-        playlistId,
-      );
-      await api.addTracksToPlaylist(
-        tracks.map((e) => e.uri).toList(),
-        playlistId,
-      );
+      await _addTracksToPlaylist(tracks, playlistId);
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
       logger.e('$tag:${e.toString()}', e, s);
-
-      await dao.removeTracksFromPlaylist(
-        tracks.map((e) => e.id).toList(),
-        playlistId,
-      );
 
       return const Left(GeneralFailure());
     }
@@ -93,7 +97,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
     String playlistId,
   ) async {
     try {
-      await dao.removeTracksFromPlaylist(
+      await playlistsDao.removeTracksFromPlaylist(
         tracks.map((e) => e.id).toList(),
         playlistId,
       );
@@ -107,12 +111,96 @@ class PlaylistsRepository implements IPlaylistsRepository {
     } catch (e, s) {
       logger.e('$tag:${e.toString()}', e, s);
 
-      await dao.addTracksToPlaylist(
+      await playlistsDao.addTracksToPlaylist(
         tracks.map((e) => e.id).toList(),
         playlistId,
       );
 
       return const Left(GeneralFailure());
+    }
+  }
+
+  @override
+  Future<Either<GeneralFailure, SuccessEmpty>>
+      moveAllUnlinkedTracksToPlaylist() async {
+    try {
+      final userId = userStorage.getCurrentUserId();
+
+      if (userId == null || userId.isEmpty) {
+        throw CacheException();
+      }
+
+      final playlist = await _createPlaylist('Unlinked Tracks', userId);
+
+      final tracksToAdd = await tracksDao.getUnlinkedTracks();
+
+
+      await _addTracksToPlaylist(tracksToAdd.toList(), playlist.id);
+
+      return const Right(SuccessEmpty());
+    } catch (e, s) {
+      logger.e('$tag:${e.toString()}', e, s);
+
+      return const Left(GeneralFailure());
+    }
+  }
+
+  @override
+  Future<Either<GeneralFailure, PlaylistEntity>> createPlaylist(
+    String name,
+  ) async {
+    try {
+      final userId = userStorage.getCurrentUserId();
+
+      if (userId == null || userId.isEmpty) {
+        throw CacheException();
+      }
+
+      final res = await _createPlaylist(name, userId);
+
+      return Right(res);
+    } catch (e, s) {
+      logger.e('$tag:${e.toString()}', e, s);
+
+      return const Left(GeneralFailure());
+    }
+  }
+
+  Future<PlaylistEntity> _createPlaylist(String name, String userId) async {
+    try {
+      final res = await api.createPlaylist(name, userId: userId);
+
+      return await playlistsDao.savePlaylist(res);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> _addTracksToPlaylist(
+    List<TrackEntity> tracks,
+    String playlistId,
+  ) async {
+    final chunks = tracks.slices(100);
+
+    for (var chunk in chunks) {
+      try {
+        await playlistsDao.addTracksToPlaylist(
+          chunk.map((e) => e.id).toList(),
+          playlistId,
+        );
+
+        await api.addTracksToPlaylist(
+          chunk.map((e) => e.uri).toList(),
+          playlistId,
+        );
+      } catch (e) {
+        await playlistsDao.removeTracksFromPlaylist(
+          chunk.map((e) => e.id).toList(),
+          playlistId,
+        );
+
+        rethrow;
+      }
     }
   }
 }
