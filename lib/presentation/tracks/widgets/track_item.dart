@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify_playlist_helper/core/presentation/widgets/spotify_image_widget.dart';
 import 'package:spotify_playlist_helper/core/utils/extensions/duration_extension.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 
@@ -38,19 +38,9 @@ class TrackItem extends StatelessWidget {
             Flexible(
               flex: 1,
               fit: FlexFit.tight,
-              child: track.album.images.isNotEmpty
-                  ? CachedNetworkImage(
-                      imageUrl: track.album.images.first.url,
-                      height: 50,
-                      placeholder: (_, __) => const SizedBox(
-                        height: 50,
-                        width: 50,
-                      ),
-                    )
-                  : const Icon(
-                      Icons.image_outlined,
-                      size: 50,
-                    ),
+              child: SpotifyImage(
+                track.album.images.isNotEmpty ? track.album.images.first : null,
+              ),
             ),
             Flexible(
               flex: 10,

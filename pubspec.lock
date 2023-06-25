@@ -53,10 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: auto_route
-      sha256: "02120972925a567c37921fa28ac7e90680c7095dd0e70711353737ec2727cdc6"
+      sha256: "38f7b022b5b689800a1745d7bde0bf1e1f0ded864c26c907305112602108a2df"
       url: "https://pub.dev"
     source: hosted
-    version: "7.4.0"
+    version: "7.5.0"
   auto_route_generator:
     dependency: "direct dev"
     description:
@@ -524,10 +524,10 @@ packages:
     dependency: "direct main"
     description:
       name: hydrated_bloc
-      sha256: "0ea117b32259d9a79c2a2d33eef92e9dd676b88ec4f1ef94102c5889ca1673b6"
+      sha256: "24994e61f64904d911683cce1a31dc4ef611619da5253f1de2b7b8fc6f79a118"
       url: "https://pub.dev"
     source: hosted
-    version: "9.1.1"
+    version: "9.1.2"
   injectable:
     dependency: "direct main"
     description:

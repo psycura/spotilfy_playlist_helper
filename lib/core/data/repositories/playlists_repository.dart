@@ -129,11 +129,14 @@ class PlaylistsRepository implements IPlaylistsRepository {
       if (userId == null || userId.isEmpty) {
         throw CacheException();
       }
+      PlaylistEntity? playlist;
 
-      final playlist = await _createPlaylist('Unlinked Tracks', userId);
+      playlist = await playlistsDao.getPlaylistByName('Unlinked Tracks');
+
+      playlist ??= await _createPlaylist('Unlinked Tracks', userId);
+
 
       final tracksToAdd = await tracksDao.getUnlinkedTracks();
-
 
       await _addTracksToPlaylist(tracksToAdd.toList(), playlist.id);
 

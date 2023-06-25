@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  auto_route: ^7.4.0
+  auto_route: ^7.5.0
   cached_network_image: ^3.2.3
   collection: ^1.17.1
   cupertino_icons: ^1.0.2
@@ -28,7 +28,7 @@ dependencies:
   injectable: ^2.1.1
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
-  hydrated_bloc: ^9.1.1
+  hydrated_bloc: ^9.1.2
   json_annotation: ^4.8.1
   logger: ^1.4.0
   path: ^1.8.2

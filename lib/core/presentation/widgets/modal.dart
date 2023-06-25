@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class Modal extends StatelessWidget {
   final String title;
   final Widget content;
-  final List<Widget>? actions;
 
   static Future<void> show(
     BuildContext context, {
@@ -25,7 +24,6 @@ class Modal extends StatelessWidget {
   const Modal({
     required this.title,
     required this.content,
-    this.actions,
   });
 
   @override

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotify_playlist_helper/presentation/tracks/cubits/saved_tracks_cubit.dart';
+import 'package:spotify_playlist_helper/presentation/playlists/widgets/add_playlist_modal.dart';
 
-class UnlinkedTracks extends StatelessWidget {
-  static const String tag = 'UnlinkedTracks';
+class AddPlaylistButton extends StatelessWidget {
+  static const String tag = 'AddPlaylistButton';
 
   void _onPress(BuildContext context) {
-    context.read<SavedTracksCubit>().addUnlinkedTracksToPlaylist();
+    AddPlaylistModal.show(context);
   }
 
   @override
@@ -19,7 +18,7 @@ class UnlinkedTracks extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Icon(Icons.library_add_check_outlined),
+            Icon(Icons.add),
           ],
         ),
       ),

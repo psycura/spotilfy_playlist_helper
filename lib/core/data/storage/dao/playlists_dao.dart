@@ -27,6 +27,8 @@ abstract interface class IPlaylistsDao {
     List<String> tracks,
     String playlistId,
   );
+
+  Future<PlaylistEntity?> getPlaylistByName(String name);
 }
 
 @Singleton(as: IPlaylistsDao)
@@ -110,5 +112,15 @@ class PlaylistsDao implements IPlaylistsDao {
     final res = await db.playlists.get(playlistId!);
 
     return playlistAdapter.entityFromDto(res!);
+  }
+
+  @override
+  Future<PlaylistEntity?> getPlaylistByName(String name) async {
+    final item = await db.playlists
+        .filter()
+        .nameEqualTo(name, caseSensitive: false)
+        .findFirst();
+
+    return item == null ? null : playlistAdapter.entityFromDto(item);
   }
 }

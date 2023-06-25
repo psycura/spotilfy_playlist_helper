@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist_with_state.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
+import 'package:spotify_playlist_helper/core/presentation/widgets/spotify_image_widget.dart';
 import 'package:spotify_playlist_helper/presentation/playlists/cubits/playlists_cubit.dart';
 import 'package:spotify_playlist_helper/presentation/playlists/cubits/selected_playlist_cubit.dart';
 import 'package:spotify_playlist_helper/presentation/screens/playlist_content_screen.dart';
@@ -28,9 +28,13 @@ class PlaylistItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playlistObject = context.select<PlaylistsCubit, PlaylistWithState>(
-      (bloc) => bloc.state.playlists[playlistId]!,
+    final playlistObject = context.select<PlaylistsCubit, PlaylistWithState?>(
+      (bloc) => bloc.state.playlists[playlistId],
     );
+
+    if (playlistObject == null) {
+      return Container();
+    }
 
     PlaylistEntity playlist = playlistObject.playlist;
 
@@ -39,13 +43,8 @@ class PlaylistItem extends StatelessWidget {
         : Icons.refresh;
 
     return ListTile(
-      leading: CachedNetworkImage(
-        imageUrl: playlist.images.first.url,
-        height: 50,
-        placeholder: (_, __) => const SizedBox(
-          height: 50,
-          width: 50,
-        ),
+      leading: SpotifyImage(
+        playlist.images.isNotEmpty ? playlist.images.first : null,
       ),
       title: Text(
         playlist.name,
