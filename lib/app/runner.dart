@@ -3,7 +3,6 @@ import 'dart:developer';
 
 // ignore: depend_on_referenced_packages
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
