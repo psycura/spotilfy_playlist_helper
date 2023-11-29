@@ -34,7 +34,7 @@ class UserStorage implements IUSerStorage {
     try {
       await db.set<String>(_userIdKey, id);
     } catch (e, s) {
-      logger.e(e, e, s);
+      logger.e(e, error:e, stackTrace: s);
 
       rethrow;
     }
@@ -45,7 +45,7 @@ class UserStorage implements IUSerStorage {
     try {
       await db.delete(_userIdKey);
     } catch (e, s) {
-      logger.e(e, e, s);
+      logger.e(e, error:e, stackTrace: s);
 
       rethrow;
     }

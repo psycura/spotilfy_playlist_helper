@@ -32,7 +32,7 @@ class UserProfileRepository implements IUserProfileRepository {
 
       return Right(res);
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
     }

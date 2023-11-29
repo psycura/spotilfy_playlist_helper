@@ -45,7 +45,7 @@ class Runner {
       },
       (err, stack) async {
         log('Critical Error:', error: err, stackTrace: stack);
-        di.get<Logger>().e('Critical Error:', err, stack);
+        di.get<Logger>().e('Critical Error:', error:err, stackTrace: stack);
       },
     );
   }

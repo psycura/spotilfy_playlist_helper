@@ -43,7 +43,7 @@ class AuthRepository implements IAuthRepository {
       return const Right(SuccessEmpty());
     } catch (e, s) {
 
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
     }
@@ -56,7 +56,7 @@ class AuthRepository implements IAuthRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
     }
@@ -70,7 +70,7 @@ class AuthRepository implements IAuthRepository {
       return const Right(SuccessEmpty());
 
     } catch (e,s){
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
 

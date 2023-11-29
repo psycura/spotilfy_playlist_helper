@@ -18,16 +18,16 @@ class EasyLoggerWrapper {
   }) {
     switch (level) {
       case LevelMessages.info:
-        _logger.i('[$name] $object', null, stackTrace);
+        _logger.i('[$name] $object', error:null, stackTrace:stackTrace);
         break;
       case LevelMessages.warning:
-        _logger.w('[$name] $object', null, stackTrace);
+        _logger.w('[$name] $object', error:null, stackTrace:stackTrace);
         break;
       case LevelMessages.error:
-        _logger.e('[$name] $object', null, stackTrace);
+        _logger.e('[$name] $object', error:null, stackTrace:stackTrace);
         break;
       default:
-        _logger.d('[$name] $object', null, stackTrace);
+        _logger.d('[$name] $object', error:null, stackTrace:stackTrace);
         break;
     }
   }
@@ -37,6 +37,5 @@ class EasyLoggerWrapper {
     String? name,
     LevelMessages? level,
     StackTrace? stackTrace,
-    // ignore: no-empty-block
   }) {}
 }

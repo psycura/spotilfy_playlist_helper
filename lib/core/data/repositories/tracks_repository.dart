@@ -50,7 +50,7 @@ class TracksRepository implements ITracksRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
     }
@@ -86,7 +86,7 @@ class TracksRepository implements ITracksRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
     }
@@ -112,7 +112,7 @@ class TracksRepository implements ITracksRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       await dao.addTrackToSaved(track);
 
@@ -130,7 +130,7 @@ class TracksRepository implements ITracksRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       await dao.removeTrackFromSaved(track.id);
 

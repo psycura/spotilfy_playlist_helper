@@ -65,7 +65,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
     }
@@ -85,7 +85,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
     }
@@ -109,7 +109,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       await playlistsDao.addTracksToPlaylist(
         tracks.map((e) => e.id).toList(),
@@ -142,7 +142,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
 
       return const Right(SuccessEmpty());
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
     }
@@ -163,7 +163,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
 
       return Right(res);
     } catch (e, s) {
-      logger.e('$tag:${e.toString()}', e, s);
+      logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       return const Left(GeneralFailure());
     }
