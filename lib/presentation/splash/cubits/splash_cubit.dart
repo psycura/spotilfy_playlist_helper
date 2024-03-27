@@ -1,22 +1,11 @@
+// ignore_for_file: avoid-dynamic
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/auth_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/authorization_state.dart';
-
-part 'splash_cubit.freezed.dart';
-
-@freezed
-class SplashState with _$SplashState {
-  const SplashState._();
-
-  const factory SplashState.initial() = _InitialSplashState;
-
-  const factory SplashState.authorized() = _AuthorizedCubitState;
-
-  const factory SplashState.unauthorized() = _UnauthorizedCubitState;
-}
+import 'package:spotify_playlist_helper/presentation/splash/cubits/splash_state.dart';
 
 @injectable
 class SplashCubit extends Cubit<SplashState> {
@@ -30,7 +19,7 @@ class SplashCubit extends Cubit<SplashState> {
     required IAuthRepository repo,
   })  : _logger = logger,
         _repo = repo,
-        super(const SplashState.initial());
+        super(const InitialSplashState());
 
   @override
   void onChange(change) {
@@ -45,11 +34,11 @@ class SplashCubit extends Cubit<SplashState> {
   Future<void> init() async {
     final res = await _repo.checkAuthorization();
     if (res == AuthorizationState.authorized) {
-      emit(const SplashState.authorized());
+      emit(const AuthorizedSplashState());
     } else {
-      emit(const SplashState.unauthorized());
+      emit(const UnauthorizedSplashState());
     }
   }
 
-  void reset() => emit(const SplashState.initial());
+  void reset() => emit(const InitialSplashState());
 }

@@ -1,18 +1,44 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'refresh_token_response.freezed.dart';
 part 'refresh_token_response.g.dart';
 
-@freezed
-class RefreshTokenResponse with _$RefreshTokenResponse {
+@JsonSerializable()
+class RefreshTokenResponse extends Equatable {
+  final String access_token;
+  final String token_type;
+  final String scope;
+  final int expires_in;
 
-  factory RefreshTokenResponse({
-    required String access_token,
-    required String token_type,
-    required String scope,
-    required int expires_in,
-}) = _RefreshTokenResponse;
+  const RefreshTokenResponse({
+    required this.access_token,
+    required this.token_type,
+    required this.scope,
+    required this.expires_in,
+  });
 
-  factory RefreshTokenResponse.fromJson(Map<String, dynamic> json) => _$RefreshTokenResponseFromJson(json);
+  RefreshTokenResponse copyWith({
+    String? access_token,
+    String? token_type,
+    String? scope,
+    int? expires_in,
+  }) {
+    return RefreshTokenResponse(
+      access_token: access_token ?? this.access_token,
+      token_type: token_type ?? this.token_type,
+      scope: scope ?? this.scope,
+      expires_in: expires_in ?? this.expires_in,
+    );
+  }
 
+  factory RefreshTokenResponse.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenResponseFromJson(json);
+
+  @override
+  List<Object?> get props => [
+        access_token,
+        token_type,
+        scope,
+        expires_in,
+      ];
 }

@@ -217,7 +217,7 @@ class HttpService implements IHttpService {
 
     final Map<String, dynamic> requestData = {
       'refresh_token': token!.refreshToken,
-      'grant_type': 'refresh_token'
+      'grant_type': 'refresh_token',
     };
 
     final request = ApiRequest(

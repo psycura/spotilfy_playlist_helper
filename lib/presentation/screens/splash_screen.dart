@@ -5,12 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/di.dart';
 
 import 'package:spotify_playlist_helper/presentation/splash/cubits/splash_cubit.dart';
+import 'package:spotify_playlist_helper/presentation/splash/cubits/splash_state.dart';
 
 import 'login_screen.dart';
 import 'main_screen.dart';
 
 @RoutePage()
 class SplashScreen extends StatelessWidget {
+  const SplashScreen();
+
   static const String path = '/';
 
   static void open(
@@ -29,11 +32,17 @@ class SplashScreen extends StatelessWidget {
   }
 
   void _handleInitState(BuildContext context, SplashState state) {
-    state.maybeWhen(
-      orElse: () {},
-      unauthorized: () => LoginScreen.open(context, replace: true),
-      authorized: () => _handleAuthorizedState(context),
-    );
+
+    switch(state) {
+      case UnauthorizedSplashState():
+        LoginScreen.open(context, replace: true);
+        break;
+      case AuthorizedSplashState():
+        _handleAuthorizedState(context);
+        break;
+      default:
+        break;
+    }
   }
 
   void _handleAuthorizedState(BuildContext context) {

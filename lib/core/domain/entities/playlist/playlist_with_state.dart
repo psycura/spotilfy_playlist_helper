@@ -1,14 +1,26 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
 
+class PlaylistWithState extends Equatable {
+  final PlaylistEntity playlist;
+  final FetchingState state;
 
-part 'playlist_with_state.freezed.dart';
+  const PlaylistWithState({
+    required this.playlist,
+    this.state = FetchingState.idle,
+  });
 
-@freezed
-class PlaylistWithState with _$PlaylistWithState {
-  factory PlaylistWithState({
-    required PlaylistEntity playlist,
-    @Default(FetchingState.idle) FetchingState state,
-  }) = _PlaylistWithState;
+  PlaylistWithState copyWith({
+    PlaylistEntity? playlist,
+    FetchingState? state,
+  }) {
+    return PlaylistWithState(
+      playlist: playlist ?? this.playlist,
+      state: state ?? this.state,
+    );
+  }
+
+  @override
+  List<Object?> get props => [playlist, state];
 }

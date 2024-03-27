@@ -1,25 +1,44 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+// ignore_for_file: avoid-unnecessary-nullable-return-type
+
+import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:spotify_playlist_helper/core/domain/entities/user_profile/user_profile.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/auth_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
-import 'package:spotify_playlist_helper/core/domain/entities/user_profile/user_profile.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/user_profile_repository.dart';
 
-part 'user_profile_cubit.freezed.dart';
+import '../../../core/results/result.dart';
 
 part 'user_profile_cubit.g.dart';
 
-@freezed
-class UserProfileState with _$UserProfileState {
-  const UserProfileState._();
+@JsonSerializable()
+class UserProfileState extends Equatable {
+  final FetchingState fetchingState;
+  final UserProfile? profile;
 
-  const factory UserProfileState({
-    @Default(FetchingState.idle) FetchingState fetchingState,
+  const UserProfileState({
+    this.fetchingState = FetchingState.idle,
+    this.profile,
+  });
+
+  UserProfileState copyWith({
+    FetchingState? fetchingState,
     UserProfile? profile,
-  }) = _UserProfileState;
+  }) {
+    return UserProfileState(
+      fetchingState: fetchingState ?? this.fetchingState,
+      profile: profile ?? this.profile,
+    );
+  }
 
   factory UserProfileState.fromJson(Map<String, dynamic> json) =>
       _$UserProfileStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserProfileStateToJson(this);
+
+  @override
+  List<Object?> get props => [fetchingState, profile];
 }
 
 class UserProfileCubit extends Cubit<UserProfileState> with HydratedMixin {
@@ -41,12 +60,16 @@ class UserProfileCubit extends Cubit<UserProfileState> with HydratedMixin {
 
     final res = await _userRepo.getCurrentUserProfile();
 
-    res.fold(
-      (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
-      (profile) => emit(
-        state.copyWith(fetchingState: FetchingState.done, profile: profile),
-      ),
-    );
+    switch (res) {
+      case Success(value: final profile):
+        emit(
+          state.copyWith(fetchingState: FetchingState.done, profile: profile),
+        );
+        break;
+      case Failure():
+        emit(state.copyWith(fetchingState: FetchingState.failure));
+        break;
+    }
 
     emit(state.copyWith(fetchingState: FetchingState.idle));
   }

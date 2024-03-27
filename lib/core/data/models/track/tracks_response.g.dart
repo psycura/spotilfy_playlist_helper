@@ -6,8 +6,8 @@ part of 'tracks_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TracksResponse _$$_TracksResponseFromJson(Map<String, dynamic> json) =>
-    _$_TracksResponse(
+TracksResponse _$TracksResponseFromJson(Map<String, dynamic> json) =>
+    TracksResponse(
       href: json['href'] as String,
       limit: json['limit'] as int,
       offset: json['offset'] as int,
@@ -19,7 +19,7 @@ _$_TracksResponse _$$_TracksResponseFromJson(Map<String, dynamic> json) =>
       previous: json['previous'] as String?,
     );
 
-Map<String, dynamic> _$$_TracksResponseToJson(_$_TracksResponse instance) =>
+Map<String, dynamic> _$TracksResponseToJson(TracksResponse instance) =>
     <String, dynamic>{
       'href': instance.href,
       'limit': instance.limit,

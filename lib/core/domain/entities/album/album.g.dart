@@ -6,8 +6,7 @@ part of 'album.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_AlbumEntity _$$_AlbumEntityFromJson(Map<String, dynamic> json) =>
-    _$_AlbumEntity(
+AlbumEntity _$AlbumEntityFromJson(Map<String, dynamic> json) => AlbumEntity(
       href: json['href'] as String,
       id: json['id'] as String,
       name: json['name'] as String,
@@ -16,7 +15,7 @@ _$_AlbumEntity _$$_AlbumEntityFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$_AlbumEntityToJson(_$_AlbumEntity instance) =>
+Map<String, dynamic> _$AlbumEntityToJson(AlbumEntity instance) =>
     <String, dynamic>{
       'href': instance.href,
       'id': instance.id,

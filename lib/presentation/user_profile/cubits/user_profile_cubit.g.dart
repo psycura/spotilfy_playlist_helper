@@ -6,8 +6,8 @@ part of 'user_profile_cubit.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_UserProfileState _$$_UserProfileStateFromJson(Map<String, dynamic> json) =>
-    _$_UserProfileState(
+UserProfileState _$UserProfileStateFromJson(Map<String, dynamic> json) =>
+    UserProfileState(
       fetchingState:
           $enumDecodeNullable(_$FetchingStateEnumMap, json['fetchingState']) ??
               FetchingState.idle,
@@ -16,7 +16,7 @@ _$_UserProfileState _$$_UserProfileStateFromJson(Map<String, dynamic> json) =>
           : UserProfile.fromJson(json['profile'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_UserProfileStateToJson(_$_UserProfileState instance) =>
+Map<String, dynamic> _$UserProfileStateToJson(UserProfileState instance) =>
     <String, dynamic>{
       'fetchingState': _$FetchingStateEnumMap[instance.fetchingState]!,
       'profile': instance.profile?.toJson(),

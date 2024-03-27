@@ -6,15 +6,15 @@ part of 'playlist_tracks_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PlaylistTracksResponse _$$_PlaylistTracksResponseFromJson(
+PlaylistTracksResponse _$PlaylistTracksResponseFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaylistTracksResponse(
+    PlaylistTracksResponse(
       href: json['href'] as String,
       total: json['total'] as int,
     );
 
-Map<String, dynamic> _$$_PlaylistTracksResponseToJson(
-        _$_PlaylistTracksResponse instance) =>
+Map<String, dynamic> _$PlaylistTracksResponseToJson(
+        PlaylistTracksResponse instance) =>
     <String, dynamic>{
       'href': instance.href,
       'total': instance.total,

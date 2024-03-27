@@ -1,25 +1,47 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/enums/sorting.dart';
 import 'package:spotify_playlist_helper/core/utils/track_utils.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/tracks_repository.dart';
 
-part 'playlist_cubit.freezed.dart';
+class PlaylistState extends Equatable {
+  final FetchingState fetchingState;
+  final List<TrackEntity> tracks;
+  final SortBy sortBy;
+  final SortOrder order;
 
-@freezed
-class PlaylistState with _$PlaylistState {
-  const PlaylistState._();
+  const PlaylistState({
+    this.fetchingState = FetchingState.idle,
+    this.tracks = const <TrackEntity>[],
+    this.sortBy = SortBy.name,
+    this.order = SortOrder.asc,
+  });
 
-  const factory PlaylistState({
-    @Default(FetchingState.idle) FetchingState fetchingState,
-    @Default(<TrackEntity>[]) List<TrackEntity> tracks,
-    @Default(SortBy.name) SortBy sortBy,
-    @Default(SortOrder.asc) SortOrder order,
-  }) = _PlaylistState;
+  PlaylistState copyWith({
+    FetchingState? fetchingState,
+    List<TrackEntity>? tracks,
+    SortBy? sortBy,
+    SortOrder? order,
+  }) {
+    return PlaylistState(
+      fetchingState: fetchingState ?? this.fetchingState,
+      tracks: tracks ?? this.tracks,
+      sortBy: sortBy ?? this.sortBy,
+      order: order ?? this.order,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        fetchingState,
+        tracks,
+        sortBy,
+        order,
+      ];
 }
 
 class PlaylistCubit extends Cubit<PlaylistState> {
@@ -35,9 +57,8 @@ class PlaylistCubit extends Cubit<PlaylistState> {
         super(const PlaylistState());
 
   void init(String playlistId) {
-    _tracksSub = _repo
-        .getPlaylistTracksStream(playlistId)
-        .listen(_handleTracksUpdates);
+    _tracksSub =
+        _repo.getPlaylistTracksStream(playlistId).listen(_handleTracksUpdates);
   }
 
   void _handleTracksUpdates(Iterable<TrackEntity> items) {
@@ -54,14 +75,12 @@ class PlaylistCubit extends Cubit<PlaylistState> {
     SortOrder order = state.order;
     SortBy currentSortBy = state.sortBy;
 
-
+    // ignore: match-positional-field-names-on-assignment
     final (newSortBy, sortOrder) = TrackUtils.getSortByAndOrder(
       currentSortBy: currentSortBy,
       newSortBy: sortBy,
       currentOrder: order,
     );
-
-
 
     emit(
       state.copyWith(

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
 import 'package:spotify_playlist_helper/core/enums/sorting.dart';
@@ -9,18 +9,42 @@ import 'package:spotify_playlist_helper/core/utils/track_utils.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/tracks_repository.dart';
 
-part 'saved_tracks_cubit.freezed.dart';
+import '../../../core/results/result.dart';
 
-@freezed
-class SavedTracksState with _$SavedTracksState {
-  const SavedTracksState._();
+class SavedTracksState extends Equatable {
+  final FetchingState fetchingState;
+  final List<TrackEntity> tracks;
+  final SortBy sortBy;
+  final SortOrder order;
 
-  const factory SavedTracksState({
-    @Default(FetchingState.idle) FetchingState fetchingState,
-    @Default(<TrackEntity>[]) List<TrackEntity> tracks,
-    @Default(SortBy.name) SortBy sortBy,
-    @Default(SortOrder.asc) SortOrder order,
-  }) = _SavedTracksState;
+  const SavedTracksState({
+    this.fetchingState = FetchingState.idle,
+    this.tracks = const <TrackEntity>[],
+    this.sortBy = SortBy.name,
+    this.order = SortOrder.asc,
+  });
+
+  SavedTracksState copyWith({
+    FetchingState? fetchingState,
+    List<TrackEntity>? tracks,
+    SortBy? sortBy,
+    SortOrder? order,
+  }) {
+    return SavedTracksState(
+      fetchingState: fetchingState ?? this.fetchingState,
+      tracks: tracks ?? this.tracks,
+      sortBy: sortBy ?? this.sortBy,
+      order: order ?? this.order,
+    );
+  }
+
+  @override
+  List<Object?> get props => [
+        fetchingState,
+        tracks,
+        sortBy,
+        order,
+      ];
 }
 
 class SavedTracksCubit extends Cubit<SavedTracksState> {
@@ -56,6 +80,7 @@ class SavedTracksCubit extends Cubit<SavedTracksState> {
     SortOrder order = state.order;
     SortBy currentSortBy = state.sortBy;
 
+    // ignore: match-positional-field-names-on-assignment
     final (newSortBy, sortOrder) = TrackUtils.getSortByAndOrder(
       currentSortBy: currentSortBy,
       newSortBy: sortBy,
@@ -80,10 +105,14 @@ class SavedTracksCubit extends Cubit<SavedTracksState> {
 
     final res = await _playlistsRepo.moveAllUnlinkedTracksToPlaylist();
 
-    res.fold(
-          (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
-          (success) => emit(state.copyWith(fetchingState: FetchingState.done)),
-    );
+    switch (res) {
+      case Success():
+        emit(state.copyWith(fetchingState: FetchingState.done));
+        break;
+      case Failure():
+        emit(state.copyWith(fetchingState: FetchingState.failure));
+        break;
+    }
 
     emit(state.copyWith(fetchingState: FetchingState.idle));
   }
@@ -93,10 +122,14 @@ class SavedTracksCubit extends Cubit<SavedTracksState> {
 
     final res = await _tracksRepo.fetchSavedTracks();
 
-    res.fold(
-      (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
-      (success) => emit(state.copyWith(fetchingState: FetchingState.done)),
-    );
+    switch (res) {
+      case Success():
+        emit(state.copyWith(fetchingState: FetchingState.done));
+        break;
+      case Failure():
+        emit(state.copyWith(fetchingState: FetchingState.failure));
+        break;
+    }
 
     emit(state.copyWith(fetchingState: FetchingState.idle));
   }

@@ -6,9 +6,9 @@ part of 'playlist_with_tracks_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PlaylistWithTracksResponse _$$_PlaylistWithTracksResponseFromJson(
+PlaylistWithTracksResponse _$PlaylistWithTracksResponseFromJson(
         Map<String, dynamic> json) =>
-    _$_PlaylistWithTracksResponse(
+    PlaylistWithTracksResponse(
       href: json['href'] as String,
       total: json['total'] as int,
       items: (json['items'] as List<dynamic>)
@@ -20,8 +20,8 @@ _$_PlaylistWithTracksResponse _$$_PlaylistWithTracksResponseFromJson(
       previous: json['previous'] as String?,
     );
 
-Map<String, dynamic> _$$_PlaylistWithTracksResponseToJson(
-        _$_PlaylistWithTracksResponse instance) =>
+Map<String, dynamic> _$PlaylistWithTracksResponseToJson(
+        PlaylistWithTracksResponse instance) =>
     <String, dynamic>{
       'href': instance.href,
       'total': instance.total,

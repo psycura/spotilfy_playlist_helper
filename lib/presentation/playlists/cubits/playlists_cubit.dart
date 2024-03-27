@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist_with_state.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
@@ -8,22 +8,33 @@ import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.d
 import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/tracks_repository.dart';
 
-part 'playlists_cubit.freezed.dart';
+import '../../../core/results/result.dart';
 
-@freezed
-class PlaylistsState with _$PlaylistsState {
-  const PlaylistsState._();
+class PlaylistsState extends Equatable {
+  final FetchingState fetchingState;
+  final Map<String, PlaylistWithState> playlists;
 
-  const factory PlaylistsState({
-    @Default(FetchingState.idle) FetchingState fetchingState,
-    @Default(<String, PlaylistWithState>{})
-    Map<String, PlaylistWithState> playlists,
-  }) = _PlaylistsState;
+  const PlaylistsState({
+    this.fetchingState = FetchingState.idle,
+    this.playlists = const <String, PlaylistWithState>{},
+  });
+
+  PlaylistsState copyWith({
+    FetchingState? fetchingState,
+    Map<String, PlaylistWithState>? playlists,
+  }) {
+    return PlaylistsState(
+      fetchingState: fetchingState ?? this.fetchingState,
+      playlists: playlists ?? this.playlists,
+    );
+  }
+
+  @override
+  List<Object?> get props => [fetchingState, playlists];
 }
 
 class PlaylistsCubit extends Cubit<PlaylistsState> {
   static const String tag = 'PlaylistsCubit';
-
 
   final IPlaylistsRepository _playlistsRepo;
 
@@ -37,7 +48,6 @@ class PlaylistsCubit extends Cubit<PlaylistsState> {
   })  : _playlistsRepo = playlistsRepo,
         _tracksRepo = tracksRepo,
         super(const PlaylistsState());
-
 
   void init() {
     _playlistsSub = _playlistsRepo
@@ -62,10 +72,15 @@ class PlaylistsCubit extends Cubit<PlaylistsState> {
 
     final res = await _playlistsRepo.getCurrentUserPlaylists();
 
-    res.fold(
-      (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
-      (success) => emit(state.copyWith(fetchingState: FetchingState.done)),
-    );
+    switch (res) {
+      case Success():
+        emit(state.copyWith(fetchingState: FetchingState.done));
+        break;
+
+      case Failure():
+        emit(state.copyWith(fetchingState: FetchingState.failure));
+        break;
+    }
 
     emit(state.copyWith(fetchingState: FetchingState.idle));
   }
@@ -85,10 +100,15 @@ class PlaylistsCubit extends Cubit<PlaylistsState> {
     final res =
         await _tracksRepo.fetchPlaylistTracks(playlists[playlistId]!.playlist);
 
-    res.fold(
-      (failure) => fetchState = FetchingState.failure,
-      (tracks) => fetchState = FetchingState.done,
-    );
+    switch (res) {
+      case Success():
+        fetchState = FetchingState.done;
+        break;
+
+      case Failure():
+        fetchState = FetchingState.failure;
+        break;
+    }
 
     playlists.update(
       playlistId,
@@ -98,7 +118,6 @@ class PlaylistsCubit extends Cubit<PlaylistsState> {
     emit(state.copyWith(playlists: playlists));
 
     emit(state.copyWith(playlists: <String, PlaylistWithState>{}));
-
 
     playlists.update(
       playlistId,

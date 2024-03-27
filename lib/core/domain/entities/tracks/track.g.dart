@@ -6,8 +6,7 @@ part of 'track.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TrackEntity _$$_TrackEntityFromJson(Map<String, dynamic> json) =>
-    _$_TrackEntity(
+TrackEntity _$TrackEntityFromJson(Map<String, dynamic> json) => TrackEntity(
       album: AlbumEntity.fromJson(json['album'] as Map<String, dynamic>),
       artists: (json['artists'] as List<dynamic>)
           .map((e) => ArtistEntity.fromJson(e as Map<String, dynamic>))
@@ -28,7 +27,7 @@ _$_TrackEntity _$$_TrackEntityFromJson(Map<String, dynamic> json) =>
           const <String>[],
     );
 
-Map<String, dynamic> _$$_TrackEntityToJson(_$_TrackEntity instance) =>
+Map<String, dynamic> _$TrackEntityToJson(TrackEntity instance) =>
     <String, dynamic>{
       'album': instance.album.toJson(),
       'artists': instance.artists.map((e) => e.toJson()).toList(),

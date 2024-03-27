@@ -1,23 +1,24 @@
-import 'package:dartz/dartz.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
-import 'package:spotify_playlist_helper/core/data/success/success.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 
-abstract interface class IPlaylistsRepository {
-  Future<Either<GeneralFailure, SuccessEmpty>> getCurrentUserPlaylists();
+import '../../results/result.dart';
+import '../../results/success_empty.dart';
 
-  Future<Either<GeneralFailure, SuccessEmpty>> addTracksToPlaylist(
+abstract interface class IPlaylistsRepository {
+  Future<Result<SuccessEmpty, GeneralFailure>> getCurrentUserPlaylists();
+
+  Future<Result<SuccessEmpty, GeneralFailure>> addTracksToPlaylist(
     List<TrackEntity> tracks,
     String playlistId,
   );
 
-  Future<Either<GeneralFailure, PlaylistEntity>> createPlaylist(String name);
+  Future<Result<PlaylistEntity,GeneralFailure>> createPlaylist(String name);
 
-  Future<Either<GeneralFailure, SuccessEmpty>>
+  Future<Result<SuccessEmpty, GeneralFailure>>
       moveAllUnlinkedTracksToPlaylist();
 
-  Future<Either<GeneralFailure, SuccessEmpty>> removeTracksFromPlaylist(
+  Future<Result<SuccessEmpty, GeneralFailure>> removeTracksFromPlaylist(
     List<TrackEntity> tracks,
     String playlistId,
   );

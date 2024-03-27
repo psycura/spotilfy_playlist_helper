@@ -1,26 +1,12 @@
-import 'package:dartz/dartz.dart';
+// ignore_for_file: avoid-dynamic
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
-import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
-import 'package:spotify_playlist_helper/core/data/success/success.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/tracks_repository.dart';
+import 'package:spotify_playlist_helper/core/results/result.dart';
 
-part 'tracks_management_cubit.freezed.dart';
-
-@freezed
-class TracksState with _$TracksState {
-  const TracksState._();
-
-  const factory TracksState.initial() = _InitialTracksState;
-
-  const factory TracksState.processing() = _ProcessingTracksState;
-
-  const factory TracksState.success() = _SuccessTracksState;
-
-  const factory TracksState.failure() = _FailureTracksState;
-}
+import 'track_management_state.dart';
 
 class TracksCubit extends Cubit<TracksState> {
   static const String tag = 'TracksCubit';
@@ -34,7 +20,7 @@ class TracksCubit extends Cubit<TracksState> {
     required ITracksRepository tracksRepo,
   })  : _logger = logger,
         _tracksRepo = tracksRepo,
-        super(const TracksState.initial());
+        super(const InitialTracksState());
 
   @override
   void onChange(change) {
@@ -47,26 +33,27 @@ class TracksCubit extends Cubit<TracksState> {
   }
 
   Future<void> toggleSaved(TrackEntity track) async {
-    emit(const TracksState.processing());
-    Either<GeneralFailure, SuccessEmpty> res;
+    emit(const ProcessingTracksState());
 
-
-    res = !track.is_saved
+    final res = !track.is_saved
         ? await _tracksRepo.saveTrack(track)
         : await _tracksRepo.removeSavedTrack(track);
 
-    res.fold(
-      (failure) => emit(const TracksState.failure()),
-      (success) => emit(const TracksState.success()),
-    );
+    switch (res) {
+      case Success():
+        emit(const SuccessTracksState());
+        break;
+      case Failure():
+        emit(const FailureTracksState());
+        break;
+    }
 
-    emit(const TracksState.initial());
+    emit(const InitialTracksState());
   }
 
-  Future<void> wipeAllData()async {
+  Future<void> wipeAllData() async {
     await _tracksRepo.wipeAllData();
   }
 
-
-  void reset() => emit(const TracksState.initial());
+  void reset() => emit(const InitialTracksState());
 }

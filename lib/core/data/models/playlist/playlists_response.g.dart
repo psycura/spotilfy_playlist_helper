@@ -6,8 +6,8 @@ part of 'playlists_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PlaylistsResponse _$$_PlaylistsResponseFromJson(Map<String, dynamic> json) =>
-    _$_PlaylistsResponse(
+PlaylistsResponse _$PlaylistsResponseFromJson(Map<String, dynamic> json) =>
+    PlaylistsResponse(
       href: json['href'] as String,
       limit: json['limit'] as int,
       offset: json['offset'] as int,
@@ -19,8 +19,7 @@ _$_PlaylistsResponse _$$_PlaylistsResponseFromJson(Map<String, dynamic> json) =>
       previous: json['previous'] as String?,
     );
 
-Map<String, dynamic> _$$_PlaylistsResponseToJson(
-        _$_PlaylistsResponse instance) =>
+Map<String, dynamic> _$PlaylistsResponseToJson(PlaylistsResponse instance) =>
     <String, dynamic>{
       'href': instance.href,
       'limit': instance.limit,

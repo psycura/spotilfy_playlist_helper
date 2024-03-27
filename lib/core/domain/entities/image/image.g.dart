@@ -6,14 +6,13 @@ part of 'image.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ImageEntity _$$_ImageEntityFromJson(Map<String, dynamic> json) =>
-    _$_ImageEntity(
+ImageEntity _$ImageEntityFromJson(Map<String, dynamic> json) => ImageEntity(
       url: json['url'] as String,
       height: json['height'] as int?,
       width: json['width'] as int?,
     );
 
-Map<String, dynamic> _$$_ImageEntityToJson(_$_ImageEntity instance) =>
+Map<String, dynamic> _$ImageEntityToJson(ImageEntity instance) =>
     <String, dynamic>{
       'url': instance.url,
       'height': instance.height,

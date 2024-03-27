@@ -1,19 +1,45 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 
-part 'album.freezed.dart';
 part 'album.g.dart';
 
-@freezed
-class AlbumEntity with _$AlbumEntity {
+@JsonSerializable()
+class AlbumEntity extends Equatable {
+  final String href;
+  final String id;
+  final String name;
+  final List<ImageEntity> images;
 
-  factory AlbumEntity({
-    required String href,
-    required String id,
-    required String name,
-    required List<ImageEntity> images,
-}) = _AlbumEntity;
+  const AlbumEntity({
+    required this.href,
+    required this.id,
+    required this.name,
+    required this.images,
+  });
 
-  factory AlbumEntity.fromJson(Map<String, dynamic> json) => _$AlbumEntityFromJson(json);
+  AlbumEntity copyWith({
+    String? href,
+    String? id,
+    String? name,
+    List<ImageEntity>? images,
+  }) {
+    return AlbumEntity(
+      href: href ?? this.href,
+      id: id ?? this.id,
+      name: name ?? this.name,
+      images: images ?? this.images,
+    );
+  }
 
+  factory AlbumEntity.fromJson(Map<String, dynamic> json) =>
+      _$AlbumEntityFromJson(json);
+
+  @override
+  List<Object?> get props => [
+        href,
+        id,
+        name,
+        images,
+      ];
 }

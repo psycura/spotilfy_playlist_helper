@@ -4,8 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_lambdas
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: type=lint
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
@@ -25,24 +24,22 @@ import '../core/data/repositories/user_profile_repository.dart' as _i22;
 import '../core/data/storage/auth_storage.dart' as _i11;
 import '../core/data/storage/dao/playlists_dao.dart' as _i8;
 import '../core/data/storage/dao/tracks_dao.dart' as _i9;
-import '../core/data/storage/db/db_module.dart' as _i30;
+import '../core/data/storage/db/db_module.dart' as _i27;
 import '../core/data/storage/user_storage.dart' as _i10;
 import '../core/domain/repositories/auth_repository.dart' as _i24;
 import '../core/domain/repositories/playlists_repository.dart' as _i15;
 import '../core/domain/repositories/tracks_repository.dart' as _i18;
 import '../core/domain/repositories/user_profile_repository.dart' as _i21;
-import '../core/infrastructure/http/http_module.dart' as _i28;
+import '../core/infrastructure/http/http_module.dart' as _i30;
 import '../core/infrastructure/http/http_service_interface.dart' as _i13;
 import '../core/infrastructure/logs/easy_logger_wrapper.dart' as _i7;
 import '../core/infrastructure/logs/logger.dart' as _i12;
 import '../core/infrastructure/logs/logger_bloc_observer.dart' as _i5;
-import '../core/infrastructure/storage/storage_module.dart' as _i27;
+import '../core/infrastructure/storage/storage_module.dart' as _i29;
 import '../core/infrastructure/storage/storage_service.dart' as _i6;
-import '../core/modules/logs_module.dart' as _i29;
+import '../core/modules/logs_module.dart' as _i28;
 import '../presentation/splash/cubits/splash_cubit.dart' as _i26;
 
-// ignore_for_file: unnecessary_lambdas
-// ignore_for_file: lines_longer_than_80_chars
 // initializes the registration of main-scope dependencies inside of GetIt
 Future<_i1.GetIt> $initGetIt(
   _i1.GetIt getIt, {
@@ -142,10 +139,10 @@ Future<_i1.GetIt> $initGetIt(
   return getIt;
 }
 
-class _$StorageModule extends _i27.StorageModule {}
+class _$DbModule extends _i27.DbModule {}
 
-class _$HttpModule extends _i28.HttpModule {}
+class _$LogsModule extends _i28.LogsModule {}
 
-class _$LogsModule extends _i29.LogsModule {}
+class _$StorageModule extends _i29.StorageModule {}
 
-class _$DbModule extends _i30.DbModule {}
+class _$HttpModule extends _i30.HttpModule {}

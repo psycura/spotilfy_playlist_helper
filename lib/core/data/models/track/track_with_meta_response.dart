@@ -1,17 +1,36 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import 'track_item_response.dart';
 
-part 'track_with_meta_response.freezed.dart';
 part 'track_with_meta_response.g.dart';
 
-@freezed
-class TrackWithMetaResponse with _$TrackWithMetaResponse {
-  factory TrackWithMetaResponse({
-    required String added_at,
-    required TrackItemResponse track,
-  }) = _TrackWithMetaResponse;
+@JsonSerializable()
+class TrackWithMetaResponse extends Equatable {
+  final String added_at;
+  final TrackItemResponse track;
+
+  const TrackWithMetaResponse({
+    required this.added_at,
+    required this.track,
+  });
+
+  TrackWithMetaResponse copyWith({
+    String? added_at,
+    TrackItemResponse? track,
+  }) {
+    return TrackWithMetaResponse(
+      added_at: added_at ?? this.added_at,
+      track: track ?? this.track,
+    );
+  }
 
   factory TrackWithMetaResponse.fromJson(Map<String, dynamic> json) =>
       _$TrackWithMetaResponseFromJson(json);
+
+  @override
+  List<Object?> get props => [
+        added_at,
+        track,
+      ];
 }

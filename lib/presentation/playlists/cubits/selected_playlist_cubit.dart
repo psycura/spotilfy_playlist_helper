@@ -1,19 +1,22 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+// ignore_for_file: avoid-dynamic
+
+import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:logger/logger.dart';
 
-part 'selected_playlist_cubit.freezed.dart';
-
 enum SelectedMode { favorites, playlist }
 
-@freezed
-class SelectedPlaylistState with _$SelectedPlaylistState {
-  const SelectedPlaylistState._();
+class SelectedPlaylistState extends Equatable {
+  final SelectedMode mode;
+  final String? playlistId;
 
-  const factory SelectedPlaylistState({
-    @Default(SelectedMode.favorites) SelectedMode mode,
-    String? playlistId,
-  }) = _SelectedPlaylistState;
+  const SelectedPlaylistState({
+    this.mode =SelectedMode.favorites,
+    this.playlistId,
+  });
+
+  @override
+  List<Object?> get props => [mode, playlistId];
 }
 
 class SelectedPlaylistCubit extends Cubit<SelectedPlaylistState> {

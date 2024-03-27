@@ -1,11 +1,12 @@
-import 'package:dartz/dartz.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
-import 'package:spotify_playlist_helper/core/data/success/success.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 
+import '../../results/result.dart';
+import '../../results/success_empty.dart';
+
 abstract interface class ITracksRepository {
-  Future<Either<GeneralFailure, SuccessEmpty>> fetchSavedTracks();
+  Future<Result<SuccessEmpty, GeneralFailure>> fetchSavedTracks();
 
   Future<void> wipeAllData();
 
@@ -17,11 +18,11 @@ abstract interface class ITracksRepository {
     String playlistId,
   );
 
-  Future<Either<GeneralFailure, SuccessEmpty>> fetchPlaylistTracks(
+  Future<Result<SuccessEmpty, GeneralFailure>> fetchPlaylistTracks(
     PlaylistEntity playlist,
   );
 
-  Future<Either<GeneralFailure, SuccessEmpty>> saveTrack(TrackEntity track);
+  Future<Result<SuccessEmpty, GeneralFailure>> saveTrack(TrackEntity track);
 
-  Future<Either<GeneralFailure, SuccessEmpty>> removeSavedTrack(TrackEntity track);
+  Future<Result<SuccessEmpty, GeneralFailure>> removeSavedTrack(TrackEntity track);
 }

@@ -1,11 +1,21 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'failures.freezed.dart';
+import 'package:equatable/equatable.dart';
 
-abstract interface class Failure {}
+class GeneralFailure extends Equatable implements Exception {
+  final StackTrace? stackTrace;
+  final String? error;
 
+  const GeneralFailure({
+    this.error,
+    this.stackTrace,
+  });
 
-@freezed
-class GeneralFailure with _$GeneralFailure implements Failure {
-  const factory GeneralFailure() = _GeneralFailure;
+  @override
+  String toString() {
+    return error ?? 'General Error';
+  }
+
+  @override
+  // ignore: list-all-equatable-fields
+  List<Object?> get props => [];
 }

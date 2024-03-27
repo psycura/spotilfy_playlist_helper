@@ -83,7 +83,7 @@ class TracksApi implements ITracksApi {
     final request = ApiRequest(
       url: '${Apis.baseSpotify}/${Apis.currentUser}/${Apis.tracks}',
       data: {
-        'ids': [id]
+        'ids': [id],
       },
     );
 
@@ -99,7 +99,7 @@ class TracksApi implements ITracksApi {
     final request = ApiRequest(
       url: '${Apis.baseSpotify}/${Apis.currentUser}/${Apis.tracks}',
       data: {
-        'ids': [id]
+        'ids': [id],
       },
     );
 

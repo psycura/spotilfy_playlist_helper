@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist_with_selection_state.dart';
@@ -8,16 +8,15 @@ import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/tracks_repository.dart';
 
-part 'track_playlists_cubit.freezed.dart';
+class TrackPlaylistsState extends Equatable {
+  final Map<String, PlaylistWithSelectionState> playlists;
 
-@freezed
-class TrackPlaylistsState with _$TrackPlaylistsState {
-  const TrackPlaylistsState._();
+  const TrackPlaylistsState({
+    this.playlists = const <String, PlaylistWithSelectionState>{},
+  });
 
-  const factory TrackPlaylistsState({
-    @Default(<String, PlaylistWithSelectionState>{})
-    Map<String, PlaylistWithSelectionState> playlists,
-  }) = _TrackPlaylistsState;
+  @override
+  List<Object?> get props => [playlists];
 }
 
 class TrackPlaylistsCubit extends Cubit<TrackPlaylistsState> {
@@ -44,7 +43,7 @@ class TrackPlaylistsCubit extends Cubit<TrackPlaylistsState> {
                 l.id: PlaylistWithSelectionState(
                   playlist: l,
                   selected: track.playlists.contains(l.id),
-                )
+                ),
             },
           ),
         );
@@ -74,7 +73,6 @@ class TrackPlaylistsCubit extends Cubit<TrackPlaylistsState> {
 
   Future<void> removeTrackFromPlaylist(String playlistId) async {
     await _playlistsRepo.removeTracksFromPlaylist([track], playlistId);
-
   }
 
   @override

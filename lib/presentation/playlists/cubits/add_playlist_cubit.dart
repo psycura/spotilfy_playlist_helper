@@ -1,18 +1,30 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/playlists_repository.dart';
 import 'package:spotify_playlist_helper/core/enums/fetching_state.dart';
+import 'package:spotify_playlist_helper/core/results/result.dart';
 
-part 'add_playlist_cubit.freezed.dart';
+class AddPlaylistState extends Equatable {
+  final String name;
+  final FetchingState fetchingState;
 
-@freezed
-class AddPlaylistState with _$AddPlaylistState {
-  const AddPlaylistState._();
+  const AddPlaylistState({
+    this.name = '',
+    this.fetchingState = FetchingState.idle,
+  });
 
-  const factory AddPlaylistState({
-    @Default('') String name,
-    @Default(FetchingState.idle) FetchingState fetchingState,
-  }) = _AddPlaylistState;
+  AddPlaylistState copyWith({
+    String? name,
+    FetchingState? fetchingState,
+  }) {
+    return AddPlaylistState(
+      name: name ?? this.name,
+      fetchingState: fetchingState ?? this.fetchingState,
+    );
+  }
+
+  @override
+  List<Object?> get props => [name, fetchingState];
 }
 
 class AddPlaylistCubit extends Cubit<AddPlaylistState> {
@@ -30,10 +42,15 @@ class AddPlaylistCubit extends Cubit<AddPlaylistState> {
     emit(state.copyWith(fetchingState: FetchingState.fetching));
     final res = await _repo.createPlaylist(state.name);
 
-    res.fold(
-      (failure) => emit(state.copyWith(fetchingState: FetchingState.failure)),
-      (success) => _handleSuccess(),
-    );
+    switch (res) {
+      case Success():
+        _handleSuccess();
+        break;
+
+      case Failure():
+        emit(state.copyWith(fetchingState: FetchingState.failure));
+        break;
+    }
   }
 
   void _handleSuccess() {

@@ -6,8 +6,8 @@ part of 'playlist.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_PlaylistEntity _$$_PlaylistEntityFromJson(Map<String, dynamic> json) =>
-    _$_PlaylistEntity(
+PlaylistEntity _$PlaylistEntityFromJson(Map<String, dynamic> json) =>
+    PlaylistEntity(
       href: json['href'] as String,
       id: json['id'] as String,
       images: (json['images'] as List<dynamic>)
@@ -18,7 +18,7 @@ _$_PlaylistEntity _$$_PlaylistEntityFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$_PlaylistEntityToJson(_$_PlaylistEntity instance) =>
+Map<String, dynamic> _$PlaylistEntityToJson(PlaylistEntity instance) =>
     <String, dynamic>{
       'href': instance.href,
       'id': instance.id,

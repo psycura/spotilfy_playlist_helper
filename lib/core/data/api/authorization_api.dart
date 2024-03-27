@@ -45,7 +45,7 @@ class AuthApi implements IAuthApi {
       final Map<String, dynamic> requestData = {
         'code': code,
         'redirect_uri': ApiCredentials.redirectUri,
-        'grant_type': 'authorization_code'
+        'grant_type': 'authorization_code',
       };
 
       final request = ApiRequest(

@@ -6,5 +6,5 @@ part 'env.g.dart';
 @Envied(path: '.env')
 abstract class Env {
   @EnviedField(varName: 'CLIENT_SECRET', obfuscate: true)
-  static final clientSecret = _Env.clientSecret;
+  static final String clientSecret = _Env.clientSecret;
 }

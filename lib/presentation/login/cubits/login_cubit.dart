@@ -1,22 +1,11 @@
+// ignore_for_file: avoid-dynamic
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/auth_repository.dart';
 
-part 'login_cubit.freezed.dart';
-
-@freezed
-class LoginState with _$LoginState {
-  const LoginState._();
-
-  const factory LoginState.initial() = _InitialState;
-
-  const factory LoginState.authorizing() = _AuthorizingState;
-
-  const factory LoginState.authorized() = _AuthorizedState;
-
-  const factory LoginState.failure() = _FailureState;
-}
+import '../../../core/results/result.dart';
+import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   static const String tag = 'LoginCubit';
@@ -29,7 +18,7 @@ class LoginCubit extends Cubit<LoginState> {
     required IAuthRepository repo,
   })  : _logger = logger,
         _repo = repo,
-        super(const LoginState.initial());
+        super(const InitialLoginState());
 
   @override
   void onChange(change) {
@@ -42,15 +31,19 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> startAuthorization(String code) async {
-    emit(const LoginState.authorizing());
+    emit(const AuthorizingLoginState());
 
     final res = await _repo.authorize(code);
 
-    res.fold(
-      (failure) => emit(const LoginState.failure()),
-      (success) => emit(const LoginState.authorized()),
-    );
+    switch (res) {
+      case Success():
+        emit(const AuthorizedLoginState());
+        break;
+      case Failure():
+        emit(const FailureLoginState());
+        break;
+    }
   }
 
-  void reset() => emit(const LoginState.initial());
+  void reset() => emit(const InitialLoginState());
 }

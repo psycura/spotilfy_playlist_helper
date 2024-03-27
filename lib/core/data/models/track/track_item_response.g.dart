@@ -6,8 +6,8 @@ part of 'track_item_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TrackItemResponse _$$_TrackItemResponseFromJson(Map<String, dynamic> json) =>
-    _$_TrackItemResponse(
+TrackItemResponse _$TrackItemResponseFromJson(Map<String, dynamic> json) =>
+    TrackItemResponse(
       album: AlbumEntity.fromJson(json['album'] as Map<String, dynamic>),
       artists: (json['artists'] as List<dynamic>)
           .map((e) => ArtistEntity.fromJson(e as Map<String, dynamic>))
@@ -23,8 +23,7 @@ _$_TrackItemResponse _$$_TrackItemResponseFromJson(Map<String, dynamic> json) =>
       is_playable: json['is_playable'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$$_TrackItemResponseToJson(
-        _$_TrackItemResponse instance) =>
+Map<String, dynamic> _$TrackItemResponseToJson(TrackItemResponse instance) =>
     <String, dynamic>{
       'album': instance.album.toJson(),
       'artists': instance.artists.map((e) => e.toJson()).toList(),

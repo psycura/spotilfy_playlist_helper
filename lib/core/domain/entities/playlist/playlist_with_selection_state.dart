@@ -1,12 +1,25 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
 
-part 'playlist_with_selection_state.freezed.dart';
+class PlaylistWithSelectionState extends Equatable {
+  final PlaylistEntity playlist;
+  final bool selected;
 
-@freezed
-class PlaylistWithSelectionState with _$PlaylistWithSelectionState {
-  factory PlaylistWithSelectionState({
-    required PlaylistEntity playlist,
-    @Default(false) bool selected,
-  }) = _PlaylistWithSelectionState;
+  const PlaylistWithSelectionState({
+    required this.playlist,
+    this.selected = false,
+  });
+
+  PlaylistWithSelectionState copyWith({
+    PlaylistEntity? playlist,
+    bool? selected,
+  }) {
+    return PlaylistWithSelectionState(
+      playlist: playlist ?? this.playlist,
+      selected: selected ?? this.selected,
+    );
+  }
+
+  @override
+  List<Object?> get props => [playlist, selected];
 }

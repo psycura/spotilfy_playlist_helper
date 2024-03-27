@@ -1,23 +1,61 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../track/track_with_meta_response.dart';
 
-
-part 'playlist_with_tracks_response.freezed.dart';
 part 'playlist_with_tracks_response.g.dart';
 
-@freezed
-class PlaylistWithTracksResponse with _$PlaylistWithTracksResponse {
-  factory PlaylistWithTracksResponse({
-    required String href,
-    required int total,
-    required List<TrackWithMetaResponse> items,
-    @Default(50) int limit,
-    @Default(0) int offset,
+@JsonSerializable()
+class PlaylistWithTracksResponse extends Equatable {
+  final String href;
+  final int total;
+  final List<TrackWithMetaResponse> items;
+  final int limit;
+  final int offset;
+  final String? next;
+  final String? previous;
+
+  const PlaylistWithTracksResponse({
+    required this.href,
+    required this.total,
+    required this.items,
+    this.limit = 50,
+    this.offset = 0,
+    this.next,
+    this.previous,
+  });
+
+  PlaylistWithTracksResponse copyWith({
+    String? href,
+    int? total,
+    List<TrackWithMetaResponse>? items,
+    int? limit,
+    int? offset,
     String? next,
     String? previous,
-  }) = _PlaylistWithTracksResponse;
+  }) {
+    return PlaylistWithTracksResponse(
+      href: href ?? this.href,
+      total: total ?? this.total,
+      items: items ?? this.items,
+      limit: limit ?? this.limit,
+      offset: offset ?? this.offset,
+      next: next ?? this.next,
+      previous: previous ?? this.previous,
+    );
+  }
 
   factory PlaylistWithTracksResponse.fromJson(Map<String, dynamic> json) =>
       _$PlaylistWithTracksResponseFromJson(json);
+
+  @override
+  List<Object?> get props => [
+        href,
+        total,
+        items,
+        limit,
+        offset,
+        next,
+        previous,
+      ];
 }

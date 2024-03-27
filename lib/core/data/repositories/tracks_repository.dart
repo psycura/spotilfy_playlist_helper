@@ -1,16 +1,17 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify_playlist_helper/core/data/errors/failures.dart';
 import 'package:spotify_playlist_helper/core/data/models/track/track_with_meta_response.dart';
-import 'package:spotify_playlist_helper/core/data/success/success.dart';
 import 'package:spotify_playlist_helper/core/data/models/playlist/playlist_item_response.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.dart';
 import 'package:spotify_playlist_helper/core/data/api/tracks_api.dart';
 import 'package:spotify_playlist_helper/core/data/storage/dao/tracks_dao.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/tracks_repository.dart';
+import 'package:spotify_playlist_helper/core/results/success_empty.dart';
+
+import '../../results/result.dart';
 
 @Singleton(as: ITracksRepository)
 class TracksRepository implements ITracksRepository {
@@ -25,10 +26,10 @@ class TracksRepository implements ITracksRepository {
   @protected
   final ITracksDao dao;
 
-  TracksRepository(this.logger, this.api, this.dao);
+  const TracksRepository(this.logger, this.api, this.dao);
 
   @override
-  Future<Either<GeneralFailure, SuccessEmpty>> fetchSavedTracks() async {
+  Future<Result<SuccessEmpty, GeneralFailure>> fetchSavedTracks() async {
     try {
       final items = <TrackWithMetaResponse>[];
       var allFetched = false;
@@ -48,16 +49,16 @@ class TracksRepository implements ITracksRepository {
 
       await dao.saveSavedTracks(items);
 
-      return const Right(SuccessEmpty());
+      return const Success(SuccessEmpty());
     } catch (e, s) {
       logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
-      return const Left(GeneralFailure());
+      return const Failure(GeneralFailure());
     }
   }
 
   @override
-  Future<Either<GeneralFailure, SuccessEmpty>> fetchPlaylistTracks(
+  Future<Result<SuccessEmpty, GeneralFailure>> fetchPlaylistTracks(
     PlaylistEntity playlist,
   ) async {
     try {
@@ -84,11 +85,11 @@ class TracksRepository implements ITracksRepository {
 
       await dao.savePlaylistTracks(playlistResponse, items);
 
-      return const Right(SuccessEmpty());
+      return const Success(SuccessEmpty());
     } catch (e, s) {
       logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
-      return const Left(GeneralFailure());
+      return const Failure(GeneralFailure());
     }
   }
 
@@ -103,38 +104,38 @@ class TracksRepository implements ITracksRepository {
       dao.getPlaylistTracksStream(playlistId);
 
   @override
-  Future<Either<GeneralFailure, SuccessEmpty>> removeSavedTrack(
+  Future<Result<SuccessEmpty, GeneralFailure>> removeSavedTrack(
     TrackEntity track,
   ) async {
     try {
       await dao.removeTrackFromSaved(track.id);
       await api.removeTrackFromSaved(track.id);
 
-      return const Right(SuccessEmpty());
+      return const Success(SuccessEmpty());
     } catch (e, s) {
       logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       await dao.addTrackToSaved(track);
 
-      return const Left(GeneralFailure());
+      return const Failure(GeneralFailure());
     }
   }
 
   @override
-  Future<Either<GeneralFailure, SuccessEmpty>> saveTrack(
+  Future<Result<SuccessEmpty, GeneralFailure>> saveTrack(
     TrackEntity track,
   ) async {
     try {
       await dao.addTrackToSaved(track);
       await api.addTrackToSaved(track.id);
 
-      return const Right(SuccessEmpty());
+      return const Success(SuccessEmpty());
     } catch (e, s) {
       logger.e('$tag:${e.toString()}', error:e, stackTrace: s);
 
       await dao.removeTrackFromSaved(track.id);
 
-      return const Left(GeneralFailure());
+      return const Failure(GeneralFailure());
     }
   }
 

@@ -79,16 +79,20 @@ class WebViewContentState extends State<WebViewContent> {
   }
 
   void handleWebViewCreated(InAppWebViewController controller) {
+    print('[alitz]: handleWebViewCreated');
+
     webViewController = controller;
   }
 
   Future<NavigationActionPolicy> handleShouldOverrideUrlLoading(
     navigationAction,
   ) async {
+    print('[alitz]: handleShouldOverrideUrlLoading $navigationAction');
     WebUri uri = navigationAction.request.url!;
 
     if (uri.host.contains('github') && uri.queryParameters['code'] != null) {
       final code = uri.queryParameters['code'];
+      print('[alitz]: handleShouldOverrideUrlLoading code received');
 
       widget.onCodeReceivedHandler(code!);
 

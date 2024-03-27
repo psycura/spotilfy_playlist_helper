@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:spotify_playlist_helper/presentation/playlists/widgets/add_playlist_modal.dart';
 
 class AddPlaylistButton extends StatelessWidget {
+  const AddPlaylistButton();
+
   static const String tag = 'AddPlaylistButton';
 
   void _onPress(BuildContext context) {

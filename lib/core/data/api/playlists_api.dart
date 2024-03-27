@@ -80,7 +80,7 @@ class PlaylistsApi implements IPlaylistsApi {
     final request = ApiRequest(
       url: '${Apis.baseSpotify}/${Apis.playlists}/$playlistId/${Apis.tracks}',
       data: {
-        'tracks': uris.map((e) => {'uri': e}).toList()
+        'tracks': uris.map((e) => {'uri': e}).toList(),
       },
     );
 
