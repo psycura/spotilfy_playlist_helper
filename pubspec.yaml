@@ -43,13 +43,19 @@ dev_dependencies:
     sdk: flutter
   auto_route_generator: ^8.0.0
   flutter_lints: ^3.0.1
+  flutter_launcher_icons: ^0.13.1
   build_runner: ^2.4.8
   envied_generator: ^0.5.3
   injectable_generator: ^2.4.1
   isar_generator: ^3.1.0+1
   json_serializable: 6.7.1
 
-
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/launch_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  remove_alpha_ios: true
 
 flutter:
 
