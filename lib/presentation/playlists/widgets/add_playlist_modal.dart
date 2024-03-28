@@ -30,7 +30,7 @@ class AddPlaylistModal extends StatelessWidget {
 
   void _onSaveSuccess(BuildContext context, AddPlaylistState state) {
     if (state.fetchingState == FetchingState.done) {
-      context.router.pop();
+      context.router.maybePop();
     }
   }
 
@@ -50,7 +50,7 @@ class AddPlaylistModal extends StatelessWidget {
           SavePlaylistButton(onPress:()=> _onSavePress(context)),
           TextButton(
             child: const Text('Cancel'),
-            onPressed: () => context.router.pop(),
+            onPressed: () => context.router.maybePop(),
           ),
         ],
       ),

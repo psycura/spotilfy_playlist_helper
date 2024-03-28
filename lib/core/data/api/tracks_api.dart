@@ -34,7 +34,7 @@ class TracksApi implements ITracksApi {
   @protected
   final Logger logger;
 
-  TracksApi(this.client, this.logger);
+  const TracksApi(this.client, this.logger);
 
   @override
   Future<TracksResponse> fetchSavedTracks({
@@ -69,13 +69,12 @@ class TracksApi implements ITracksApi {
       final res = await client.getRequest(playlistUrl);
 
       return PlaylistWithTracksResponse.fromJson(res.data);
-    } else {
-      final res = await client.getRequest(
+    }
+    final res = await client.getRequest(
         '${Apis.baseSpotify}/${Apis.playlists}/$playlistId/${Apis.tracks}?offset=${offset ?? 0}&limit=${limit ?? 50}',
       );
 
-      return PlaylistWithTracksResponse.fromJson(res.data);
-    }
+    return PlaylistWithTracksResponse.fromJson(res.data);
   }
 
   @override

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/presentation/tracks/cubits/track_playlists_cubit.dart';
 
 class TrackPlaylistSelection extends StatelessWidget {
+  const TrackPlaylistSelection();
+
   static const String tag = 'TrackPlaylistSelection';
 
   void _onPress(

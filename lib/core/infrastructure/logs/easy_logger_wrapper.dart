@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-unused-parameters
+
 // ignore: depend_on_referenced_packages
 
 import 'package:easy_logger/easy_logger.dart';
@@ -8,7 +10,7 @@ import 'package:logger/logger.dart';
 class EasyLoggerWrapper {
   final Logger _logger;
 
-  EasyLoggerWrapper(this._logger);
+  const EasyLoggerWrapper(this._logger);
 
   void log(
     Object object, {

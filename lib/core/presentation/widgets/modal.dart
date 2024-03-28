@@ -35,7 +35,7 @@ class Modal extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           child: const Text('Close'),
-          onPressed: () => context.router.pop(),
+          onPressed: () => context.router.maybePop(),
         ),
       ],
     );

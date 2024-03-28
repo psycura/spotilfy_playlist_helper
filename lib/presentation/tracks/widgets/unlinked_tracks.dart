@@ -1,8 +1,12 @@
+// ignore_for_file: avoid-single-child-column-or-row
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/presentation/tracks/cubits/saved_tracks_cubit.dart';
 
 class UnlinkedTracks extends StatelessWidget {
+  const UnlinkedTracks();
+
   static const String tag = 'UnlinkedTracks';
 
   void _onPress(BuildContext context) {

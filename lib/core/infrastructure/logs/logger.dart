@@ -11,7 +11,7 @@ class GeniusLogFilter extends LogFilter {
   @override
   bool shouldLog(LogEvent event) {
     return isReleaseMode
-        ? (event.level != Level.debug && event.level != Level.wtf)
+        ? (event.level != Level.debug && event.level != Level.warning)
         : true;
   }
 }

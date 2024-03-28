@@ -8,6 +8,8 @@ import 'track_item.dart';
 import 'tracks_header.dart';
 
 class SavedTracks extends StatelessWidget {
+  const SavedTracks();
+
   static const String tag = 'SavedTracks';
 
   void _onRefreshPress(BuildContext context) {

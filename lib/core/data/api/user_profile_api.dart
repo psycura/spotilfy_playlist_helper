@@ -18,7 +18,7 @@ class UserProfileApi implements IUserProfileApi {
   @protected
   final Logger logger;
 
-  UserProfileApi(this.client, this.logger);
+  const UserProfileApi(this.client, this.logger);
 
   @override
   Future<UserProfile> getCurrentUser() async {
@@ -26,12 +26,7 @@ class UserProfileApi implements IUserProfileApi {
       final res =
           await client.getRequest('${Apis.baseSpotify}/${Apis.currentUser}');
 
-      // final images = (res.data['images'] as List<dynamic>)
-      //     .map((i) => ImageEntity.fromJson(i));
-
-      final resp = UserProfile.fromJson(res.data);
-
-      return resp;
+      return UserProfile.fromJson(res.data);
     } catch (e) {
       rethrow;
     }

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 extension ContextDimensionsX on BuildContext {
-  Size get size => MediaQuery.of(this).size;
+  Size get size => MediaQuery.sizeOf(this);
 
   double get width => size.width;
 

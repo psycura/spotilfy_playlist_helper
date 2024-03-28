@@ -46,7 +46,7 @@ class TracksDao implements ITracksDao {
   Logger logger;
 
   final tracksAdapter = TrackDtoAdapter();
-  final playlistAdapter = PlaylistDtoAdapter();
+  final playlistAdapter = const PlaylistDtoAdapter();
 
   TracksDao(this.logger, this.db);
 

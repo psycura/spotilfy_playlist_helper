@@ -10,14 +10,13 @@ abstract class DbModule {
   @preResolve
   Future<Isar> db() async {
     final dir = await getApplicationDocumentsDirectory();
-    final isar = await Isar.open(
+    
+    return await Isar.open(
       [
         PlaylistDtoSchema,
         TrackDtoSchema,
       ],
       directory: dir.path,
     );
-
-    return isar;
   }
 }

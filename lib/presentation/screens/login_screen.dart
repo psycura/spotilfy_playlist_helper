@@ -8,6 +8,8 @@ import 'package:spotify_playlist_helper/presentation/login/widgets/authenticator
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
+  const LoginScreen();
+
   static const String path = '/LoginScreen';
 
   static void open(
@@ -29,7 +31,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(
       create: (_) => LoginCubit(logger: di.get(), repo: di.get()),
-      child: Scaffold(
+      child: const Scaffold(
         body: SafeArea(
           child: Authenticator(),
         ),

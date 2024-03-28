@@ -8,9 +8,9 @@ import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 import 'artist_dto_adapter.dart';
 
 class TrackDtoAdapter {
-  final artistAdapter = ArtistDtoAdapter();
+  final artistAdapter = const ArtistDtoAdapter();
   final albumAdapter = AlbumDtoAdapter();
-  final playlistAdapter = PlaylistDtoAdapter();
+  final playlistAdapter = const PlaylistDtoAdapter();
 
   TrackEntity entityFromDto(TrackDto item) {
     return TrackEntity(
@@ -62,7 +62,7 @@ class TrackDtoAdapter {
   TrackDto entityToDto(TrackEntity item) {
     final artists = item.artists.map(artistAdapter.toDto);
 
-    final track = TrackDto()
+    return TrackDto()
       ..artists = artists.toList()
       ..album = albumAdapter.toDto(item.album)
       ..uri = item.uri
@@ -77,7 +77,5 @@ class TrackDtoAdapter {
       ..previewUrl = item.preview_url
       ..trackNumber = item.track_number
       ..isSaved = item.is_saved;
-
-    return track;
   }
 }

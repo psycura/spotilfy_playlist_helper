@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 class LoggerBlocObserver extends BlocObserver {
   final Logger logger;
 
-  LoggerBlocObserver(this.logger);
+  const LoggerBlocObserver(this.logger);
 
   @override
   void onCreate(BlocBase bloc) {

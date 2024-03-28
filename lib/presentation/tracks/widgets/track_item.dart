@@ -14,8 +14,7 @@ class TrackItem extends StatelessWidget {
 
   const TrackItem(this.track, this.index);
 
-  void _onTrackPress(BuildContext context) {
-    print('[alitz]: $track');
+  void _onTrackPress() {
   }
 
   @override
@@ -25,7 +24,7 @@ class TrackItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
-        onTap: () => _onTrackPress(context),
+        onTap: () => _onTrackPress(),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -78,7 +77,7 @@ class TrackItem extends StatelessWidget {
                 onTap: () {},
                 child: const Icon(Icons.more_vert),
               ),
-            )
+            ),
           ],
         ),
       ),

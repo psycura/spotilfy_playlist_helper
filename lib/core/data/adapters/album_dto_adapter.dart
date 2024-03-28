@@ -3,9 +3,8 @@ import 'package:spotify_playlist_helper/core/data/storage/collections/tracks/tra
 
 import 'package:spotify_playlist_helper/core/domain/entities/entities.dart';
 
-
 class AlbumDtoAdapter {
-  final artistAdapter = ArtistDtoAdapter();
+  final artistAdapter = const ArtistDtoAdapter();
 
   AlbumEntity fromDto(AlbumObject item) {
     final images = item.images.map((e) => ImageEntity(url: e)).toList();
@@ -21,12 +20,10 @@ class AlbumDtoAdapter {
   AlbumObject toDto(AlbumEntity item) {
     final images = item.images.map((e) => e.url).toList();
 
-    final album = AlbumObject()
+    return AlbumObject()
       ..id = item.id
       ..images = images
       ..href = item.href
       ..name = item.name;
-
-    return album;
   }
 }

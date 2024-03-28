@@ -1,3 +1,5 @@
+// ignore_for_file: prefer-widget-private-members
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/presentation/playlists/cubits/add_playlist_cubit.dart';
@@ -16,8 +18,8 @@ class _PlaylistInputState extends State<PlaylistInput> {
 
   @override
   void initState() {
-    focus = FocusNode();
     super.initState();
+    focus = FocusNode();
   }
 
   @override

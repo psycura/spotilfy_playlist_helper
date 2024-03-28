@@ -1,3 +1,5 @@
+// ignore_for_file: prefer-widget-private-members, dispose-fields, avoid-dynamic
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -79,20 +81,17 @@ class WebViewContentState extends State<WebViewContent> {
   }
 
   void handleWebViewCreated(InAppWebViewController controller) {
-    print('[alitz]: handleWebViewCreated');
 
     webViewController = controller;
   }
 
-  Future<NavigationActionPolicy> handleShouldOverrideUrlLoading(
+  NavigationActionPolicy handleShouldOverrideUrlLoading(
     navigationAction,
-  ) async {
-    print('[alitz]: handleShouldOverrideUrlLoading $navigationAction');
+  ) {
     WebUri uri = navigationAction.request.url!;
 
     if (uri.host.contains('github') && uri.queryParameters['code'] != null) {
       final code = uri.queryParameters['code'];
-      print('[alitz]: handleShouldOverrideUrlLoading code received');
 
       widget.onCodeReceivedHandler(code!);
 
@@ -100,10 +99,5 @@ class WebViewContentState extends State<WebViewContent> {
     }
 
     return NavigationActionPolicy.ALLOW;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

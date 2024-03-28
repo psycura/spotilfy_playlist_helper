@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-unassigned-late-fields
+
 import 'package:isar/isar.dart';
 import 'package:spotify_playlist_helper/core/utils/hash_function.dart';
 

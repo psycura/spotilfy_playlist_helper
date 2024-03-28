@@ -5,6 +5,8 @@ import '../tracks/widgets/saved_tracks.dart';
 
 @RoutePage()
 class SavedTracksContentScreen extends StatelessWidget {
+  const SavedTracksContentScreen();
+
   static const String tag = 'SavedTracksContentScreen';
   static const String path = 'SavedTracksContentScreen';
 
@@ -25,7 +27,7 @@ class SavedTracksContentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: SavedTracks(),
     );
   }

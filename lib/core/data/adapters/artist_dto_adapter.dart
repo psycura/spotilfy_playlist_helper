@@ -2,6 +2,8 @@ import 'package:spotify_playlist_helper/core/data/storage/collections/tracks/tra
 import 'package:spotify_playlist_helper/core/domain/entities/artist/artist.dart';
 
 class ArtistDtoAdapter {
+  const ArtistDtoAdapter();
+
   ArtistEntity fromDto(ArtistObject item) {
     return ArtistEntity(
       href: item.href,

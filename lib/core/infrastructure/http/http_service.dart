@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-throw-objects-without-tostring
+
 import 'dart:async';
 
 import 'package:dio/dio.dart';
@@ -128,7 +130,7 @@ class HttpService implements IHttpService {
       );
 
       if (res.statusCode == 999) {
-        throw NoInternetException();
+        throw const NoInternetException();
       }
 
       return res;
@@ -151,7 +153,7 @@ class HttpService implements IHttpService {
       );
 
       if (res.statusCode == 999) {
-        throw NoInternetException();
+        throw const NoInternetException();
       }
 
       return res;
@@ -170,7 +172,7 @@ class HttpService implements IHttpService {
       );
 
       if (res.statusCode == 999) {
-        throw NoInternetException();
+        throw const NoInternetException();
       }
 
       return res;
@@ -189,7 +191,7 @@ class HttpService implements IHttpService {
       );
 
       if (res.statusCode == 999) {
-        throw NoInternetException();
+        throw const NoInternetException();
       }
 
       return res;
@@ -234,14 +236,14 @@ class HttpService implements IHttpService {
       if (response.statusCode == 200) {
         final newToken = RefreshTokenResponse.fromJson(response.data);
 
-        final adapter = FromRefreshResponseAdapter();
+        const adapter = FromRefreshResponseAdapter();
 
         await authStorage
             .saveTokenInfo(adapter(newToken, refreshToken: token.refreshToken));
       }
 
       if (response.statusCode == 999) {
-        throw NoInternetException();
+        throw const NoInternetException();
       }
     } catch (e) {
       rethrow;

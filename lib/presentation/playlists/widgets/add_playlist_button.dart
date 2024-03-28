@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-single-child-column-or-row
+
 import 'package:flutter/material.dart';
 import 'package:spotify_playlist_helper/presentation/playlists/widgets/add_playlist_modal.dart';
 

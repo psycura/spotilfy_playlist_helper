@@ -1,3 +1,5 @@
+// ignore_for_file: match-positional-field-names-on-assignment
+
 import 'package:collection/collection.dart';
 import 'package:spotify_playlist_helper/core/enums/sorting.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';

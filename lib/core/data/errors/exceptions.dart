@@ -1,14 +1,16 @@
-
 /// Exception for incompatible data types
 class IncompatibleDataException implements Exception {
   final String message;
 
-  IncompatibleDataException(this.message);
+  const IncompatibleDataException(this.message);
 }
 
 /// Exception for errors related to data retrieval
-class CacheException implements Exception {}
+class CacheException implements Exception {
+  const CacheException();
+}
 
 /// Exception for errors related to data retrieval
-class NoInternetException implements Exception {}
-
+class NoInternetException implements Exception {
+  const NoInternetException();
+}

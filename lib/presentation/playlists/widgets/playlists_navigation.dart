@@ -6,6 +6,8 @@ import 'package:spotify_playlist_helper/presentation/playlists/widgets/favorite_
 import 'playlists.dart';
 
 class PlaylistsNavigation extends StatelessWidget {
+  const PlaylistsNavigation();
+
   static const String tag = 'PlaylistsNavigation';
 
   @override

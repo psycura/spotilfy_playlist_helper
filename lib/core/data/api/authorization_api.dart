@@ -58,7 +58,7 @@ class AuthApi implements IAuthApi {
 
       final authResp = AuthorizationResponse.fromJson(res.data);
 
-      final adapter = FromAuthorizationResponseAdapter();
+      const adapter =  FromAuthorizationResponseAdapter();
 
       return adapter(authResp);
     } catch (e) {

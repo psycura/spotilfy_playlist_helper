@@ -1,3 +1,5 @@
+// ignore_for_file: no-object-declaration, avoid-throw-objects-without-tostring
+
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:spotify_playlist_helper/core/data/errors/exceptions.dart';
@@ -26,7 +28,7 @@ class StorageService implements IStorageService {
   @protected
   final SharedPreferences prefs;
 
-  StorageService(this.prefs);
+  const StorageService(this.prefs);
 
   @override
   Future<void> clearAllValues() async {

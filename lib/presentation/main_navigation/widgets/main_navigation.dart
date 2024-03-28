@@ -4,18 +4,20 @@ import 'package:spotify_playlist_helper/presentation/tracks/widgets/unlinked_tra
 import 'package:spotify_playlist_helper/presentation/user_profile/widgets/user_profile.dart';
 
 class MainNavigation extends StatelessWidget {
+  const MainNavigation();
+
   static const String tag = 'MainNavigation';
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return const SizedBox(
       height: 100,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           UserProfile(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               children: [
                 UnlinkedTracks(),

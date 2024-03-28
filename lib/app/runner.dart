@@ -23,10 +23,9 @@ import 'runner.config.dart';
   ignoreUnregisteredTypes: [],
 )
 class Runner {
-  static Future<void> run() async {
+  static void run() {
     runZonedGuarded(
       () async {
-
         await initializeFlutterPluginsAndDependencies();
 
         di.allReady().then((value) async {
@@ -43,24 +42,20 @@ class Runner {
           );
         });
       },
-      (err, stack) async {
+      (err, stack) {
         log('Critical Error:', error: err, stackTrace: stack);
-        di.get<Logger>().e('Critical Error:', error:err, stackTrace: stack);
+        di.get<Logger>().e('Critical Error:', error: err, stackTrace: stack);
       },
     );
   }
 
   static Future<void> initializeFlutterPluginsAndDependencies() async {
-
     WidgetsFlutterBinding.ensureInitialized();
 
     await configureDependencies();
-
-
   }
 
   static Future<void> configureDependencies() async {
     await $initGetIt(GetIt.instance);
-
   }
 }

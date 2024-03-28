@@ -64,7 +64,6 @@ class PlaylistsRepository implements IPlaylistsRepository {
         }
       }
 
-      print('[alitz]: playlists items:$items');
 
       await playlistsDao.savePlaylists(items);
 
@@ -132,7 +131,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
       final userId = userStorage.getCurrentUserId();
 
       if (userId == null || userId.isEmpty) {
-        throw CacheException();
+        throw const CacheException();
       }
       PlaylistEntity? playlist;
 
@@ -160,7 +159,7 @@ class PlaylistsRepository implements IPlaylistsRepository {
       final userId = userStorage.getCurrentUserId();
 
       if (userId == null || userId.isEmpty) {
-        throw CacheException();
+        throw const CacheException();
       }
 
       final res = await _createPlaylist(name, userId);

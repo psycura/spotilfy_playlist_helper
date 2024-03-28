@@ -50,8 +50,8 @@ class MainScreen extends StatelessWidget {
         ),
       ],
       child: MainScreenTemplate(
-        mainNavigation: MainNavigation(),
-        playlistNavigation: PlaylistsNavigation(),
+        mainNavigation: const MainNavigation(),
+        playlistNavigation: const PlaylistsNavigation(),
         playerWidget: Container(
           height: 100,
         ),

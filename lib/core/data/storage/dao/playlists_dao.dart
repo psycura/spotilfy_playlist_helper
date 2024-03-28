@@ -39,7 +39,7 @@ class PlaylistsDao implements IPlaylistsDao {
   @protected
   Logger logger;
 
-  final playlistAdapter = PlaylistDtoAdapter();
+  final playlistAdapter = const PlaylistDtoAdapter();
 
   PlaylistsDao(this.logger, this.db);
 

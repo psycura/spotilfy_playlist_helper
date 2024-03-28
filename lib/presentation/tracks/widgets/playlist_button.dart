@@ -36,7 +36,7 @@ class PlaylistButton extends StatelessWidget {
                 playlistsRepo: di.get(),
                 tracksRepo: di.get(),
               )..init(),
-              child: TrackPlaylistSelection(),
+              child: const TrackPlaylistSelection(),
             );
           },
         ),

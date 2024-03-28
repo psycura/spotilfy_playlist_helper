@@ -29,7 +29,7 @@ class UserAvatar extends StatelessWidget {
         PopupMenuItem(
           child: const Text('Logout'),
           onTap: () => _onLogoutTap(context),
-        )
+        ),
       ],
     );
   }
