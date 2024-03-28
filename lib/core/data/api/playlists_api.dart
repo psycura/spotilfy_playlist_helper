@@ -38,7 +38,7 @@ class PlaylistsApi implements IPlaylistsApi {
   @protected
   final Logger logger;
 
-  PlaylistsApi(this.client, this.logger);
+  const PlaylistsApi(this.client, this.logger);
 
   @override
   Future<PlaylistsResponse> getCurrentUserPlaylists({

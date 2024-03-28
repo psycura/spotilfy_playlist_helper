@@ -68,6 +68,9 @@ class TrackEntity extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() => _$TrackEntityToJson(this);
+
+
   factory TrackEntity.fromJson(Map<String, dynamic> json) =>
       _$TrackEntityFromJson(json);
 

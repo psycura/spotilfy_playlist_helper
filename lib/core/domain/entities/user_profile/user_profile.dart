@@ -36,6 +36,8 @@ class UserProfile extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() => _$UserProfileToJson(this);
+
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
       _$UserProfileFromJson(json);
 

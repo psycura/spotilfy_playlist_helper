@@ -25,6 +25,9 @@ class TrackWithMetaEntity extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() => _$TrackWithMetaEntityToJson(this);
+
+
   factory TrackWithMetaEntity.fromJson(Map<String, dynamic> json) =>
       _$TrackWithMetaEntityFromJson(json);
 

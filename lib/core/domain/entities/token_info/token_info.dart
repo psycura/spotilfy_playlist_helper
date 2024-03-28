@@ -34,6 +34,7 @@ class TokenInfo extends Equatable {
   factory TokenInfo.fromJson(Map<String, dynamic> json) =>
       _$TokenInfoFromJson(json);
 
+
   Map<String, dynamic> toJson() => _$TokenInfoToJson(this);
 
 

@@ -43,6 +43,7 @@ class PlaylistEntity extends Equatable {
   factory PlaylistEntity.fromJson(Map<String, dynamic> json) =>
       _$PlaylistEntityFromJson(json);
 
+
   Map<String, dynamic> toJson() => _$PlaylistEntityToJson(this);
 
 

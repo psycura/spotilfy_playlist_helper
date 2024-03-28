@@ -12,6 +12,8 @@ import 'package:spotify_playlist_helper/presentation/tracks/cubits/tracks_manage
 
 @RoutePage()
 class MainScreen extends StatelessWidget {
+  const MainScreen();
+
   static const String path = '/MainScreen';
 
   static void open(
@@ -53,7 +55,7 @@ class MainScreen extends StatelessWidget {
         playerWidget: Container(
           height: 100,
         ),
-        mainContent: MainContent(),
+        mainContent: const MainContent(),
       ),
     );
   }

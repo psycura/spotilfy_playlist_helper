@@ -26,6 +26,9 @@ class PlaylistTracksResponse extends Equatable {
   factory PlaylistTracksResponse.fromJson(Map<String, dynamic> json) =>
       _$PlaylistTracksResponseFromJson(json);
 
+  Map<String, dynamic> toJson() => _$PlaylistTracksResponseToJson(this);
+
+
   @override
   List<Object?> get props =>
       [

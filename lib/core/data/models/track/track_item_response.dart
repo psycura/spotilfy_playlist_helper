@@ -63,6 +63,9 @@ class TrackItemResponse extends Equatable {
   factory TrackItemResponse.fromJson(Map<String, dynamic> json) =>
       _$TrackItemResponseFromJson(json);
 
+  Map<String, dynamic> toJson() => _$TrackItemResponseToJson(this);
+
+
   @override
   List<Object?> get props => [
         album,

@@ -5,6 +5,8 @@ import 'package:spotify_playlist_helper/core/domain/entities/playlist/playlist.d
 
 
 class PlaylistDtoAdapter {
+  const PlaylistDtoAdapter();
+
   PlaylistEntity entityFromDto(PlaylistDto item) {
 
     return PlaylistEntity(
@@ -19,7 +21,7 @@ class PlaylistDtoAdapter {
   PlaylistDto responseToDto(PlaylistItemResponse item) {
 
     return PlaylistDto()
-      ..images = item.images.map((e) => e.url).toList()
+      ..images = item.images!.map((e) => e.url).toList()
       ..href = item.href
       ..spotifyId = item.id
       ..updatedAt = DateTime.now()

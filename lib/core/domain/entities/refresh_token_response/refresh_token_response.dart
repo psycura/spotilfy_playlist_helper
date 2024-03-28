@@ -31,6 +31,9 @@ class RefreshTokenResponse extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() => _$RefreshTokenResponseToJson(this);
+
+
   factory RefreshTokenResponse.fromJson(Map<String, dynamic> json) =>
       _$RefreshTokenResponseFromJson(json);
 

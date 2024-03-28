@@ -64,6 +64,8 @@ class PlaylistsRepository implements IPlaylistsRepository {
         }
       }
 
+      print('[alitz]: playlists items:$items');
+
       await playlistsDao.savePlaylists(items);
 
       return const Success(SuccessEmpty());

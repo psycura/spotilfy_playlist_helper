@@ -31,6 +31,9 @@ class Owner extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() => _$OwnerToJson(this);
+
+
   factory Owner.fromJson(Map<String, dynamic> json) => _$OwnerFromJson(json);
 
   @override

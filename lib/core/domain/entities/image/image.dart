@@ -30,6 +30,9 @@ class ImageEntity extends Equatable {
   factory ImageEntity.fromJson(Map<String, dynamic> json) =>
       _$ImageEntityFromJson(json);
 
+  Map<String, dynamic> toJson() => _$ImageEntityToJson(this);
+
+
   @override
   List<Object?> get props => [
         url,

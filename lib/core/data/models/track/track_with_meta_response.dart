@@ -28,6 +28,9 @@ class TrackWithMetaResponse extends Equatable {
   factory TrackWithMetaResponse.fromJson(Map<String, dynamic> json) =>
       _$TrackWithMetaResponseFromJson(json);
 
+  Map<String, dynamic> toJson() => _$TrackWithMetaResponseToJson(this);
+
+
   @override
   List<Object?> get props => [
         added_at,

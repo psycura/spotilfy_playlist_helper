@@ -35,6 +35,9 @@ class AlbumEntity extends Equatable {
   factory AlbumEntity.fromJson(Map<String, dynamic> json) =>
       _$AlbumEntityFromJson(json);
 
+  Map<String, dynamic> toJson() => _$AlbumEntityToJson(this);
+
+
   @override
   List<Object?> get props => [
         href,

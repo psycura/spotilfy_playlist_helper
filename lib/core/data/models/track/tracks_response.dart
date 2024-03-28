@@ -47,6 +47,9 @@ class TracksResponse extends Equatable {
   factory TracksResponse.fromJson(Map<String, dynamic> json) =>
       _$TracksResponseFromJson(json);
 
+  Map<String, dynamic> toJson() => _$TracksResponseToJson(this);
+
+
   @override
   List<Object?> get props => [
         href,

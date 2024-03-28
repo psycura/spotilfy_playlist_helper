@@ -27,6 +27,9 @@ class ArtistEntity extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() => _$ArtistEntityToJson(this);
+
+
   factory ArtistEntity.fromJson(Map<String, dynamic> json) =>
       _$ArtistEntityFromJson(json);
 

@@ -35,6 +35,9 @@ class AuthorizationResponse extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() => _$AuthorizationResponseToJson(this);
+
+
   factory AuthorizationResponse.fromJson(Map<String, dynamic> json) =>
       _$AuthorizationResponseFromJson(json);
 
