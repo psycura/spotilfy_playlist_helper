@@ -8,6 +8,8 @@ import 'package:spotify_playlist_helper/core/utils/track_utils.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
 import 'package:spotify_playlist_helper/core/domain/repositories/tracks_repository.dart';
 
+import '../../../core/domain/repositories/playlists_repository.dart';
+
 class PlaylistState extends Equatable {
   final FetchingState fetchingState;
   final List<TrackEntity> tracks;
@@ -48,15 +50,20 @@ class PlaylistCubit extends Cubit<PlaylistState> {
   static const String tag = 'PlaylistCubit';
 
   final ITracksRepository _repo;
+  final IPlaylistsRepository _playlistsRepo;
+  late String plistId;
 
   StreamSubscription<Iterable<TrackEntity>>? _tracksSub;
 
   PlaylistCubit({
     required ITracksRepository repo,
+    required IPlaylistsRepository playlistsRepo,
   })  : _repo = repo,
+        _playlistsRepo = playlistsRepo,
         super(const PlaylistState());
 
   void init(String playlistId) {
+    plistId = playlistId;
     _tracksSub =
         _repo.getPlaylistTracksStream(playlistId).listen(_handleTracksUpdates);
   }
@@ -69,6 +76,10 @@ class PlaylistCubit extends Cubit<PlaylistState> {
     );
 
     emit(state.copyWith(tracks: tracks));
+  }
+
+  Future<void> removeTrackFromPlaylist(TrackEntity track) async {
+    await _playlistsRepo.removeTracksFromPlaylist([track], plistId);
   }
 
   void changeSortBy(SortBy sortBy) {
@@ -95,10 +106,14 @@ class PlaylistCubit extends Cubit<PlaylistState> {
     );
   }
 
-  void reset() => emit(const PlaylistState());
+  void reset() {
+    plistId = '';
+    emit(const PlaylistState());
+  }
 
   @override
   Future<void> close() async {
+    plistId = '';
     await _tracksSub?.cancel();
     super.close();
   }

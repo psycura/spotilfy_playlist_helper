@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify_playlist_helper/core/presentation/widgets/spotify_image_widget.dart';
 import 'package:spotify_playlist_helper/core/utils/extensions/duration_extension.dart';
 import 'package:spotify_playlist_helper/core/domain/entities/tracks/track.dart';
+import 'package:spotify_playlist_helper/presentation/playlist_content/cubits/playlist_cubit.dart';
 
 import 'playlist_button.dart';
 import 'saved_button.dart';
@@ -11,10 +13,18 @@ class TrackItem extends StatelessWidget {
 
   final TrackEntity track;
   final int index;
+  final bool showDeleteButton;
 
-  const TrackItem(this.track, this.index);
+  const TrackItem(
+    this.track,
+    this.index, {
+    this.showDeleteButton = false,
+  });
 
-  void _onTrackPress() {
+  void _onTrackPress() {}
+
+  void _onDeletePress(BuildContext context) {
+    context.read<PlaylistCubit>().removeTrackFromPlaylist(track);
   }
 
   @override
@@ -70,14 +80,23 @@ class TrackItem extends StatelessWidget {
               ),
             ),
             Flexible(flex: 1, child: SavedButton(track)),
-            Flexible(
-              flex: 1,
-              child: InkWell(
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                onTap: () {},
-                child: const Icon(Icons.more_vert),
-              ),
-            ),
+            showDeleteButton
+                ? Flexible(
+                    flex: 1,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.all(Radius.circular(16)),
+                      onTap: () => _onDeletePress(context),
+                      child: const Icon(Icons.delete_forever_outlined),
+                    ),
+                  )
+                : Flexible(
+                    flex: 1,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.all(Radius.circular(16)),
+                      onTap: () {},
+                      child: const Icon(Icons.more_vert),
+                    ),
+                  ),
           ],
         ),
       ),

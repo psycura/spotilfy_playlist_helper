@@ -49,7 +49,11 @@ class PlaylistTracks extends StatelessWidget {
                   itemBuilder: (ctx, index) {
                     final track = tracks[index];
 
-                    return TrackItem(track, index);
+                    return TrackItem(
+                      track,
+                      index,
+                      showDeleteButton: true,
+                    );
                   },
                 ),
               ),
